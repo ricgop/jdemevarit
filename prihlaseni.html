@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Recepty</title>
+    <title>Přihlášení</title>
 
     <link href=/apple-touch-icon.png rel=apple-touch-icon>
     <link rel="icon" type="image/png" href="poo.png">
@@ -88,8 +88,11 @@
 
       a {padding-right: 15;}
 
-      star {color: red; font-weight: bold; font-style: italic}
-      info {font-style: italic;}
+      .star {
+        color: red; font-weight: bold; font-style: italic
+      }
+
+      .info {font-style: italic;}
 
     </style>
 
@@ -140,14 +143,14 @@
             </div>
             <div class="col-xs-12 col-sm-4">
               <div class="form-group">
-                <label for="nickName">Email/přezdívka <star>*</star></label>
+                <label for="nickName">Email/přezdívka</label><span class="star"> *</span>
                 <input class="form-control" id="nickName" type="text" placeholder="např. jan.novak@email.cz">
               </div>
               <div class="form-group">
-                <label for="password">Heslo <star>*</star></label>
+                <label for="password">Heslo</label><span class="star"> *</span>
                 <input class="form-control" id="password" type="password" placeholder="heslo">
               </div>
-              <info>Pole označená </info><star>*</star><info> jsou povinná</info>
+              <span class="info">Pole označená </span><span class="star"> *</span><span class="info"> jsou povinná</span>
               <p></p>
               <button type="button" class="btn btn-primary">Přihlásit</button>
               <p></P>
