@@ -74,7 +74,7 @@
       #registration {padding: 5px 12px 0px 12px;}
 
       #filter {margin: 8px 15px 0px 8px;}
-      #content { padding: 40px 20px 20px 20px;}
+      #content { padding: 40px 20px 0px 20px;}
       .navbar-brand {padding-top: 8px;}
 
       /* dropdown-menu styling */
@@ -90,6 +90,12 @@
 
       star {color: red; font-weight: bold; font-style: italic}
       info {font-style: italic;}
+
+      /* pagination alignment to the center */
+      .text-xs-center {
+        text-align: center;
+        width: 100%;
+      }
 
     </style>
 
@@ -150,6 +156,12 @@
           </p>
         </div> <!-- /.recipes -->
       </div> <!-- /.content -->
+      <div class="text-xs-center">
+      <ul class="pagination">
+          <li><a href="?p=0" data-original-title="" title="">1</a></li> 
+          <li><a href="?p=1" data-original-title="" title="">2</a></li> 
+      </ul>
+    </div>
     </div> <!-- /.container-fluid -->
 
   </body>
