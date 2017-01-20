@@ -1,0 +1,45 @@
+body {
+  color: black;
+  margin-bottom: 10px;
+}
+
+u {
+  padding-top: 50px;
+}
+
+label {
+  font-weight: normal;
+}
+
+a {
+  color: black;
+}
+
+.active {font-weight: bold}
+
+/* setting div paddings for registration page */
+#limitations {padding: 5px 0px 0px 12px;}
+#registration {padding: 5px 12px 0px 12px;}
+
+#filter {margin: 8px 15px 0px 8px;}
+#content { padding: 40px 20px 20px 20px;}
+
+/* navbar customization */
+.navbar-brand {padding-top: 1px;}
+.custom-navbar { background-color: #fbd024;}
+.navbar-brand > img {height: 49px;}
+
+/* dropdown-menu styling */
+.dropdown-menu > li > label {
+  margin-left: 15px;
+  font-size: small;
+}
+.dropdown-menu > li:hover {
+  background-color: #AAAAFF;  
+}
+
+.star {
+  color: red; font-weight: bold; font-style: italic
+}
+
+.info {font-style: italic;}
