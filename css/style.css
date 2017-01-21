@@ -18,11 +18,11 @@ a {
 .active {font-weight: bold;}
 
 ul.nav a:hover { color: black; background-color: #E89D00;}
-button {background-color: #FB9A24; font-size: large;}
+/*button {background-color: #FB9A24; font-size: large;}
 
 /* setting div paddings for registration page */
 #limitations {padding: 5px 0px 0px 12px;}
-#registration {padding: 5px 12px 0px 12px;}
+#registration-details {padding: 5px 12px 0px 12px;}
 
 #filter {margin: 8px 15px 0px 8px;}
 #content { padding: 40px 20px 20px 20px;}
@@ -34,7 +34,7 @@ a.navbar-brand {padding-top: 0px;}
 
 /* hamburger menu styles */
 .icon-bar {background: #9A0606;}
-button.navbar-toggle {border: 2px solid #9A0606;}
+button.navbar-toggle {border: 1px solid #9A0606;}
 
 /* dropdown-menu styling */
 .dropdown-menu > li > label {
