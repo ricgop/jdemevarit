@@ -15,7 +15,10 @@ a {
   color: black;
 }
 
-.active {font-weight: bold}
+.active {font-weight: bold;}
+
+ul.nav a:hover { color: black; background-color: #E89D00;}
+button {background-color: #FB9A24; font-size: large;}
 
 /* setting div paddings for registration page */
 #limitations {padding: 5px 0px 0px 12px;}
@@ -25,17 +28,18 @@ a {
 #content { padding: 40px 20px 20px 20px;}
 
 /* navbar customization */
-.navbar-brand {padding-top: 1px;}
+.navbar-brand > img {height: 45px; padding-top: 3px;}
+a.navbar-brand {padding-top: 0px;}
 .custom-navbar { background-color: #fbd024;}
-.navbar-brand > img {height: 49px;}
+
 
 /* dropdown-menu styling */
 .dropdown-menu > li > label {
-  margin-left: 15px;
+  margin: 0px 10px 0px 10px;
   font-size: small;
 }
 .dropdown-menu > li:hover {
-  background-color: #AAAAFF;  
+  background-color: #E89D00;  
 }
 
 .star {
@@ -43,3 +47,11 @@ a {
 }
 
 .info {font-style: italic;}
+
+/* hamburger menu styles */
+.icon-bar {background: #9A0606;}
+button.navbar-toggle {border: 2px solid #E89D00;}
+
+/*#top-navbar {background: white; z-index: 0;}
+
+/*.navbar-collapse.collapse.in {background: white;}
