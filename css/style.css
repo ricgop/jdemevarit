@@ -28,9 +28,10 @@ button {background-color: #FB9A24; font-size: large;}
 #content { padding: 40px 20px 20px 20px;}
 
 /* navbar customization */
-.custom-navbar { background-color: #fbd024; border-bottom: 1px solid #E89D00;}
+.custom-navbar { background-color: #fbd024; border-bottom: 1px solid #e7e7e7;}
 .navbar-brand > img {height: 45px; padding-top: 3px;}
 a.navbar-brand {padding-top: 0px;}
+
 
 /* dropdown-menu styling */
 .dropdown-menu > li > label {
@@ -39,6 +40,9 @@ a.navbar-brand {padding-top: 0px;}
 }
 .dropdown-menu > li:hover {
   background-color: #E89D00;  
+}
+#top-navbar.navbar-collapse {
+  border-top: 1px solid #E89D00;
 }
 
 .star {
@@ -49,8 +53,4 @@ a.navbar-brand {padding-top: 0px;}
 
 /* hamburger menu styles */
 .icon-bar {background: #9A0606;}
-button.navbar-toggle {border: 1px solid #E89D00;}
-
-/*#top-navbar {background: white; z-index: 0;}
-
-/*.navbar-collapse.collapse.in {background: white;}
+button.navbar-toggle {border: 1px solid #9A0606;}
