@@ -1,3 +1,4 @@
+/* general page settings */
 body {
   color: black;
   margin-bottom: 10px;
@@ -14,27 +15,19 @@ label {
 a {
   color: black;
 }
+#content { padding: 40px 20px 20px 20px;}
 
+/* setting bold weight active link in header */
 .active {font-weight: bold;}
-
-ul.nav a:hover { color: black; background-color: #E89D00;}
-/*button {background-color: #FB9A24; font-size: large;}
 
 /* setting div paddings for registration page */
 #limitations {padding: 5px 0px 0px 12px;}
 #registration-details {padding: 5px 12px 0px 12px;}
 
-#filter {margin: 8px 15px 0px 8px;}
-#content { padding: 40px 20px 20px 20px;}
-
 /* navbar customization */
-.custom-navbar { background-color: #fbd024; border-bottom: 1px solid #f2f2f2;}
 .navbar-brand > img {height: 45px; padding-top: 3px;}
 a.navbar-brand {padding-top: 0px;}
-
-/* hamburger menu styles */
-.icon-bar {background: #9A0606;}
-button.navbar-toggle {border: 1px solid #9A0606;}
+#filter {margin: 8px 15px 0px 8px;}
 
 /* dropdown-menu styling */
 .dropdown-menu > li > label {
@@ -42,14 +35,8 @@ button.navbar-toggle {border: 1px solid #9A0606;}
   font-size: small;
 }
 .dropdown-menu > li:hover {
-  background-color: #E89D00;  
+  background-color: #e89d00;  
 }
-/*#top-navbar.navbar-collapse.collapse[aria-expanded="true"] {
-  border-top: 1px solid #9A0606;
-}
-#top-navbar.navbar-collapse.collapse {
-  border-top: none;
-}*/
 
 /* star styling */
 .star {
@@ -58,48 +45,3 @@ button.navbar-toggle {border: 1px solid #9A0606;}
 
 /* info message styling */
 .info {font-style: italic;}
-
-/* add border below menu */
-
-
-
-
-
-
-@media (max-width: 1200px) {
-    .navbar-header {
-        float: none;
-    }
-    .navbar-left,.navbar-right {
-        float: none !important;
-    }
-    .navbar-toggle {
-        display: block;
-    }
-    .navbar-collapse {
-        border-top: 1px solid #9A0606;
-        border-bottom: 10px solid transparent;
-    }
-    .navbar-fixed-top {
-        top: 0;
-        border-width: 0 0 1px;
-    }
-    .navbar-collapse.collapse {
-        display: none!important;
-    }
-    .navbar-nav {
-        float: none!important;
-        margin-top: 7.5px;
-    }
-    .navbar-nav>li {
-        float: none;
-    }
-    .navbar-nav>li>a {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-    .collapse.in{
-        display:block !important;
-    }
-
-}
