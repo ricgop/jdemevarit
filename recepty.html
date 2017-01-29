@@ -79,27 +79,29 @@
             <li class="active"><a href="recepty.html">Recepty</a></li>
             <li><a href="registrace.html">Registrace</a></li>
             <li><a href="prihlaseni.html">Přihlášení</a></li>
-            <li class="dropdown">
-              <button type="button" class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filter">Zdravotní omezení <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                <li><label><input type="checkbox"> Onemocnění žlučníku</label></li>
-                <li><label><input type="checkbox"> Onemocnění jater</label></li>
-                <li><label><input type="checkbox"> Alergie na pyl</label></li>
-                <li><label><input type="checkbox"> Alergie na ořechy</label></li>
-                <li><label><input type="checkbox"> Alergie na laktózu</label></li>
-                <li><label><input type="checkbox"> Celiakie</label></li>
-              </ul> <!-- .dropdown menu -->
-            </li> <!-- .dropdown -->
           </ul> <!-- .nav navbar-nav -->
             
             <!-- search bar -->
             <form class="navbar-form navbar-left">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Hledat recept">
-              </div>
-              <button type="submit" class="btn btn-default">Hledej</button>
-            </form>
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <button type="button" class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filter">Zdravotní omezení <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><label><input type="checkbox"> Onemocnění žlučníku</label></li>
+                  <li><label><input type="checkbox"> Onemocnění jater</label></li>
+                  <li><label><input type="checkbox"> Alergie na pyl</label></li>
+                  <li><label><input type="checkbox"> Alergie na ořechy</label></li>
+                  <li><label><input type="checkbox"> Alergie na laktózu</label></li>
+                  <li><label><input type="checkbox"> Celiakie</label></li>
+                </ul> <!-- .dropdown menu -->
+              </li> <!-- .dropdown -->
+            </ul> <!-- .nav navbar-nav -->
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Hledat recept">
+            </div>
+            <button type="submit" class="btn btn-default">Hledej</button>
+          </form>
         </div> <!-- .navbar-collapse -->
       </div> <!-- .container-fluid -->
     </nav>

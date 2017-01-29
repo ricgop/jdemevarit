@@ -27,7 +27,7 @@ a {
 /* navbar customization */
 .navbar-brand > img {height: 45px; padding-top: 3px;}
 a.navbar-brand {padding-top: 0px;}
-#filter {margin: 8px 15px 0px 8px;}
+#filter {margin: 0px 15px;}
 
 /* dropdown-menu styling */
 .dropdown-menu > li > label {
