@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="cs">
   <head>
-    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-2">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ADMIN - Správa uživatelů</title>
+    <title>ADMIN - SprĂĄva uĹživatelĹŻ</title>
 
     <link rel="icon" type="image/png" href="icons/favicon.png">
 
@@ -34,7 +34,7 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <a class="navbar-brand" href="recepty.html"><img alt="Brand" src="icons/main.png"></a>
+          <a class="navbar-brand" href="sprava-uzivatelu.html"><img alt="Brand" src="icons/main.png"></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -46,10 +46,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-          	<li><a href="prihlaseni.html">Přihlášení</a></li>
-            <li class="active"><a href="sprava-uzivatelu.html">Správa uživatelů</a></li>
-            <li><a href="recepty.html">Správa receptů</a></li>
-            <li><a href="filtry.html">Správa filtrů</a></li>
+          	<li><a href="prihlaseni.html">PĹihlĂĄĹĄenĂ­</a></li>
+            <li class="active"><a href="sprava-uzivatelu.html">SprĂĄva uĹživatelĹŻ</a></li>
+            <li><a href="recepty.html">SprĂĄva receptĹŻ</a></li>
+            <li><a href="filtry.html">SprĂĄva filtrĹŻ</a></li>
           </ul>
         </div>  <!-- /.navbar-collapse -->
       </div>  <!-- /.container-fluid -->
@@ -57,38 +57,77 @@
 
     <div class="container-fluid">
       <div id="content">
-        <div id="login">
-          <h1>ADMIN - Správa uživatelů</h1>
-            <div id="login-container">
-              <div class="col-xs-12 col-sm-4">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Smazat uživatele</h3>
+        <h1>ADMIN - SprĂĄva uĹživatelĹŻ</h1>
+          <div id="user-container">
+            <div class="col-xs-12 col-sm-8">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Smazat uĹživatele</h3>
+                </div>
+                <div id="user-details">
+                  <div class="form-group">
+                    <label for="exampleInputName2">JmĂŠno uĹživatele</label>
+                    <input type="text" class="form-control" id="username" placeholder="uĹživatelskĂŠ jmĂŠno">
+                    <button type="submit" class="btn btn-default">Hledej</button>
                   </div>
-                  <div id="user-details">
-                    <div class="panel-body">
-                        <label for="nickName">Hledat uživatele</label>
-                        <input class="form-control" id="nickName" type="text" placeholder="uživatelské jméno">     
-                        <p></p>
-                        <button type="button" class="btn btn-default" id="login-button">Hledat</button>
-                    </div> <!-- .panel-body -->
-                    
-  <ul class="list-group">
-    <li class="list-group-item">Cras justo odio</li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Morbi leo risus</li>
-    <li class="list-group-item">Porta ac consectetur ac</li>
-    <li class="list-group-item">Vestibulum at eros</li>
-  </ul>
-                    <button type="button" class="btn btn-primary" id="login-button" onclick="nazdar();">Smazat vybrané</button>
+                  <div id="table-content">
+                    <table class="table" id="listed-users">
+                      <thead id="table-header">
+                        <tr>
+                          <th></th>
+                          <th>UĹživatelskĂŠ jmĂŠno</th>
+                          <th>Email</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td><input type="checkbox" id="1"></td>
+                          <td>Doe</td>
+                          <td>john@example.com</td>
+                        </tr>
+                        <tr>
+                          <td><input type="checkbox" id="1"></td>
+                           <td>Moe</td>
+                          <td>mary@example.com</td>
+                      </tbody>
+                    </table>
                   </div>
+                  <button type="button" class="btn btn-primary" id="login-button" onclick="nazdar();">Smazat</button>
                 </div>
               </div> <!-- panel-default -->
-            </div>  <!-- .col-sm-4 -->
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">VytvoĹit uĹživatele</h3>
+                  </div>
+                  <div id="registration-details">
+                    <div class="form-group">
+                      <label for="email">Email</label><span class="star"> *</span>
+                      <input class="form-control" id="email" type="text" placeholder="napĹ. jan.novak@email.cz">
+                    </div>
+                    <div class="form-group">
+                      <label for="nickName">PĹezdĂ­vka</label><span class="star"> *</span>
+                      <input class="form-control" id="nickName" type="text" placeholder="napĹ. kuchar1">
+                    </div>
+                    <div class="form-group">
+                      <label for="password1">Heslo</label><span class="star"> *</span>
+                      <input class="form-control" id="password1" type="password" placeholder="heslo">
+                    </div>
+                     <div class="form-group">
+                      <label for="password2">Heslo (pro potvrzenĂ­)</label><span class="star"> *</span>
+                      <input class="form-control" id="password2" type="password" placeholder="heslo">
+                    </div>
+                    <div class="form-group">
+                      <label for="phone">Telefon</label>
+                      <input class="form-control" id="phone" type="text" placeholder="napĹ. 123456789">
+                    </div>
+                  <button type="button" class="btn btn-success" id="login-button" onclick="nazdar();">VytvoĹit</button>
+                  </div> <!-- #registration details -->
+                </div> <!-- .panel-default -->
+
+            </div> <!-- .col-sm-4 -->
           </div> <!-- #login-container -->
-        </div> <!-- /.recipes -->
       </div> <!-- /.content -->
     </div> <!-- /.container-fluid -->
-
   </body>
 </html>
