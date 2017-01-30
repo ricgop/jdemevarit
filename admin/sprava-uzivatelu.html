@@ -57,76 +57,81 @@
 
     <div class="container-fluid">
       <div id="content">
+
+        <!-- user deletion -->
         <h1>ADMIN - Správa uživatelů</h1>
-          <div id="user-container">
-            <div class="col-xs-12 col-sm-8">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Smazat uživatele</h3>
+        <div id="user-container">
+          <div class="col-xs-12 col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Smazat uživatele</h3>
+              </div>
+              <div id="user-details">
+                <div class="form-group">
+                  <label for="exampleInputName2">Jméno uživatele</label>
+                  <input type="text" class="form-control" id="username" placeholder="uživatelské jméno">
+                  <button type="submit" class="btn btn-default">Hledej</button>
                 </div>
-                <div id="user-details">
-                  <div class="form-group">
-                    <label for="exampleInputName2">Jméno uživatele</label>
-                    <input type="text" class="form-control" id="username" placeholder="uživatelské jméno">
-                    <button type="submit" class="btn btn-default">Hledej</button>
-                  </div>
-                  <div id="table-content">
-                    <table class="table" id="listed-users">
-                      <thead id="table-header">
-                        <tr>
-                          <th></th>
-                          <th>Uživatelské jméno</th>
-                          <th>Email</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+                <div id="table-content">
+                  <table class="table" id="listed-users">
+                    <thead id="table-header">
+                      <tr>
+                        <th></th>
+                        <th>Uživatelské jméno</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
                       <tr>
                         <td><input type="checkbox" id="1"></td>
-                          <td>Doe</td>
-                          <td>john@example.com</td>
-                        </tr>
-                        <tr>
-                          <td><input type="checkbox" id="1"></td>
-                           <td>Moe</td>
-                          <td>mary@example.com</td>
-                      </tbody>
-                    </table>
-                  </div>
-                  <button type="button" class="btn btn-primary" id="login-button" onclick="nazdar();">Smazat</button>
+                        <td>Doe</td>
+                        <td>john@example.com</td>
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" id="1"></td>
+                        <td>Moe</td>
+                        <td>mary@example.com</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div> <!-- #table-content -->
+                <button type="button" class="btn btn-primary" id="login-button" onclick="nazdar();">Smazat</button>
+              </div> <!-- #user-details -->
+            </div> <!-- panel-heading-->
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Vytvořit uživatele</h3>
+              </div>
+              <div id="registration-details">
+                <div class="form-group">
+                  <label for="email">Email</label><span class="star"> *</span>
+                  <input class="form-control" id="email" type="text" placeholder="např. jan.novak@email.cz">
                 </div>
-              </div> <!-- panel-default -->
+                <div class="form-group">
+                  <label for="nickName">Přezdívka</label><span class="star"> *</span>
+                  <input class="form-control" id="nickName" type="text" placeholder="např. kuchar1">
+                </div>
+                <div class="form-group">
+                  <label for="password1">Heslo</label><span class="star"> *</span>
+                  <input class="form-control" id="password1" type="password" placeholder="heslo">
+                </div>
+                <div class="form-group">
+                <label for="password2">Heslo (pro potvrzení)</label><span class="star"> *</span>
+                  <input class="form-control" id="password2" type="password" placeholder="heslo">
+                </div>
+                <div class="form-group">
+                  <label for="phone">Telefon</label>
+                  <input class="form-control" id="phone" type="text" placeholder="např. 123456789">
+                </div>
+                <span class="info">Pole označená </span><span class="star"> *</span><span class="info"> jsou povinná</span>
+                <p></p>
+                <button type="button" class="btn btn-success" id="login-button" onclick="nazdar();">Vytvořit</button>
+              </div> <!-- #registration details -->
+            </div> <!-- .panel-default -->
 
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Vytvořit uživatele</h3>
-                  </div>
-                  <div id="registration-details">
-                    <div class="form-group">
-                      <label for="email">Email</label><span class="star"> *</span>
-                      <input class="form-control" id="email" type="text" placeholder="např. jan.novak@email.cz">
-                    </div>
-                    <div class="form-group">
-                      <label for="nickName">Přezdívka</label><span class="star"> *</span>
-                      <input class="form-control" id="nickName" type="text" placeholder="např. kuchar1">
-                    </div>
-                    <div class="form-group">
-                      <label for="password1">Heslo</label><span class="star"> *</span>
-                      <input class="form-control" id="password1" type="password" placeholder="heslo">
-                    </div>
-                     <div class="form-group">
-                      <label for="password2">Heslo (pro potvrzení)</label><span class="star"> *</span>
-                      <input class="form-control" id="password2" type="password" placeholder="heslo">
-                    </div>
-                    <div class="form-group">
-                      <label for="phone">Telefon</label>
-                      <input class="form-control" id="phone" type="text" placeholder="např. 123456789">
-                    </div>
-                  <button type="button" class="btn btn-success" id="login-button" onclick="nazdar();">Vytvořit</button>
-                  </div> <!-- #registration details -->
-                </div> <!-- .panel-default -->
-
-            </div> <!-- .col-sm-4 -->
-          </div> <!-- #login-container -->
+          </div> <!-- .col-sm-8 -->
+        </div> <!-- #user-container -->
       </div> <!-- /.content -->
     </div> <!-- /.container-fluid -->
   </body>
