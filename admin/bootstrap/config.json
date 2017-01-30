@@ -157,9 +157,9 @@
     "@navbar-default-link-disabled-color": "#ccc",
     "@navbar-default-link-disabled-bg": "transparent",
     "@navbar-default-brand-color": "@brand-primary",
-    "@navbar-default-brand-hover-color": "transparent",
-    "@navbar-default-brand-hover-bg": "darken(@navbar-default-bg, 6.5%)",
-    "@navbar-default-toggle-hover-bg": "#fff",
+    "@navbar-default-brand-hover-color": "@navbar-default-link-hover-bg",
+    "@navbar-default-brand-hover-bg": "@navbar-default-color",
+    "@navbar-default-toggle-hover-bg": "darken(@navbar-default-bg, 6.5%)",
     "@navbar-default-toggle-icon-bar-bg": "#fff",
     "@navbar-default-toggle-border-color": "#fff",
     "@navbar-inverse-color": "lighten(@gray-light, 15%)",
@@ -431,5 +431,5 @@
     "scrollspy.js",
     "transition.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=ac593caaacaf5c4fcb63dc1561c5d1ec"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=a6f508e85daeac61fa3efd1729eef6ab"
 }
