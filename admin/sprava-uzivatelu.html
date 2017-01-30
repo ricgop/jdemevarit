@@ -30,7 +30,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -47,7 +47,7 @@
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
           	<li><a href="prihlaseni.html">Pøihlá¹ení</a></li>
-            <li class="active"><a href="uzivatele.html">Správa u¾ivatelù</a></li>
+            <li class="active"><a href="sprava-uzivatelu.html">Správa u¾ivatelù</a></li>
             <li><a href="recepty.html">Správa receptù</a></li>
             <li><a href="filtry.html">Správa filtrù</a></li>
           </ul>
@@ -59,28 +59,33 @@
       <div id="content">
         <div id="login">
           <h1>ADMIN - Správa u¾ivatelù</h1>
-          <form>
             <div id="login-container">
               <div class="col-xs-12 col-sm-4">
-                <div class="form-group">
-                  <label for="nickName">Hledat u¾ivatele</label>
-                  <input class="form-control" id="nickName" type="text" placeholder="napø. jan.novak@email.cz">
-                </div>
-                <div id="button">                
-                  <button type="button" class="btn btn-default" id="login-button">Hledat</button>
-                </div>
-                <p></p>
-                <div>
-                  <div id="users">
-                    blablabla
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Smazat u¾ivatele</h3>
                   </div>
-                  <div>
-                    <button type="button" class="btn btn-primary" id="login-button" onclick="nazdar();">Smazat</button>
+                  <div id="user-details">
+                    <div class="panel-body">
+                        <label for="nickName">Hledat u¾ivatele</label>
+                        <input class="form-control" id="nickName" type="text" placeholder="u¾ivatelské jméno">     
+                        <p></p>
+                        <button type="button" class="btn btn-default" id="login-button">Hledat</button>
+                    </div> <!-- .panel-body -->
+                    
+  <ul class="list-group">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Morbi leo risus</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul>
+                    <button type="button" class="btn btn-primary" id="login-button" onclick="nazdar();">Smazat vybrané</button>
                   </div>
                 </div>
-              </div>
-            </div>
-          </form>
+              </div> <!-- panel-default -->
+            </div>  <!-- .col-sm-4 -->
+          </div> <!-- #login-container -->
         </div> <!-- /.recipes -->
       </div> <!-- /.content -->
     </div> <!-- /.container-fluid -->
