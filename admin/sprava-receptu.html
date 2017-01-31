@@ -4,7 +4,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ADMIN - Správa kategorií</title>
+    <title>ADMIN - Správa receptů</title>
 
     <link rel="icon" type="image/png" href="icons/favicon.png">
 
@@ -48,8 +48,8 @@
           <ul class="nav navbar-nav">
           	<li><a href="prihlaseni.html">Přihlášení</a></li>
             <li><a href="sprava-uzivatelu.html">Správa uživatelů</a></li>
-            <li><a href="sprava-receptu.html">Správa receptů</a></li>
-            <li class="active"><a href="sprava-kategorii.html">Správa kategorií</a></li>
+            <li class="active"><a href="sprava-receptu.html">Správa receptů</a></li>
+            <li><a href="sprava-kategorii.html">Správa kategorií</a></li>
           </ul>
         </div>  <!-- /.navbar-collapse -->
       </div>  <!-- /.container-fluid -->
@@ -59,17 +59,17 @@
       <div id="content">
 
         <!-- user deletion -->
-        <h1>ADMIN - Správa kategorií</h1>
+        <h1>ADMIN - Správa receptů</h1>
         <div id="user-container">
           <div class="col-xs-12 col-sm-4">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h3 class="panel-title">Smazat kategorii</h3>
+                <h3 class="panel-title">Smazat recept</h3>
               </div>
               <div id="user-details">
                 <div class="form-group">
-                  <label for="category">Název kategorie</label>
-                  <input type="text" class="form-control" id="category" placeholder="název kategorie">
+                  <label for="recipe">Název receptu</label>
+                  <input type="text" class="form-control" id="recipe" placeholder="název receptu">
                   <button type="submit" class="btn btn-default">Hledej</button>
                 </div>
                 <div id="table-content">
@@ -83,11 +83,11 @@
                     <tbody>
                       <tr>
                         <td><input type="checkbox" id="1"></td>
-                        <td>Celiakie</td>
+                        <td>Kuře na paprice</td>
                       </tr>
                       <tr>
                         <td><input type="checkbox" id="2"></td>
-                        <td>Cukrovka</td>
+                        <td>Bábovka</td>
                       </tr>
                     </tbody>
                   </table>
@@ -95,20 +95,6 @@
                 <button type="button" class="btn btn-primary" id="login-button" onclick="nazdar();">Smazat</button>
               </div> <!-- #user-details -->
             </div> <!-- panel-heading-->
-
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Vytvořit kategorii</h3>
-              </div>
-              <div id="registration-details">
-                <div class="form-group">
-                  <label for="category">Název kategorie</label>
-                  <input class="form-control" id="category" type="text" placeholder="název kategorie">
-                </div>
-                <p></p>
-                <button type="button" class="btn btn-success" id="creation-button" onclick="nazdar();">Vytvořit</button>
-              </div> <!-- #registration details -->
-            </div> <!-- .panel-default -->
 
           </div> <!-- .col-sm-8 -->
         </div> <!-- #user-container -->
