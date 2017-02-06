@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Přihlášení</title>
 
-    <link rel="icon" type="image/png" href="icons/favicon.png">
+    <link rel="icon" type="image/png" href="images/favicon.png">
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -28,7 +28,7 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <a class="navbar-brand" href="recepty.html"><img alt="Brand" src="icons/main.png"></a>
+          <a class="navbar-brand" href="prihlaseni.php"><img alt="Brand" src="images/main.png"/></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -41,8 +41,8 @@
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
             <li><a href="recepty.html">Recepty</a></li>
-            <li><a href="registrace.html">Registrace</a></li>
-            <li class="active"><a href="prihlaseni.html">Přihlášení</a></li>
+            <li><a href="registrace.php">Registrace</a></li>
+            <li class="active"><a href="prihlaseni.php">Přihlášení</a></li>
           </ul>
         </div>  <!-- .navbar-collapse -->
       </div>  <!-- .container-fluid -->
