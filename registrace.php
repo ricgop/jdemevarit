@@ -1,11 +1,48 @@
+<?php
+  if(count($_POST)>0) {
+      
+    /* Email Validation */
+    if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
+      $error_email = "Neplatný email!";
+    }
+
+    /* Username Empty Validation */
+    if ($_POST["userName"] == "") {
+      $error_name = "Uživateslké jméno nesmí být prázdné!";
+    }
+
+    /* Username Length Validation */
+    $nameee = $_POST["userName"];
+    if (!preg_match('/^[a-zA-Z\d]{1,30}$/', $nameee) && ($_POST["userName"] != "")) {
+      $error_name = "Neplatné uživatelské jméno max. 30 znaků (pouze čísla a písmena)!";
+    }
+
+    /* 1st Password Validation */
+    if ((($_POST["password1"] == "") || (!isset($_POST["password1"]))) &&  ($_POST["password1"] == $_POST["password2"])) {
+      $error_password1 = "Heslo nesmí být prázdné!";
+    }
+
+    /* 2nd Password Validation */
+    if ((($_POST["password2"] == "") || (!isset($_POST["password2"]))) &&  ($_POST["password1"] == $_POST["password2"]))  {
+      $error_password2 = "Heslo nesmí být prázdné!";
+    }
+
+    /* Password Matching Validation */
+    if ((($_POST["password1"] != "") && ($_POST["password2"] != "")) OR ($_POST["password1"] != $_POST["password2"])) {
+      $error_password_match = "Hesla se musí shodovat!";
+    }
+
+        ## tady orezat uvozovky a prazdne znaky, pak udelat select a kdyz nic nevrati tak zkusit ulozit do DB
+        #if($name != "") {echo'alert("AAAAAa")';}
+
+        ## select, jestli uzivatel uz neexistuje
+        # a kdyz jo, tak vyhodit warning
+        # kdyz ne, tak potvrdit uspesnou registraci
+      }
+    ?>
 <!DOCTYPE html>
 <html lang="cs">
-<?php
-  include 'user-registration.php';
-  if (isset($u_email)){$message = "blablabla"; }
-  if (!isset($u_name)){$message = "bebebebebe"; }
-  if (isset($aaa)){$message = $aaa; }
-?>
+
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,79 +62,6 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
-
-    <script>
-
-      function sendData () {
-        // reset any previous form errors
-        $(".form-group").removeClass("has-error");
-
-        // get form variables
-        var user_name = document.getElementById("name").value;
-        var user_email = document.getElementById("email").value;
-        var user_passwd1 = document.getElementById("password1").value;
-        var user_passwd2 = document.getElementById("password2").value;
-        var user_phone = document.getElementById("phone").value;
-        var valid = true;
-
-        // mark empty mandatory fields
-        if (user_name == "") {
-          $("#form-name").addClass("has-error");
-          valid = false;
-        }
-        if (user_email == "") {
-          $("#form-email").addClass("has-error");
-          valid = false;
-        }
-        if (user_passwd1 == "") {
-          $("#form-password1").addClass("has-error");
-          valid = false;
-        }
-        if (user_passwd2 == "") {
-          $("#form-password2").addClass("has-error");
-          valid = false;
-        }
-        if (user_passwd1 != user_passwd2) {
-          $("#form-password1").addClass("has-error");
-          $("#form-password2").addClass("has-error");
-          valid = false;
-        }
-
-        //if (valid == true) {alert("ano... jedeme!");} else alert("Houstone, mame problem!");
-        
-      }
-
-    /*
-      function hideFilter() {
-        document.getElementById("filter").style.display = "none";
-      }
-
-      function showFilter() {
-        document.getElementById("filter").style.display = "unset";
-      }
-
-      function showLogin() {
-        document.getElementById("recipes").style.display = "none";
-        document.getElementById("register").style.display = "none";
-        document.getElementById("login").style.display = "unset";
-        hideFilter();
-      }
-
-        function showRegistration() {
-        document.getElementById("recipes").style.display = "none";
-        document.getElementById("login").style.display = "none";
-        document.getElementById("register").style.display = "unset";
-        hideFilter();
-      }
-
-      function showRecipes() {
-        document.getElementById("register").style.display = "none";
-        document.getElementById("login").style.display = "none";
-        document.getElementById("recipes").style.display = "unset";
-        showFilter();
-      }
-    */
-    </script>
 
     <link href="css/style.css" rel="stylesheet">
 
@@ -134,35 +98,43 @@
       <div id="content">
         <div id="registration">
           <h1>Registrace</h1>
-          <form>
+          <form method="POST">
             <div id="registration-container">
               <div class="col-xs-12 col-sm-4">
+              <form id="registration" method="POST">
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title">Registrační údaje</h3>
                   </div>
 
-                  <form id="registration" method="POST">
+                  
                     <div id="registration-details">
-                      <div class="form-group" id="form-email">
+                      <div class="<?php if(!isset($error_email)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
                         <label for="email">Email</label><span class="star"> *</span>
-                        <input class="form-control" id="email" type="text" placeholder="např. jan.novak@email.cz">
+                        <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" <?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">
+                        <div class="error"><?php if(isset($error_email)) echo $error_email; ?></div>
                       </div>
-                      <div class="form-group" id="form-name">
-                        <label for="nickName">Přezdívka</label><span class="star"> *</span>
-                        <input class="form-control" id="name" type="text" placeholder="např. kuchar1">
+
+                      <div class="<?php if(!isset($error_name)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
+                        <label for="name">Přezdívka</label><span class="star"> *</span>
+                        <input class="form-control" id="name" name="userName" type="text" placeholder="např. kuchar1" <?php if(isset($_POST['userName'])) echo $_POST['userName']; ?>">
+                        <div class="error"><?php if(isset($error_name)) echo $error_name; ?></div>
                       </div>
-                      <div class="form-group" id="form-password1">
+                      <div class="<?php if(!isset($error_name)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-password1">
                         <label for="password1">Heslo</label><span class="star"> *</span>
-                        <input class="form-control" id="password1" type="password" placeholder="heslo">
+                        <input class="form-control" id="password1" name="password1" type="password" placeholder="heslo" <?php if(isset($_POST['password1'])) echo $_POST['password1']; ?>">
+                        <div class="error"><?php if(isset($error_password1)) echo $error_password1; ?></div>
+                        <div class="error"><?php if(isset($error_password_match)) echo $error_password_match; ?></div>
                       </div>
-                       <div class="form-group" id="form-password2">
+                      <div class="<?php if(!isset($error_name)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-password2">
                         <label for="password2">Heslo (pro potvrzení)</label><span class="star"> *</span>
-                        <input class="form-control" id="password2" type="password" placeholder="heslo">
+                        <input class="form-control" id="password2" name="password2" type="password" placeholder="heslo" <?php if(isset($_POST['password2'])) echo $_POST['password2']; ?>">
+                        <div class="error"><?php if(isset($error_password2)) echo $error_password2; ?></div>
+                         <div class="error"><?php if(isset($error_password_match)) echo $error_password_match; ?></div>
                       </div>
                       <div class="form-group">
                         <label for="phone">Telefon</label>
-                        <input class="form-control" id="phone" type="text" placeholder="např. 123456789">
+                        <input class="form-control" id="phone" name="phone" type="text" placeholder="např. 123456789" <?php if(isset($_POST['phone'])) echo $_POST['phone']; ?>">
                       </div>
                       <span class="info">Pole označená </span><span class="star"> *</span><span class="info"> jsou povinná</span>
                       <p></p>
@@ -195,19 +167,12 @@
                   </div>
                   <p></p>
                 </div> <!-- .panel-default -->
-                <div class="message"><?php if(isset($message)) echo $message; ?></div>
-                  <p></p>
-                </form>
-
-                <div id="message"> <!-- to display success or error message upon registration -->
-                  
-                  <?php include 'user-registration.php';?>
-                  <?php if(isset($msg)){ ?><div class="alert alert-success" role="alert"><?php echo $msg ?></div><?php } ?>
-                  <?php if(isset($emsg)){ ?><div class="alert alert-danger" role="alert"><?php echo $emsg ?></div><?php } ?>
-                </div>
                 <div>
-                  <button type="button" class="btn btn-primary" onclick="sendData();">Registrovat</button>
+
+                  <button type="submit" class="btn btn-primary" onclick="sendData();">Registrovat</button>
                 </div>
+
+                </form>
               </div> <!-- .col-sm-4 -->
             </div> <!-- #registration-container -->
           </form>
