@@ -4,33 +4,35 @@
     /* Email Validation */
     if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
       $error_email = "Neplatný email!";
-    }
+    } else if (strlen($_POST["userEmail"]) > 30) {$error_email = "Email nesmí obsahovat víc, než 30 znaků!";}
 
     /* Username Empty Validation */
     if ($_POST["userName"] == "") {
       $error_name = "Uživateslké jméno nesmí být prázdné!";
     }
 
-    /* Username Length Validation */
+    /* Username Length and Character Validation */
     $nameee = $_POST["userName"];
     if (!preg_match('/^[a-zA-Z\d]{1,30}$/', $nameee) && ($_POST["userName"] != "")) {
       $error_name = "Neplatné uživatelské jméno max. 30 znaků (pouze čísla a písmena)!";
     }
 
     /* 1st Password Validation */
-    if ((($_POST["password1"] == "") || (!isset($_POST["password1"]))) &&  ($_POST["password1"] == $_POST["password2"])) {
+    if (($_POST["password1"] == "") && ($_POST["password1"] == $_POST["password2"])) {
       $error_password1 = "Heslo nesmí být prázdné!";
-    }
+    } else if ((($_POST["password1"] != "") || (!isset($_POST["password1"]))) && ($_POST["password1"] == $_POST["password2"]) && (strlen($_POST["password1"])) > 30) {$error_password1 = "Heslo nesmí obsahovat víc, než 30 znaků!";}
 
     /* 2nd Password Validation */
-    if ((($_POST["password2"] == "") || (!isset($_POST["password2"]))) &&  ($_POST["password1"] == $_POST["password2"]))  {
+    if ((($_POST["password2"] == "") || (!isset($_POST["password2"]))) && ($_POST["password1"] == $_POST["password2"]))  {
       $error_password2 = "Heslo nesmí být prázdné!";
-    }
+    } else if ((($_POST["password2"] != "") || (!isset($_POST["password2"]))) && ($_POST["password1"] == $_POST["password2"]) && (strlen($_POST["password2"])) > 30) {$error_password2 = "Heslo nesmí obsahovat víc, než 30 znaků!";}
 
     /* Password Matching Validation */
-    if ((($_POST["password1"] != "") && ($_POST["password2"] != "")) OR ($_POST["password1"] != $_POST["password2"])) {
+    if ((($_POST["password1"] != "") && ($_POST["password2"] != "")) && ($_POST["password1"] != $_POST["password2"])) {
       $error_password_match = "Hesla se musí shodovat!";
     }
+
+
 
         ## tady orezat uvozovky a prazdne znaky, pak udelat select a kdyz nic nevrati tak zkusit ulozit do DB
         #if($name != "") {echo'alert("AAAAAa")';}
@@ -120,13 +122,13 @@
                         <input class="form-control" id="name" name="userName" type="text" placeholder="např. kuchar1" <?php if(isset($_POST['userName'])) echo $_POST['userName']; ?>">
                         <div class="error"><?php if(isset($error_name)) echo $error_name; ?></div>
                       </div>
-                      <div class="<?php if(!isset($error_name)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-password1">
+                      <div class="<?php if((!isset($error_password1)) && (!isset($error_password_match))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-password1">
                         <label for="password1">Heslo</label><span class="star"> *</span>
                         <input class="form-control" id="password1" name="password1" type="password" placeholder="heslo" <?php if(isset($_POST['password1'])) echo $_POST['password1']; ?>">
                         <div class="error"><?php if(isset($error_password1)) echo $error_password1; ?></div>
                         <div class="error"><?php if(isset($error_password_match)) echo $error_password_match; ?></div>
                       </div>
-                      <div class="<?php if(!isset($error_name)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-password2">
+                      <div class="<?php if((!isset($error_password2)) && (!isset($error_password_match))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-password2">
                         <label for="password2">Heslo (pro potvrzení)</label><span class="star"> *</span>
                         <input class="form-control" id="password2" name="password2" type="password" placeholder="heslo" <?php if(isset($_POST['password2'])) echo $_POST['password2']; ?>">
                         <div class="error"><?php if(isset($error_password2)) echo $error_password2; ?></div>
