@@ -49,7 +49,7 @@
     }
 
     /* Password Matching Validation */
-    if ((($_POST["password1"] != "") && ($_POST["password2"] != "")) && ($_POST["password1"] != $_POST["password2"])) {
+    if ((($_POST["password1"] != "") || ($_POST["password2"] != "")) && ($_POST["password1"] != $_POST["password2"])) {
       $error_password_match = "Hesla se musí shodovat!";
       $error_registration = true;
     }
@@ -172,22 +172,22 @@
                   </div>
                   <div id="limitations">
                     <div class="checkbox">
-                      <label><input type="checkbox" value="">Onemocnění žlučníku</label>
+                      <label><input type="checkbox" name="limitation1" <?php if(isset($_POST['limitation1'])) echo 'checked="checked"'; ?>">Onemocnění žlučníku</label>
                     </div>
                     <div class="checkbox">
-                      <label><input type="checkbox" value="">Onemocnění jater</label>
+                      <label><input type="checkbox" name="limitation2" <?php if(isset($_POST['limitation2'])) echo 'checked="checked"'; ?>">Onemocnění jater</label>
                     </div>
                     <div class="checkbox">
-                      <label><input type="checkbox" value="">Alergie na pyl</label>
+                      <label><input type="checkbox" name="limitation3" <?php if(isset($_POST['limitation3'])) echo 'checked="checked"'; ?>">Alergie na pyl</label>
                     </div>
                     <div class="checkbox">
-                      <label><input type="checkbox" value="">Alergie na ořechy</label>
+                      <label><input type="checkbox" name="limitation4" <?php if(isset($_POST['limitation4'])) echo 'checked="checked"'; ?>">Alergie na ořechy</label>
                     </div>
                     <div class="checkbox">
-                      <label><input type="checkbox" value="">Alergie na laktózu</label>
+                      <label><input type="checkbox" name="limitation5" <?php if(isset($_POST['limitation5'])) echo 'checked="checked"'; ?>">Alergie na laktózu</label>
                     </div>
                     <div class="checkbox">
-                      <label><input type="checkbox" value="">Celiakie</label>
+                      <label><input type="checkbox" name="limitation6" <?php if(isset($_POST['limitation6'])) echo 'checked="checked"'; ?>">Celiakie</label>
                     </div>
                   </div>
                   <p></p>
