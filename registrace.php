@@ -19,8 +19,7 @@
     }
 
     /* Username Length and Character Validation */
-    $nameee = $_POST["userName"];
-    if (!preg_match('/^[a-zA-Z\d]{1,30}$/', $nameee) && ($_POST["userName"] != "")) {
+    if (!preg_match('/^[a-zA-Z\d]{1,30}$/', $_POST["userName"]) && ($_POST["userName"] != "")) {
       $error_name = "Neplatné uživatelské jméno max. 30 znaků (pouze čísla a písmena)!";
       $error_registration = true;
     }
