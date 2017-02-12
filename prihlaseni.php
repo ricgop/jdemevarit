@@ -40,7 +40,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-            <li><a href="recepty.html">Recepty</a></li>
+            <li><a href="recepty.php">Recepty</a></li>
             <li><a href="registrace.php">Registrace</a></li>
             <li class="active"><a href="prihlaseni.php">Přihlášení</a></li>
           </ul>

@@ -120,13 +120,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="recepty.html"><img alt="Brand" src="images/main.png"></a>
+          <a class="navbar-brand" href="recepty.php"><img alt="Brand" src="images/main.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-            <li><a href="recepty.html">Recepty</a></li>
+            <li><a href="recepty.<?php  ?>">Recepty</a></li>
             <li class="active"><a href="registrace.php">Registrace</a></li>
             <li><a href="prihlaseni.php">Přihlášení</a></li>
           </ul>
@@ -139,7 +139,7 @@
       <div id="content">
         <div id="registration">
           <h1>Registrace</h1>
-          <?php if(isset($error_registration) && ($error_registration == false)) {echo '<div class="alert alert-success"><strong>Registrace</strong>proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.html" );}?>
+          <?php if(isset($error_registration) && ($error_registration == false)) {echo '<div class="alert alert-success"><strong>Registrace</strong>proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
           <form method="POST">
             <div id="registration-container">

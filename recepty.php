@@ -70,15 +70,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="recepty.html"><img alt="Brand" src="icons/main.png"></a>
+          <a class="navbar-brand" href="recepty.php"><img alt="Brand" src="icons/main.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="recepty.html">Recepty</a></li>
-            <li><a href="registrace.html">Registrace</a></li>
-            <li><a href="prihlaseni.html">Přihlášení</a></li>
+            <li class="active"><a href="recepty.php">Recepty</a></li>
+            <li><a href="registrace.php">Registrace</a></li>
+            <li><a href="prihlaseni.php">Přihlášení</a></li>
           </ul> <!-- .nav navbar-nav -->
             
             <!-- search bar -->
