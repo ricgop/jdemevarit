@@ -1,6 +1,7 @@
 <?php
-  if(count($_POST)>0) {
+  $error_db = false;
 
+  if(count($_POST)>0) {
     $error_registration = false;
       
     /* Email Validation */
@@ -60,8 +61,19 @@
       $error_registration = true;
     }
 
+    # Success - proceed with propagating values into DB
+    # set-up DB connection
+    if ($error_registration == false) {
+      try {
+        $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
+      }
+      catch (PDOException $exception)
+      {
+        $error_db = true;
+      }
 
-        ## tady orezat uvozovky a prazdne znaky, pak udelat select a kdyz nic nevrati tak zkusit ulozit do DB
+    }
+
         #if($name != "") {echo'alert("AAAAAa")';}
 
         ## select, jestli uzivatel uz neexistuje
@@ -128,6 +140,7 @@
         <div id="registration">
           <h1>Registrace</h1>
           <?php if(isset($error_registration) && ($error_registration == false)) {echo '<div class="alert alert-success"><strong>Registrace</strong>proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.html" );}?>
+          <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
           <form method="POST">
             <div id="registration-container">
               <div class="col-xs-12 col-sm-4">
