@@ -1,5 +1,6 @@
 <?php
   $error_db = false;
+  $success_db = false;
 
   if(count($_POST)>0) {
     $error_registration = false;
@@ -71,15 +72,38 @@
       {
         $error_db = true;
       }
-
     }
+
+    # check if username already exists
+    if ($error_registration == false && $error_db == false) {
+      $user = $_POST["userName"];
+      $email = $_POST["userEmail"];
+      try {
+        $username_query = "SELECT count(*) FROM users where username=$user";
+        $email_query = "SELECT count(*) FROM users where email=$email";
+        $username_result = $dbh->exec($username_query);
+        $email_result = $dbh->exec($email_query);
+        if ($username_result == 0 && $email_result == 0) {
+          #insert into db here
+          $success_db = true;
+        } else {
+          if ($username_result > 0) {$error_username_exists = "Toto uživatelské jméno již někdo používá - vyberte si prosím jiné.";};
+          if ($email_result > 0) {$error_email_exists = "Tento email již někdo používá - vyberte si prosím jiný.";};
+        }
+      }
+      catch (PDOException $exception)
+      {
+        $error_db = true;
+      }
+    }
+
+  }
 
         #if($name != "") {echo'alert("AAAAAa")';}
 
         ## select, jestli uzivatel uz neexistuje
         # a kdyz jo, tak vyhodit warning
         # kdyz ne, tak potvrdit uspesnou registraci
-      }
     ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -139,7 +163,7 @@
       <div id="content">
         <div id="registration">
           <h1>Registrace</h1>
-          <?php if(isset($error_registration) && ($error_registration == false)) {echo '<div class="alert alert-success"><strong>Registrace</strong>proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
+          <?php if($success_db == true) {echo '<div class="alert alert-success"><strong>Registrace</strong>proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
           <form method="POST">
             <div id="registration-container">
@@ -150,16 +174,18 @@
                     <h3 class="panel-title">Registrační údaje</h3>
                   </div>                
                     <div id="registration-details">
-                      <div class="<?php if(!isset($error_email)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
+                      <div class="<?php if(!isset($error_email) || !isset($error_email_exists)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
                         <label for="email">Email</label><span class="star"> *</span>
                         <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">
                         <div class="error"><?php if(isset($error_email)) echo $error_email; ?></div>
+                        <div class="error"><?php if(isset($error_email_exists)) echo $error_email_exists; ?></div>
                       </div>
 
-                      <div class="<?php if(!isset($error_name)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
+                      <div class="<?php if(!isset($error_name) || !isset($error_username_exists)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                         <label for="name">Přezdívka</label><span class="star"> *</span>
                         <input class="form-control" id="name" name="userName" type="text" placeholder="např. kuchar1" value="<?php if(isset($_POST['userName'])) echo $_POST['userName']; ?>">
                         <div class="error"><?php if(isset($error_name)) echo $error_name; ?></div>
+                        <div class="error"><?php if(isset($error_username_exists)) echo $error_username_exists; ?></div>
                       </div>
                       <div class="<?php if((!isset($error_password1)) && (!isset($error_password_match))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-password1">
                         <label for="password1">Heslo</label><span class="star"> *</span>
