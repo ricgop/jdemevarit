@@ -63,28 +63,26 @@
     }
 
     # Success - proceed with propagating values into DB
-    # set-up DB connection
-    if ($error_registration == false) {
-      try {
-        $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
-      }
-      catch (PDOException $exception)
-      {
-        $error_db = true;
-      }
-    }
-
     # check if username already exists
     if ($error_registration == false && $error_db == false) {
       $user = $_POST["userName"];
       $email = $_POST["userEmail"];
       try {
-        $username_query = "SELECT count(*) FROM users where username=$user";
-        $email_query = "SELECT count(*) FROM users where email=$email";
-        $username_result = $dbh->exec($username_query);
-        $email_result = $dbh->exec($email_query);
+        #set-up db connection
+        $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
+
+        # check if username is already used
+        $username_query = "SELECT * FROM users where username='$user'";
+        $username_result = $dbh->query($username_query)->fetchColumn();
+
+        # check if email is already used
+        $email_query = "SELECT count(*) FROM users where email='$email'";
+        $email_result = $dbh->query($email_query)->fetchColumn();
+
+        # if everything is OK, register user
         if ($username_result == 0 && $email_result == 0) {
-          #insert into db here
+          $insert_users_table = "INSERT INTO users (username,email,active) VALUES ('$user','$email','1')";
+          $dbh->exec($insert_users_table);
           $success_db = true;
         } else {
           if ($username_result > 0) {$error_username_exists = "Toto uživatelské jméno již někdo používá - vyberte si prosím jiné.";};
@@ -150,7 +148,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-            <li><a href="recepty.<?php  ?>">Recepty</a></li>
+            <li><a href="recepty.php">Recepty</a></li>
             <li class="active"><a href="registrace.php">Registrace</a></li>
             <li><a href="prihlaseni.php">Přihlášení</a></li>
           </ul>
@@ -174,14 +172,14 @@
                     <h3 class="panel-title">Registrační údaje</h3>
                   </div>                
                     <div id="registration-details">
-                      <div class="<?php if(!isset($error_email) || !isset($error_email_exists)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
+                      <div class="<?php if(!isset($error_email) && (!isset($error_email_exists))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
                         <label for="email">Email</label><span class="star"> *</span>
                         <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">
                         <div class="error"><?php if(isset($error_email)) echo $error_email; ?></div>
                         <div class="error"><?php if(isset($error_email_exists)) echo $error_email_exists; ?></div>
                       </div>
 
-                      <div class="<?php if(!isset($error_name) || !isset($error_username_exists)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
+                      <div class="<?php if(!isset($error_name) && !isset($error_username_exists)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                         <label for="name">Přezdívka</label><span class="star"> *</span>
                         <input class="form-control" id="name" name="userName" type="text" placeholder="např. kuchar1" value="<?php if(isset($_POST['userName'])) echo $_POST['userName']; ?>">
                         <div class="error"><?php if(isset($error_name)) echo $error_name; ?></div>
