@@ -19,8 +19,8 @@
     }
 
     /* Username Length and Character Validation */
-    if (!preg_match('/^[a-zA-Z\d]{1,30}$/', $_POST["userName"]) && ($_POST["userName"] != "")) {
-      $error_name = "Neplatné uživatelské jméno max. 30 znaků (pouze čísla a písmena)!";
+    if (!preg_match('/^[a-zA-Z\d]{1,20}$/', $_POST["userName"]) && ($_POST["userName"] != "")) {
+      $error_name = "Neplatné uživatelské jméno max. 20 znaků (pouze písmena a čísla)!";
       $error_registration = true;
     }
 
@@ -55,7 +55,10 @@
     }
 
     /* Phone Number Validation */
-
+    if (!preg_match('/^[0-9]{9,16}$/', $_POST["phone"]) && ($_POST["phone"] != "")) {
+      $error_phone = "Telefonní číslo se musí skládat pouze z 9-16 číslic!";
+      $error_registration = true;
+    }
 
 
         ## tady orezat uvozovky a prazdne znaky, pak udelat select a kdyz nic nevrati tak zkusit ulozit do DB
@@ -124,7 +127,7 @@
       <div id="content">
         <div id="registration">
           <h1>Registrace</h1>
-          <?php if(isset($error_registration) && ($error_registration == false)) {echo '<div class="alert alert-success"><strong>Registrace</strong>proběhla úspěšně!</div>';}?>
+          <?php if(isset($error_registration) && ($error_registration == false)) {echo '<div class="alert alert-success"><strong>Registrace</strong>proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.html" );}?>
           <form method="POST">
             <div id="registration-container">
               <div class="col-xs-12 col-sm-4">
@@ -157,9 +160,10 @@
                         <div class="error"><?php if(isset($error_password2)) echo $error_password2; ?></div>
                          <div class="error"><?php if(isset($error_password_match)) echo $error_password_match; ?></div>
                       </div>
-                      <div class="form-group">
+                      <div class="<?php if(!isset($error_phone)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-phone">
                         <label for="phone">Telefon</label>
                         <input class="form-control" id="phone" name="phone" type="text" placeholder="např. 123456789" value="<?php if(isset($_POST['phone'])) echo $_POST['phone']; ?>">
+                        <div class="error"><?php if(isset($error_phone)) echo $error_phone; ?></div>
                       </div>
                       <span class="info">Pole označená </span><span class="star"> *</span><span class="info"> jsou povinná</span>
                       <p></p>
