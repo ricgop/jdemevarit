@@ -9,10 +9,29 @@
     if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
       $error_email = "Neplatný email!";
       $error_registration = true;
-    } else if (strlen($_POST["userEmail"]) > 30) {
-      $error_email = "Email nesmí obsahovat víc, než 30 znaků!";
-      $error_registration = true;
-    }
+      } else 
+      {
+        if (strlen($_POST["userEmail"]) > 30) {
+          $error_email = "Email nesmí obsahovat víc, než 30 znaků!";
+          $error_registration = true;
+        } else {
+          try {
+            #set-up db connection
+            $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
+
+            # check if username is already used
+            $email = $_POST["userEmail"];
+            $email_query = "SELECT count(*) FROM users where email='$email'";
+            $email_result = $dbh->query($email_query)->fetchColumn();
+            if ($email_result > 0) {$error_email_exists = "Tento email již někdo používá - vyberte si prosím jiný.";};
+          }
+          catch (PDOException $exception)
+          {
+            $error_db = true;
+          }
+        }
+      }
+
 
     /* Username Empty Validation */
     if ($_POST["userName"] == "") {
@@ -66,18 +85,10 @@
     # check if username already exists
     if ($error_registration == false && $error_db == false) {
       $user = $_POST["userName"];
-      $email = $_POST["userEmail"];
       try {
-        #set-up db connection
-        $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
-
         # check if username is already used
-        $username_query = "SELECT * FROM users where username='$user'";
+        $username_query = "SELECT count(*) FROM users where username='$user'";
         $username_result = $dbh->query($username_query)->fetchColumn();
-
-        # check if email is already used
-        $email_query = "SELECT count(*) FROM users where email='$email'";
-        $email_result = $dbh->query($email_query)->fetchColumn();
 
         # if everything is OK, register user
         if ($username_result == 0 && $email_result == 0) {
