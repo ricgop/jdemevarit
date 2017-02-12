@@ -2,6 +2,15 @@
   $error_db = false;
   $success_db = false;
 
+  try {
+    #set-up db connection
+    $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
+  }
+  catch (PDOException $exception)
+  {
+    $error_db = true;
+  }
+
   if(count($_POST)>0) {
     $error_registration = false;
       
@@ -16,9 +25,6 @@
           $error_registration = true;
         } else {
           try {
-            #set-up db connection
-            $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
-
             # check if username is already used
             $email = $_POST["userEmail"];
             $email_query = "SELECT count(*) FROM users where email='$email'";
@@ -37,7 +43,20 @@
     if ($_POST["userName"] == "") {
       $error_name = "Uživateslké jméno nesmí být prázdné!";
       $error_registration = true;
-    }
+    } else {
+        try {
+
+          # check if username is already used
+           $user = $_POST["userName"];
+           $user_query = "SELECT count(*) FROM users where username='$user'";
+           $username_result = $dbh->query($user_query)->fetchColumn();
+           if ($username_result > 0) {$error_username_exists = "Toto uživatelské jméno již někdo používá - vyberte si prosím jiné.";};
+        }
+        catch (PDOException $exception)
+        {
+          $error_db = true;
+        }
+      }
 
     /* Username Length and Character Validation */
     if (!preg_match('/^[a-zA-Z\d]{1,20}$/', $_POST["userName"]) && ($_POST["userName"] != "")) {
@@ -82,22 +101,18 @@
     }
 
     # Success - proceed with propagating values into DB
-    # check if username already exists
+    # check if all details are correct and if we didn't miss any of the DB checks
     if ($error_registration == false && $error_db == false) {
       $user = $_POST["userName"];
       try {
-        # check if username is already used
-        $username_query = "SELECT count(*) FROM users where username='$user'";
-        $username_result = $dbh->query($username_query)->fetchColumn();
-
         # if everything is OK, register user
         if ($username_result == 0 && $email_result == 0) {
           $insert_users_table = "INSERT INTO users (username,email,active) VALUES ('$user','$email','1')";
           $dbh->exec($insert_users_table);
           $success_db = true;
         } else {
-          if ($username_result > 0) {$error_username_exists = "Toto uživatelské jméno již někdo používá - vyberte si prosím jiné.";};
-          if ($email_result > 0) {$error_email_exists = "Tento email již někdo používá - vyberte si prosím jiný.";};
+          #if ($username_result > 0) {$error_username_exists = "Toto uživatelské jméno již někdo používá - vyberte si prosím jiné.";};
+          #if ($email_result > 0) {$error_email_exists = "Tento email již někdo používá - vyberte si prosím jiný.";};
         }
       }
       catch (PDOException $exception)
