@@ -104,11 +104,15 @@
     # check if all details are correct and if we didn't miss any of the DB checks
     if ($error_registration == false && $error_db == false) {
       $user = $_POST["userName"];
+      $password = $_POST["password1"];
+      $hash = password_hash($password, PASSWORD_DEFAULT);
       try {
         # if everything is OK, register user
         if ($username_result == 0 && $email_result == 0) {
           $insert_users_table = "INSERT INTO users (username,email,active) VALUES ('$user','$email','1')";
           $dbh->exec($insert_users_table);
+          $insert_passwords_table = "INSERT INTO user_passwords (email,password) VALUES ((SELECT email FROM users WHERE email='$email'),'$hash')";
+          $dbh->exec($insert_passwords_table);
           $success_db = true;
         } else {
           #if ($username_result > 0) {$error_username_exists = "Toto uživatelské jméno již někdo používá - vyberte si prosím jiné.";};
@@ -187,7 +191,7 @@
       <div id="content">
         <div id="registration">
           <h1>Registrace</h1>
-          <?php if($success_db == true) {echo '<div class="alert alert-success"><strong>Registrace</strong>proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
+          <?php if($success_db == true) {echo '<div class="alert alert-success"><strong>Registrace</strong> proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
           <form method="POST">
             <div id="registration-container">
