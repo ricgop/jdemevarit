@@ -124,7 +124,7 @@
           $dbh->exec($insert_phone_table);
           $success_db = true;
         } else {
-          error_db = true;
+          $error_db = true;
         }
       }
       catch (PDOException $exception)
