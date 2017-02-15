@@ -124,8 +124,7 @@
           $dbh->exec($insert_phone_table);
           $success_db = true;
         } else {
-          #if ($username_result > 0) {$error_username_exists = "Toto uživatelské jméno již někdo používá - vyberte si prosím jiné.";};
-          #if ($email_result > 0) {$error_email_exists = "Tento email již někdo používá - vyberte si prosím jiný.";};
+          error_db = true;
         }
       }
       catch (PDOException $exception)
@@ -135,13 +134,8 @@
     }
 
   }
+?>
 
-        #if($name != "") {echo'alert("AAAAAa")';}
-
-        ## select, jestli uzivatel uz neexistuje
-        # a kdyz jo, tak vyhodit warning
-        # kdyz ne, tak potvrdit uspesnou registraci
-    ?>
 <!DOCTYPE html>
 <html lang="cs">
 
