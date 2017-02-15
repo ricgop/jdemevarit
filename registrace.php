@@ -113,15 +113,47 @@
       $password = $_POST["password1"];
       $hash = password_hash($password, PASSWORD_DEFAULT);
       $phone_number = $_POST["phone"];
+
+          /* Get status of checkboxes */
+    if(isset($_POST['limitation1'])) {
+      $limitation1 = 1;
+    } else $limitation1 = 0;
+
+    if(isset($_POST['limitation2'])) {
+      $limitation2 = 1;
+    } else $limitation2 = 0;
+
+    if(isset($_POST['limitation3'])) {
+      $limitation3 = 1;
+    } else $limitation3 = 0;
+
+    if(isset($_POST['limitation4'])) {
+      $limitation4 = 1;
+    } else $limitation4 = 0;
+
+    if(isset($_POST['limitation5'])) {
+      $limitation5 = 1;
+    } else $limitation5 = 5;
+
+    if(isset($_POST['limitation6'])) {
+      $limitation6 = 1;
+    } else $limitation6 = 0;
+
       try {
         # if everything is OK, register user
         if ($username_result == 0 && $email_result == 0) {
           $insert_users_table = "INSERT INTO users (username,email,active) VALUES ('$user','$email','1')";
           $dbh->exec($insert_users_table);
+
           $insert_passwords_table = "INSERT INTO user_passwords (email,password) VALUES ((SELECT email FROM users WHERE email='$email'),'$hash')";
           $dbh->exec($insert_passwords_table);
+
           $insert_phone_table = "INSERT INTO user_phones (email,phone) VALUES ((SELECT email FROM users WHERE email='$email'),'$phone_number')";
           $dbh->exec($insert_phone_table);
+
+          $insert_limitations_table = "INSERT INTO user_limitations (email,category_id_1,category_id_2,category_id_3,category_id_4,category_id_5,category_id_6) VALUES ((SELECT email FROM users WHERE email='$email'),'$limitation1', '$limitation2', '$limitation3', '$limitation4', '$limitation5', '$limitation6')";
+          $dbh->exec($insert_limitations_table);
+
           $success_db = true;
         } else {
           $error_db = true;

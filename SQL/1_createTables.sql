@@ -52,6 +52,7 @@ create table user_limitations
 	category_id_4 int UNSIGNED NOT NULL,
 	category_id_5 int UNSIGNED NOT NULL,
 	category_id_6 int UNSIGNED NOT NULL,
+	PRIMARY KEY (email),
 	FOREIGN KEY (email) REFERENCES users(email)
 );
 
