@@ -25,11 +25,14 @@
           $error_registration = true;
         } else {
           try {
-            # check if username is already used
+            # check if email is already used
             $email = $_POST["userEmail"];
             $email_query = "SELECT count(*) FROM users where email='$email'";
             $email_result = $dbh->query($email_query)->fetchColumn();
-            if ($email_result > 0) {$error_email_exists = "Tento email již někdo používá - vyberte si prosím jiný.";};
+            if ($email_result > 0) {
+              $error_email_exists = "Tento email již někdo používá - vyberte si prosím jiný.";
+              $error_registration = true;
+            };
           }
           catch (PDOException $exception)
           {
@@ -39,7 +42,7 @@
       }
 
 
-    /* Username Empty Validation */
+    /* Empty Username Validation */
     if ($_POST["userName"] == "") {
       $error_name = "Uživateslké jméno nesmí být prázdné!";
       $error_registration = true;
@@ -50,7 +53,10 @@
            $user = $_POST["userName"];
            $user_query = "SELECT count(*) FROM users where username='$user'";
            $username_result = $dbh->query($user_query)->fetchColumn();
-           if ($username_result > 0) {$error_username_exists = "Toto uživatelské jméno již někdo používá - vyberte si prosím jiné.";};
+           if ($username_result > 0) {
+            $error_username_exists = "Toto uživatelské jméno již někdo používá - vyberte si prosím jiné.";
+            $error_registration = true;
+          };
         }
         catch (PDOException $exception)
         {
@@ -106,6 +112,7 @@
       $user = $_POST["userName"];
       $password = $_POST["password1"];
       $hash = password_hash($password, PASSWORD_DEFAULT);
+      $phone_number = $_POST["phone"];
       try {
         # if everything is OK, register user
         if ($username_result == 0 && $email_result == 0) {
@@ -113,6 +120,8 @@
           $dbh->exec($insert_users_table);
           $insert_passwords_table = "INSERT INTO user_passwords (email,password) VALUES ((SELECT email FROM users WHERE email='$email'),'$hash')";
           $dbh->exec($insert_passwords_table);
+          $insert_phone_table = "INSERT INTO user_phones (email,phone) VALUES ((SELECT email FROM users WHERE email='$email'),'$phone_number')";
+          $dbh->exec($insert_phone_table);
           $success_db = true;
         } else {
           #if ($username_result > 0) {$error_username_exists = "Toto uživatelské jméno již někdo používá - vyberte si prosím jiné.";};

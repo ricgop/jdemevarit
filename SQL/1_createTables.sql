@@ -28,6 +28,14 @@ create table user_passwords
 	FOREIGN KEY (email) REFERENCES users(email)
 );
 
+create table user_phones
+(
+	email varchar(40) NOT NULL,
+	phone varchar(60),
+	PRIMARY KEY (email),
+	FOREIGN KEY (email) REFERENCES users(email)
+);
+
 create table categories
 (
 	category_id int UNSIGNED NOT NULL,
