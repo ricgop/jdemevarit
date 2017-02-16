@@ -300,7 +300,7 @@
                 </div> <!-- .panel-default -->
                 <div>
 
-                  <button type="submit" class="btn btn-primary" onclick="sendData();">Registrovat</button>
+                  <button type="submit" class="btn btn-primary">Registrovat</button>
                 </div>
 
                 </form>

@@ -1,3 +1,68 @@
+<?php
+  $error_db = false;
+  $success_db = false;
+  $error_login = false;
+
+  try {
+    #set-up db connection
+    $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
+  }
+  catch (PDOException $exception)
+  {
+    $error_db = true;
+  }
+
+  if(count($_POST)>0) {
+
+    /* Email Validation */
+    if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
+      $error_email = "Neplatný email!";
+      } else 
+      {
+        if (strlen($_POST["userEmail"]) > 30) {
+          $error_general = "Špatně zadaný email nebo heslo!";
+        } else {
+          try {
+            # check if email is already used
+            $email = $_POST["userEmail"];
+            $email_query = "SELECT count(*) FROM users where email='$email'";
+            $email_result = $dbh->query($email_query)->fetchColumn();
+
+            # if user already exists
+            if ($email_result == 0) {
+              $error_general = "Špatně zadaný email nebo heslo!";
+              $error_login = true;
+            } else {
+              
+              # success with username - continue with password
+            $password = $_POST["userEmail"];
+            $email_query = "SELECT count(*) FROM users where email='$email'";
+            $email_result = $dbh->query($email_query)->fetchColumn();
+            }
+          }
+          catch (PDOException $exception)
+          {
+            $error_db = true;
+          }
+      }
+    }
+
+    /* Password Validation */
+    if (($_POST["password"] == "") || (!isset($_POST["password"]))) {
+      $error_password = "Heslo nesmí být prázdné!";
+      $error_registration = true;
+      echo "aaa";
+    } else {
+      if (strlen($_POST["password"]) > 30) {
+        $error_password = "Heslo nesmí obsahovat víc, než 30 znaků!";
+        $error_registration = true;
+        echo "bbb";
+      }
+    }
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="cs">
   <head>
@@ -52,21 +117,23 @@
       <div id="content">
         <div id="login">
           <h1>Přihlášení</h1>
-          <form>
+          <form method="POST">
             <div id="login-container">
               <div class="col-xs-12 col-sm-4">
-                <div class="form-group">
-                  <label for="nickName">Email/přezdívka</label><span class="star"> *</span>
-                  <input class="form-control" id="nickName" type="text" placeholder="např. jan.novak@email.cz">
+                <div class="<?php if(!isset($error_email) && (!isset($error_general))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
+                  <label for="userEmail">Email/přezdívka</label><span class="star"> *</span>
+                  <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">
+                  <div class="error"><?php if(isset($error_email)) echo $error_email; ?></div>
+                  <div class="error"><?php if(isset($error_general)) echo $error_general; ?></div>
                 </div>
-                <div class="form-group">
+                <div class="<?php if(!isset($error_password) && (!isset($error_general))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
                   <label for="password">Heslo</label><span class="star"> *</span>
-                  <input class="form-control" id="password" type="password" placeholder="heslo">
+                  <input class="form-control" id="password" name="password" type="password" placeholder="heslo" value="<?php if(isset($_POST['password'])) echo $_POST['password']; ?>">
+                  <div class="error"><?php if(isset($error_password)) echo $error_password; ?></div>
+                  <div class="error"><?php if(isset($error_general)) echo $error_general; ?></div>
                 </div>
-                <span class="info">Pole označená </span><span class="star"> *</span><span class="info"> jsou povinná</span>
-                <p></p>
                 <div>
-                  <button type="button" class="btn btn-primary" id="login-button" onclick="nazdar();">Přihlásit</button>
+                  <button type="submit" class="btn btn-primary"">Přihlásit</button>
                 </div>
               </div> <!-- .col-sm-4 -->
             </div> <!-- #login-container -->
