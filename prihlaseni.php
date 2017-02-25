@@ -1,6 +1,8 @@
 <?php
+  header("Content-Type: text/html; charset=utf-8");
+
   $error_db = false;
-  $success_db = false;
+  $success_login = true;
   $error_login = false;
 
   try {
@@ -66,7 +68,6 @@
 <!DOCTYPE html>
 <html lang="cs">
   <head>
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Přihlášení</title>
