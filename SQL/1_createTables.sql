@@ -1,14 +1,9 @@
 -- odmazani existujicich tabulek, pokud existuji
 drop table user_limitations;
 drop table user_passwords;
+drop table user_phones;
 drop table users;
 drop table categories;
-
-drop table Shlednuti;
-drop table Hodnoceni;
-drop table Prisady;
-drop table categories;
-drop table Recepty;
 
 
 -- create db tables
@@ -25,7 +20,7 @@ create table user_passwords
 	email varchar(40) NOT NULL,
 	password varchar(60),
 	PRIMARY KEY (email),
-	FOREIGN KEY (email) REFERENCES users(email)
+	FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
 );
 
 create table user_phones
@@ -33,7 +28,7 @@ create table user_phones
 	email varchar(40) NOT NULL,
 	phone varchar(60),
 	PRIMARY KEY (email),
-	FOREIGN KEY (email) REFERENCES users(email)
+	FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
 );
 
 create table categories
@@ -53,7 +48,7 @@ create table user_limitations
 	category_id_5 int UNSIGNED NOT NULL,
 	category_id_6 int UNSIGNED NOT NULL,
 	PRIMARY KEY (email),
-	FOREIGN KEY (email) REFERENCES users(email)
+	FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
 );
 
 create table recipes
@@ -63,9 +58,19 @@ create table recipes
 	Email varchar(50),
 	Datum_Pridani date NOT NULL,
 	PRIMARY KEY (Recept_ID),
-	FOREIGN KEY (Email) REFERENCES Uzivatele(Email)
+	FOREIGN KEY (Email) REFERENCES Uzivatele(Email) ON DELETE CASCADE
 );
 
+
+
+
+---------------------------
+
+drop table Shlednuti;
+drop table Hodnoceni;
+drop table Prisady;
+drop table categories;
+drop table Recepty;
 
 create table Prisady
 (
@@ -87,6 +92,7 @@ create table Hodnoceni
 	FOREIGN KEY (Email_Hodnotitele) REFERENCES Uzivatele(Email),
 	FOREIGN KEY (Recept_ID) REFERENCES Recepty(Recept_ID),
 	CHECK (Pocet_Bodu>0 AND Pocet_Bodu <=5)
+	ON DELETE CASCADE
 );
 
 
@@ -97,5 +103,5 @@ create table Shlednuti
 	Recept_ID int,
 	Email varchar(50), -- pozor na to, jak je to provazany
 	PRIMARY KEY (Shlednuti_ID),
-	FOREIGN KEY (Recept_ID) REFERENCES Recepty(Recept_ID)
+	FOREIGN KEY (Recept_ID) REFERENCES Recepty(Recept_ID) ON DELETE CASCADE
 );
