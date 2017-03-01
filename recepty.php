@@ -21,38 +21,11 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
 
-    <script>
-    /*
-      function hideFilter() {
-        document.getElementById("filter").style.display = "none";
+    <script type="text/JavaScript">
+      logOut() {
+        $.get(alert("odhlaseno!"););
+        return false;
       }
-
-      function showFilter() {
-        document.getElementById("filter").style.display = "unset";
-      }
-
-      function showLogin() {
-        document.getElementById("recipes").style.display = "none";
-        document.getElementById("register").style.display = "none";
-        document.getElementById("login").style.display = "unset";
-        hideFilter();
-      }
-
-        function showRegistration() {
-        document.getElementById("recipes").style.display = "none";
-        document.getElementById("login").style.display = "none";
-        document.getElementById("register").style.display = "unset";
-        hideFilter();
-      }
-
-      function showRecipes() {
-        document.getElementById("register").style.display = "none";
-        document.getElementById("login").style.display = "none";
-        document.getElementById("recipes").style.display = "unset";
-        showFilter();
-      }
-    */
-
     </script>
 
     <link href="css/style.css" rel="stylesheet">
@@ -78,9 +51,9 @@
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
             <li class="active"><a href="recepty.php">Recepty</a></li>
-            <?php if(isset($_SESSION['login_user'])) {echo 'blaaa';} ?>
             <li><a href="registrace.php">Registrace</a></li>
-            <li><a href="prihlaseni.php">Přihlášení</a></li>
+            <?php if(!isset($_SESSION['login_user'])) {echo '<li><a href="prihlaseni.php">Přihlášení</a></li>';} ?>
+            <?php if(isset($_SESSION['login_user'])) {echo '<li><a href="recepty.php">Moje recepty</a></li>';} ?>
           </ul> <!-- .nav navbar-nav -->
             
             <!-- search bar -->
@@ -103,6 +76,13 @@
               <input type="text" class="form-control" placeholder="Hledat recept">
             </div>
             <button type="submit" class="btn btn-default">Hledej</button>
+          </form>
+          <form class="navbar-right" id="user">
+            <ul class="nav navbar-nav">
+              <?php if(isset($_SESSION['login_user'])) {
+                echo "<li><a href='recepty.php' onclick='logOut();'>Odhlásit</a></li>";
+              } ?>
+            </ul>
           </form>
         </div> <!-- .navbar-collapse -->
       </div> <!-- .container-fluid -->

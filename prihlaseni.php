@@ -20,30 +20,30 @@
     if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
       $error_email = "Neplatný email!";
       $error_login = true;
-      } else 
-      {
-        if (strlen($_POST["userEmail"]) > 30) {
-          $error_general = "Špatně zadaný email nebo heslo!";
-          $error_login = true;
-        } else {
-          try {
-            # check if email is already used
-            $email = $_POST["userEmail"];
-            $email_query = "SELECT count(*) FROM users WHERE email='$email'";
-            $email_result = $dbh->query($email_query)->fetchColumn();
+    } else 
+    {
+      if (strlen($_POST["userEmail"]) > 30) {
+        $error_general = "Špatně zadaný email nebo heslo!";
+        $error_login = true;
+      } else {
+        try {
+          # check if email is already used
+          $email = $_POST["userEmail"];
+          $email_query = "SELECT count(*) FROM users WHERE email='$email' AND active='1'";
+          $email_result = $dbh->query($email_query)->fetchColumn();
 
-            # if user doesn't exists
-            if ($email_result == 0) {
-              $error_general = "Špatně zadaný email nebo heslo!";
-              $error_login = true;
-            }
-          }
-          catch (PDOException $exception)
-          {
-            $error_db = true;
+          # if user doesn't exists
+          if ($email_result == 0) {
+            $error_general = "Špatně zadaný email nebo heslo!";
+            $error_login = true;
           }
         }
+        catch (PDOException $exception)
+        {
+          $error_db = true;
+        }
       }
+    }
 
     # Password Validation
     if (($_POST["password"] == "") || (!isset($_POST["password"]))) {
@@ -78,7 +78,7 @@
     }
 
     # login credentials correct - log the user in
-    if ($error_login == false && $error_db == false) {
+    if ($error_login == false && $error_db == false && (($_POST["password"] != "") || isset($_POST["password"]))) {
 
       # get user's nickname from db
       try {
@@ -95,7 +95,7 @@
       session_start();
       $_SESSION['login_user'] = $nickname; // session initialization with value of PHP variable
       $success = true;
-    } else $error_db = true; // should not happen at all - if you're here, smthn is wrong...
+    }
   }
 
 ?>
