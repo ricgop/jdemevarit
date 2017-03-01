@@ -28,7 +28,7 @@
           try {
             # check if email is already used
             $email = $_POST["userEmail"];
-            $email_query = "SELECT count(*) FROM users where email='$email'";
+            $email_query = "SELECT count(*) FROM users WHERE email='$email'";
             $email_result = $dbh->query($email_query)->fetchColumn();
 
             # if user doesn't exists
@@ -44,7 +44,7 @@
         }
       }
 
-    /* Password Validation */
+    # Password Validation
     if (($_POST["password"] == "") || (!isset($_POST["password"]))) {
       $error_password = "Heslo nesmí být prázdné!";
       $error_login = true;
@@ -52,12 +52,36 @@
       if (strlen($_POST["password"]) > 30) {
         $error_password = "Heslo nesmí obsahovat víc, než 30 znaků!";
         $error_login = true;
+      } else {
+        try {
+          if ($error_login == false) {
+
+            # check if email is already used
+            $password = $_POST["password"];
+            $password_query = "SELECT password FROM user_passwords WHERE email='$email'";
+            $password_result = $dbh->query($password_query)->fetchColumn();
+
+            # if user doesn't exists
+            if (password_verify($password, $password_result)) {
+            } else {
+              $error_general = "Špatně zadaný email nebo heslo!";
+              $error_login = true;
+            }
+          }
+        }
+        catch (PDOException $exception)
+        {
+          $error_db = true;
+        }
       }
     }
 
     # login credentials correct - log the user in
     if ($error_login == false && $error_db == false) {
-      echo "loging in...";
+      $user = $_POST["userEmail"];
+      echo $user . " loging in...";
+      //session_start();
+      //$_SESSION['login_user']=$user; // session initialization with value of PHP variable
     }
   }
 

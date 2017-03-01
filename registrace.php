@@ -29,7 +29,7 @@
           try {
             # check if email is already used
             $email = $_POST["userEmail"];
-            $email_query = "SELECT count(*) FROM users where email='$email'";
+            $email_query = "SELECT count(*) FROM users WHERE email='$email'";
             $email_result = $dbh->query($email_query)->fetchColumn();
             if ($email_result > 0) {
               $error_email_exists = "Tento email již někdo používá - vyberte si prosím jiný.";
@@ -43,7 +43,6 @@
         }
       }
 
-
     /* Empty Username Validation */
     if ($_POST["userName"] == "") {
       $error_name = "Uživateslké jméno nesmí být prázdné!";
@@ -53,7 +52,7 @@
 
           # check if username is already used
            $user = $_POST["userName"];
-           $user_query = "SELECT count(*) FROM users where username='$user'";
+           $user_query = "SELECT count(*) FROM users WHERE username='$user'";
            $username_result = $dbh->query($user_query)->fetchColumn();
            if ($username_result > 0) {
             $error_username_exists = "Toto uživatelské jméno již někdo používá - vyberte si prosím jiné.";
