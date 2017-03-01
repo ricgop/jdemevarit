@@ -3,6 +3,7 @@
 
   $error_db = false;
   $error_login = false;
+  $success = false;
 
   try {
     #set-up db connection
@@ -78,11 +79,23 @@
 
     # login credentials correct - log the user in
     if ($error_login == false && $error_db == false) {
-      $user = $_POST["userEmail"];
-      echo $user . " loging in...";
-      //session_start();
-      //$_SESSION['login_user']=$user; // session initialization with value of PHP variable
-    }
+
+      # get user's nickname from db
+      try {
+        $email = $_POST["userEmail"];
+        $nick_query = "SELECT username FROM users WHERE email='$email'";
+        $nickname = $dbh->query($nick_query)->fetchColumn();
+      }
+      catch (PDOException $exception)
+      {
+        $error_db = true;
+      }
+
+      # log the user in
+      session_start();
+      $_SESSION['login_user'] = $nickname; // session initialization with value of PHP variable
+      $success = true;
+    } else $error_db = true; // should not happen at all - if you're here, smthn is wrong...
   }
 
 ?>
@@ -140,6 +153,8 @@
       <div id="content">
         <div id="login">
           <h1>Přihlášení</h1>
+          <?php if($success == true) {echo '<div class="alert alert-success"><strong>Přihlášení</strong> proběhlo úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
+          <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
           <div id="login-container">
             <div class="col-xs-12 col-sm-4">
               <form id="registration" method="POST">

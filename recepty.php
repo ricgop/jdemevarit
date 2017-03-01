@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="cs">
   <head>
@@ -77,6 +78,7 @@
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
             <li class="active"><a href="recepty.php">Recepty</a></li>
+            <?php if(isset($_SESSION['login_user'])) {echo 'blaaa';} ?>
             <li><a href="registrace.php">Registrace</a></li>
             <li><a href="prihlaseni.php">Přihlášení</a></li>
           </ul> <!-- .nav navbar-nav -->
