@@ -116,30 +116,29 @@
       <div id="content">
         <div id="login">
           <h1>Přihlášení</h1>
-          <form method="POST">
-            <div id="login-container">
-              <div class="col-xs-12 col-sm-4">
-                <div class="<?php if(!isset($error_email) && (!isset($error_general))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
-                  <label for="userEmail">Email</label><span class="star"> *</span>
-                  <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">
-                  <div class="error"><?php if(isset($error_email)) echo $error_email; ?></div>
-                  <div class="error"><?php if(isset($error_general) && (!isset($error_email)) && (!isset($error_password))) echo $error_general; ?></div>
-                </div>
-                <div class="<?php if(!isset($error_password) && (!isset($error_general))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
-                  <label for="password">Heslo</label><span class="star"> *</span>
-                  <input class="form-control" id="password" name="password" type="password" placeholder="heslo" value="<?php if(isset($_POST['password'])) echo $_POST['password']; ?>">
-                  <div class="error"><?php if(isset($error_password)) echo $error_password; ?></div>
-                  <div class="error"><?php if(isset($error_general) && (!isset($error_email)) && (!isset($error_password))) echo $error_general; ?></div>
-                </div>
-                <div>
-                  <button type="submit" class="btn btn-primary"">Přihlásit</button>
-                </div>
-              </div> <!-- .col-sm-4 -->
-            </div> <!-- #login-container -->
-          </form>
-        </div> <!-- /.recipes -->
-      </div> <!-- /.content -->
-    </div> <!-- /.container-fluid -->
-
+          <div id="login-container">
+            <div class="col-xs-12 col-sm-4">
+              <form id="registration" method="POST">
+               <div class="<?php if(!isset($error_email) && (!isset($error_general))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
+                 <label for="userEmail">Email</label><span class="star"> *</span>
+                 <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">
+                 <div class="error"><?php if(isset($error_email)) echo $error_email; ?></div>
+                 <div class="error"><?php if(isset($error_general) && (!isset($error_email)) && (!isset($error_password))) echo $error_general; ?></div>
+              </div>
+              <div class="<?php if(!isset($error_password) && (!isset($error_general))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
+                <label for="password">Heslo</label><span class="star"> *</span>
+                <input class="form-control" id="password" name="password" type="password" placeholder="heslo" value="<?php if(isset($_POST['password'])) echo $_POST['password']; ?>">
+                <div class="error"><?php if(isset($error_password)) echo $error_password; ?></div>
+                <div class="error"><?php if(isset($error_general) && (!isset($error_email)) && (!isset($error_password))) echo $error_general; ?></div>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-primary"">Přihlásit</button>
+              </div>
+              </form>
+            </div> <!-- .col-sm-4 -->
+          </div> <!-- #login-container -->
+        </div> <!-- #login -->
+      </div> <!-- #content -->
+    </div> <!-- .container-fluid -->
   </body>
 </html>

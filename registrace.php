@@ -202,13 +202,13 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
+          <a class="navbar-brand" href="prihlaseni.php"><img alt="Brand" src="images/main.png"/></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="recepty.php"><img alt="Brand" src="images/main.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -218,9 +218,8 @@
             <li class="active"><a href="registrace.php">Registrace</a></li>
             <li><a href="prihlaseni.php">Přihlášení</a></li>
           </ul>
-
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
+        </div>  <!-- .navbar-collapse -->
+      </div>  <!-- .container-fluid -->
     </nav>
 
     <div class="container-fluid">
@@ -229,7 +228,7 @@
           <h1>Registrace</h1>
           <?php if($success == true) {echo '<div class="alert alert-success"><strong>Registrace</strong> proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
-          <form method="POST">
+
             <div id="registration-container">
               <div class="col-xs-12 col-sm-4">
               <form id="registration" method="POST">
@@ -244,7 +243,6 @@
                         <div class="error"><?php if(isset($error_email)) echo $error_email; ?></div>
                         <div class="error"><?php if(isset($error_email_exists)) echo $error_email_exists; ?></div>
                       </div>
-
                       <div class="<?php if(!isset($error_name) && !isset($error_username_exists)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                         <label for="name">Přezdívka</label><span class="star"> *</span>
                         <input class="form-control" id="name" name="userName" type="text" placeholder="např. kuchar1" value="<?php if(isset($_POST['userName'])) echo $_POST['userName']; ?>">
@@ -279,22 +277,22 @@
                   </div>
                   <div id="limitations">
                     <div class="checkbox">
-                      <label><input type="checkbox" name="limitation1" <?php if(isset($_POST['limitation1'])) echo 'checked="checked"'; ?>">Onemocnění žlučníku</label>
+                      <label><input type="checkbox" name="limitation1" <?php if(isset($_POST['limitation1'])) echo 'checked="checked"'; ?>>Onemocnění žlučníku</label>
                     </div>
                     <div class="checkbox">
-                      <label><input type="checkbox" name="limitation2" <?php if(isset($_POST['limitation2'])) echo 'checked="checked"'; ?>">Onemocnění jater</label>
+                      <label><input type="checkbox" name="limitation2" <?php if(isset($_POST['limitation2'])) echo 'checked="checked"'; ?>>Onemocnění jater</label>
                     </div>
                     <div class="checkbox">
-                      <label><input type="checkbox" name="limitation3" <?php if(isset($_POST['limitation3'])) echo 'checked="checked"'; ?>">Alergie na pyl</label>
+                      <label><input type="checkbox" name="limitation3" <?php if(isset($_POST['limitation3'])) echo 'checked="checked"'; ?>>Alergie na pyl</label>
                     </div>
                     <div class="checkbox">
-                      <label><input type="checkbox" name="limitation4" <?php if(isset($_POST['limitation4'])) echo 'checked="checked"'; ?>">Alergie na ořechy</label>
+                      <label><input type="checkbox" name="limitation4" <?php if(isset($_POST['limitation4'])) echo 'checked="checked"'; ?>>Alergie na ořechy</label>
                     </div>
                     <div class="checkbox">
-                      <label><input type="checkbox" name="limitation5" <?php if(isset($_POST['limitation5'])) echo 'checked="checked"'; ?>">Alergie na laktózu</label>
+                      <label><input type="checkbox" name="limitation5" <?php if(isset($_POST['limitation5'])) echo 'checked="checked"'; ?>>Alergie na laktózu</label>
                     </div>
                     <div class="checkbox">
-                      <label><input type="checkbox" name="limitation6" <?php if(isset($_POST['limitation6'])) echo 'checked="checked"'; ?>">Celiakie</label>
+                      <label><input type="checkbox" name="limitation6" <?php if(isset($_POST['limitation6'])) echo 'checked="checked"'; ?>>Celiakie</label>
                     </div>
                   </div>
                   <p></p>
@@ -307,7 +305,7 @@
                 </form>
               </div> <!-- .col-sm-4 -->
             </div> <!-- #registration-container -->
-          </form>
+
         </div> <!-- #registration -->
       </div> <!-- .content -->
     </div> <!-- .container-fluid -->
