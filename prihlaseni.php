@@ -30,7 +30,7 @@
             $email_query = "SELECT count(*) FROM users where email='$email'";
             $email_result = $dbh->query($email_query)->fetchColumn();
 
-            # if user already exists
+            # if user doesn't exists
             if ($email_result == 0) {
               $error_general = "Špatně zadaný email nebo heslo!";
               $error_login = true;
@@ -52,7 +52,7 @@
     /* Password Validation */
     if (($_POST["password"] == "") || (!isset($_POST["password"]))) {
       $error_password = "Heslo nesmí být prázdné!";
-      $error_registration = true;
+      $error_login = true;
       echo "aaa";
     } else {
       if (strlen($_POST["password"]) > 30) {
@@ -125,13 +125,13 @@
                   <label for="userEmail">Email/přezdívka</label><span class="star"> *</span>
                   <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">
                   <div class="error"><?php if(isset($error_email)) echo $error_email; ?></div>
-                  <div class="error"><?php if(isset($error_general)) echo $error_general; ?></div>
+                  <div class="error"><?php if(isset($error_general) && (!isset($error_email)) && (!isset($error_password))) echo $error_general; ?></div>
                 </div>
                 <div class="<?php if(!isset($error_password) && (!isset($error_general))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
                   <label for="password">Heslo</label><span class="star"> *</span>
                   <input class="form-control" id="password" name="password" type="password" placeholder="heslo" value="<?php if(isset($_POST['password'])) echo $_POST['password']; ?>">
                   <div class="error"><?php if(isset($error_password)) echo $error_password; ?></div>
-                  <div class="error"><?php if(isset($error_general)) echo $error_general; ?></div>
+                  <div class="error"><?php if(isset($error_general) && (!isset($error_email)) && (!isset($error_password))) echo $error_general; ?></div>
                 </div>
                 <div>
                   <button type="submit" class="btn btn-primary"">Přihlásit</button>
