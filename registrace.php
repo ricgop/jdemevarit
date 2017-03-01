@@ -2,7 +2,7 @@
   header("Content-Type: text/html; charset=utf-8");
 
   $error_db = false;
-  $success_db = false;
+  $success = false;
 
   try {
     #set-up db connection
@@ -156,7 +156,7 @@
           $insert_limitations_table = "INSERT INTO user_limitations (email,category_id_1,category_id_2,category_id_3,category_id_4,category_id_5,category_id_6) VALUES ((SELECT email FROM users WHERE email='$email'),'$limitation1', '$limitation2', '$limitation3', '$limitation4', '$limitation5', '$limitation6')";
           $dbh->exec($insert_limitations_table);
 
-          $success_db = true;
+          $success = true;
         } else {
           $error_db = true;
         }
@@ -227,7 +227,7 @@
       <div id="content">
         <div id="registration">
           <h1>Registrace</h1>
-          <?php if($success_db == true) {echo '<div class="alert alert-success"><strong>Registrace</strong> proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
+          <?php if($success == true) {echo '<div class="alert alert-success"><strong>Registrace</strong> proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
           <form method="POST">
             <div id="registration-container">

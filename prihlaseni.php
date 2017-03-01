@@ -2,7 +2,6 @@
   header("Content-Type: text/html; charset=utf-8");
 
   $error_db = false;
-  $success_login = true;
   $error_login = false;
 
   try {
@@ -19,10 +18,12 @@
     /* Email Validation */
     if (!filter_var($_POST["userEmail"], FILTER_VALIDATE_EMAIL)) {
       $error_email = "Neplatný email!";
+      $error_login = true;
       } else 
       {
         if (strlen($_POST["userEmail"]) > 30) {
           $error_general = "Špatně zadaný email nebo heslo!";
+          $error_login = true;
         } else {
           try {
             # check if email is already used
@@ -34,32 +35,29 @@
             if ($email_result == 0) {
               $error_general = "Špatně zadaný email nebo heslo!";
               $error_login = true;
-            } else {
-              
-              # success with username - continue with password
-            $password = $_POST["userEmail"];
-            $email_query = "SELECT count(*) FROM users where email='$email'";
-            $email_result = $dbh->query($email_query)->fetchColumn();
             }
           }
           catch (PDOException $exception)
           {
             $error_db = true;
           }
+        }
       }
-    }
 
     /* Password Validation */
     if (($_POST["password"] == "") || (!isset($_POST["password"]))) {
       $error_password = "Heslo nesmí být prázdné!";
       $error_login = true;
-      echo "aaa";
     } else {
       if (strlen($_POST["password"]) > 30) {
         $error_password = "Heslo nesmí obsahovat víc, než 30 znaků!";
-        $error_registration = true;
-        echo "bbb";
+        $error_login = true;
       }
+    }
+
+    # login credentials correct - log the user in
+    if ($error_login == false && $error_db == false) {
+      echo "loging in...";
     }
   }
 
@@ -122,7 +120,7 @@
             <div id="login-container">
               <div class="col-xs-12 col-sm-4">
                 <div class="<?php if(!isset($error_email) && (!isset($error_general))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
-                  <label for="userEmail">Email/přezdívka</label><span class="star"> *</span>
+                  <label for="userEmail">Email</label><span class="star"> *</span>
                   <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">
                   <div class="error"><?php if(isset($error_email)) echo $error_email; ?></div>
                   <div class="error"><?php if(isset($error_general) && (!isset($error_email)) && (!isset($error_password))) echo $error_general; ?></div>

@@ -12,7 +12,7 @@ create table users
 	email varchar(40) NOT NULL,
 	username varchar(40),
 	active int(1) UNSIGNED, 
-	PRIMARY KEY (email)
+	PRIMARY KEY (email,username)
 );
 
 create table user_passwords

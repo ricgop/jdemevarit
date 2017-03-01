@@ -33,12 +33,6 @@
     },
     "8.Assert": function() {
         eq($("#form-password1").find(".error").text(), "Hesla se musí shodovat!");
-    },
-    '9.Type in password input "Heslo (pro..."': function() {
-        act.type("#password2", "6");
-    },
-    '10.Click submit button "Registrovat"': function() {
-        act.click(":containsExcludeChildren(Registrovat)");
     }
 };
 
