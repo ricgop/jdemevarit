@@ -78,7 +78,7 @@
             </div>
             <button type="submit" class="btn btn-default">Hledej</button>
           </form>
-          <form class="navbar-right" id="user" action="logout.php">
+          <form class="navbar-right">
             <ul class="nav navbar-nav">
               <?php if(isset($_SESSION['login_user'])) {
 
