@@ -24,6 +24,7 @@ a {
 /* setting div paddings for registration page */
 #limitations {padding: 5px 0px 0px 12px;}
 #registration-details {padding: 5px 12px 0px 12px;}
+#recipe-details {padding: 5px 12px 0px 12px;}
 
 /* navbar customization */
 .navbar-brand > img {height: 45px; padding-top: 3px;}

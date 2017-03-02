@@ -107,7 +107,7 @@
       $error_registration = true;
     }
 
-    # Success - proceed with propagating values into DB
+    
     # check if all details are correct and if we didn't miss any of the DB checks
     if ($error_registration == false && $error_db == false) {
       $user = $_POST["userName"];
@@ -115,7 +115,7 @@
       $hash = password_hash($password, PASSWORD_DEFAULT);
       $phone_number = $_POST["phone"];
 
-          /* Get status of checkboxes */
+    /* Get status of checkboxes */
     if(isset($_POST['limitation1'])) {
       $limitation1 = 1;
     } else $limitation1 = 0;
