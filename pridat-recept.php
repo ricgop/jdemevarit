@@ -191,6 +191,12 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
 
+    <script type="text/JavaScript">
+      function logOut() {
+        $.get("odhlaseni.php");
+      }
+    </script>
+
     <link href="css/style.css" rel="stylesheet">
 
   </head>
@@ -214,9 +220,16 @@
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
             <li><a href="recepty.php">Recepty</a></li>
-            <li class="active"><a href="registrace.php">Registrace</a></li>
-            <li><a href="prihlaseni.php">Přihlášení</a></li>
+            <li class="active"><a href="pridat-recept.php">Přidat recept</a></li>
+            <li><a href="me-recepty.php">Mé recepty</a></li>
           </ul>
+          <form class="navbar-right">
+            <ul class="nav navbar-nav">
+              <?php if(isset($_SESSION['login_user'])) {
+                echo '<li><a href="recepty.php" onclick="logOut();"><u>Odhlásit</u></a></li>';
+              } ?>
+            </ul>
+          </form>
         </div>  <!-- .navbar-collapse -->
       </div>  <!-- .container-fluid -->
     </nav>
@@ -224,7 +237,7 @@
     <div class="container-fluid">
       <div id="content">
         <div id="registration">
-          <h1>Registrace</h1>
+          <h1>Přidat recept</h1>
           <?php if($success == true) {echo '<div class="alert alert-success" id="login"><strong>Registrace</strong> proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
 
