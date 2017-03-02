@@ -225,7 +225,7 @@
       <div id="content">
         <div id="registration">
           <h1>Registrace</h1>
-          <?php if($success == true) {echo '<div class="alert alert-success"><strong>Registrace</strong> proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
+          <?php if($success == true) {echo '<div class="alert alert-success" id="login"><strong>Registrace</strong> proběhla úspěšně!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
 
             <div id="registration-container">

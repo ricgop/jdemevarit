@@ -50,9 +50,22 @@
         act.type("#password2", "123456");
     },
     '5.Click check box "on"': function() {
-        act.click("[name='limitation1']");
+        var actionTarget = function() {
+            return $("#registration").find("[name='limitation1']");
+        };
+        act.click(actionTarget);
     },
     '6.Click check box "on"': function() {
-        act.click("[name='limitation2']");
+        var actionTarget = function() {
+            return $("#registration").find("[name='limitation3']");
+        };
+        act.click(actionTarget);
+    },
+    '7.Click submit button "Registrovat"': function() {
+        act.click(":containsExcludeChildren(Registrovat)");
+    },
+    "8.Assert": function() {
+        eq($("#login").length > 0, true);
     }
 };
+
