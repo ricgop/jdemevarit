@@ -34,7 +34,7 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <a class="navbar-brand" href="sprava-uzivatelu.html"><img alt="Brand" src="icons/main.png"></a>
+          <a class="navbar-brand" href="smazat-uzivatele.php"><img alt="Brand" src="icons/main.png"></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -46,10 +46,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-          	<li><a href="prihlaseni.html">Přihlášení</a></li>
-            <li><a href="sprava-uzivatelu.html">Správa uživatelů</a></li>
-            <li class="active"><a href="sprava-receptu.html">Správa receptů</a></li>
-            <li><a href="sprava-kategorii.html">Správa kategorií</a></li>
+            <li><a href="prihlaseni.php">Přihlášení</a></li>
+            <li><a href="smazat-uzivatele.php">Smazat uživatele</a></li>
+            <li class="active"><a href="smazat-recept.php">Smazat recept</a></li>
+            <li><a href="sprava-hesel.php">Správa hesel</a></li>
+            <li><a href="sprava-kategorii.php">Správa kategorií</a></li>
           </ul>
         </div>  <!-- /.navbar-collapse -->
       </div>  <!-- /.container-fluid -->

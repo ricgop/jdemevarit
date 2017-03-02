@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="cs">
   <head>
-    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-2">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ADMIN - Přihlášení</title>
+    <title>ADMIN - PĹihlĂĄĹĄenĂ­</title>
 
     <link rel="icon" type="image/png" href="icons/favicon.png">
 
@@ -34,7 +34,7 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <a class="navbar-brand" href="recepty.html"><img alt="Brand" src="icons/main.png"></a>
+          <a class="navbar-brand" href="smazat-uzivatele.php"><img alt="Brand" src="icons/main.png"></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -46,10 +46,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-          	<li class="active"><a href="prihlaseni.html">Přihlášení</a></li>
-            <li><a href="sprava-uzivatelu.html">Správa uživatelů</a></li>
-            <li><a href="sprava-receptu.html">Správa receptů</a></li>
-            <li><a href="sprava-kategorii.html">Správa kategorií</a></li>
+            <li class="active"><a href="prihlaseni.php">PĹihlĂĄĹĄenĂ­</a></li>
+            <li><a href="smazat-uzivatele.php">Smazat uĹživatele</a></li>
+            <li><a href="smazat-recept.php">Smazat recept</a></li>
+            <li><a href="sprava-hesel.php">SprĂĄva hesel</a></li>
+            <li><a href="sprava-kategorii.php">SprĂĄva kategoriĂ­</a></li>
           </ul>
         </div>  <!-- /.navbar-collapse -->
       </div>  <!-- /.container-fluid -->
@@ -58,13 +59,13 @@
     <div class="container-fluid">
       <div id="content">
         <div id="login">
-          <h1>ADMIN - Přihlášení</h1>
+          <h1>ADMIN - PĹihlĂĄĹĄenĂ­</h1>
           <form>
             <div id="login-container">
               <div class="col-xs-12 col-sm-4">
                 <div class="form-group">
-                  <label for="nickName">Uživatelské jméno</label>
-                  <input class="form-control" id="nickName" type="text" placeholder="např. jan.novak@email.cz">
+                  <label for="nickName">UĹživatelskĂŠ jmĂŠno</label>
+                  <input class="form-control" id="nickName" type="text" placeholder="napĹ. jan.novak@email.cz">
                 </div>
                 <div class="form-group">
                   <label for="password">Heslo</label>
@@ -72,7 +73,7 @@
                 </div>
                 <p></p>
                 <div>
-                  <button type="button" class="btn btn-primary" id="login-button" onclick="nazdar();">Přihlásit</button>
+                  <button type="button" class="btn btn-primary" id="login-button" onclick="nazdar();">PĹihlĂĄsit</button>
                 </div>
               </div>
             </div>
