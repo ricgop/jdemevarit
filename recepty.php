@@ -23,7 +23,7 @@
 
     <script type="text/JavaScript">
       logOut() {
-        $.get(alert("odhlaseno!"););
+        $.get(logout.php);
         return false;
       }
     </script>
@@ -51,7 +51,7 @@
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
             <li class="active"><a href="recepty.php">Recepty</a></li>
-            <li><a href="registrace.php">Registrace</a></li>
+            <?php if(!isset($_SESSION['login_user'])) {echo '<li><a href="registrace.php">Registrace</a></li>';} ?>
             <?php if(!isset($_SESSION['login_user'])) {echo '<li><a href="prihlaseni.php">Přihlášení</a></li>';} ?>
             <?php if(isset($_SESSION['login_user'])) {echo '<li><a href="recepty.php">Moje recepty</a></li>';} ?>
           </ul> <!-- .nav navbar-nav -->
@@ -77,10 +77,10 @@
             </div>
             <button type="submit" class="btn btn-default">Hledej</button>
           </form>
-          <form class="navbar-right" id="user">
+          <form class="navbar-right" id="user" action="logout.php">
             <ul class="nav navbar-nav">
               <?php if(isset($_SESSION['login_user'])) {
-                echo "<li><a href='recepty.php' onclick='logOut();'>Odhlásit</a></li>";
+                echo '<li><a href="logout.php">Odhlásit</a></li>';
               } ?>
             </ul>
           </form>
