@@ -53,6 +53,7 @@
             <li class="active"><a href="recepty.php">Recepty</a></li>
             <?php if(!isset($_SESSION['login_user'])) {echo '<li><a href="registrace.php">Registrace</a></li>';} ?>
             <?php if(!isset($_SESSION['login_user'])) {echo '<li><a href="prihlaseni.php">Přihlášení</a></li>';} ?>
+            <?php if(isset($_SESSION['login_user'])) {echo '<li><a href="recepty.php">Přidat recept</a></li>';} ?>
             <?php if(isset($_SESSION['login_user'])) {echo '<li><a href="recepty.php">Moje recepty</a></li>';} ?>
           </ul> <!-- .nav navbar-nav -->
             
@@ -80,6 +81,7 @@
           <form class="navbar-right" id="user" action="logout.php">
             <ul class="nav navbar-nav">
               <?php if(isset($_SESSION['login_user'])) {
+
                 echo '<li><a href="logout.php">Odhlásit</a></li>';
               } ?>
             </ul>
