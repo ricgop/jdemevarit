@@ -17,6 +17,11 @@
   if(count($_POST)>0) {
     $error_add = false;
 
+    $file = $_FILES['fileToUpload']["name"];
+    if(($file != "") && isset($file)) {
+      include 'upload.php';
+    }
+
     /* Get status of checkboxes */
     if(isset($_POST['limitation1'])) {
       $limitation1 = 1;
@@ -186,12 +191,12 @@
       <div id="content">
         <div id="newRecipe">
           <h1>Přidat recept</h1>
-          <?php if($success == true) {echo '<div class="alert alert-success" id="recipe-added"><strong>Recept</strong> byl úspěšně přidán!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/recepty.php" );}?>
+          <?php if($success == true) {echo '<div class="alert alert-success" id="recipe-added"><strong>Recept</strong> byl úspěšně přidán!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/pridat-recept.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
 
             <div id="recipe-container">
               <div class="col-xs-12 col-sm-12">
-              <form id="recipe" method="POST">
+              <form id="recipe" method="POST" enctype="multipart/form-data">
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title">Recept</h3>
@@ -213,6 +218,9 @@
                       <div class="error"><?php if(isset($error_process)) echo $error_process; ?></div>
                     </div>
                     <span class="info">Pole označená </span><span class="star"> *</span><span class="info"> jsou povinná</span>
+                    <p></p>
+                      <p>Nahrát fotografii:</p>
+                      <input type="file" name="fileToUpload" id="fileUpload">
                     <p></p>
                   </div> <!-- #registration details -->
                 </div> <!-- .panel-default -->

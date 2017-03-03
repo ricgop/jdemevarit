@@ -39,7 +39,7 @@ create table user_limitations
 	limitation_4 int UNSIGNED,
 	limitation_5 int UNSIGNED,
 	limitation_6 int UNSIGNED,
-	PRIMARY KEY (email, category_id),
+	PRIMARY KEY (email),
 	FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
 );
 
