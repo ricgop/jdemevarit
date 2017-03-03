@@ -33,7 +33,7 @@
       $error_add = true;
     }
     /* recipeContent Length and Character Validation */
-    if (!preg_match('/^[a-zA-Z]{1,200}$/', $_POST["recipeContent"])) {
+    if (strlen($_POST["recipeContent"]) > 200) {
       $error_content = "Seznam přísad je příliš dlouhý - max. 200 znaků!";
       $error_add = true;
     }
@@ -44,7 +44,7 @@
       $error_add = true;
     }
     /* recipeContent Length and Character Validation */
-    if (!preg_match('/^[a-zA-Z]{1,3000}$/', $_POST["recipeProcess"])) {
+    if (strlen($_POST["recipeProcess"]) > 3000) {
       $error_process = "Neplatný popis receptu - max. 3000 znaků!";
       $error_add = true;
     }
@@ -134,17 +134,17 @@
                   <div id="recipe-details">
                     <div class="<?php if(!isset($error_name)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                       <label for="name">Název receptu</label><span class="star"> *</span>
-                      <input class="form-control" id="name" name="recipeName" type="text" placeholder="např. Bábovka" value="<?php if(isset($_POST['recipeName'])) echo $_POST['recipeName']; ?>">
+                      <input class="form-control" rows="5" id="name" name="recipeName" type="text" placeholder="např. Bábovka" value="<?php if(isset($_POST['recipeName'])) echo $_POST['recipeName']; ?>">
                       <div class="error"><?php if(isset($error_name)) echo $error_name; ?></div>
                     </div>
                     <div class="<?php if(!isset($error_content)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                       <label for="RContent">Seznam přísad</label><span class="star"> *</span>
-                      <input class="form-control" id="RContent" name="recipeContent" type="text" placeholder="např. 200ml Oleje, 500g Mouky,..." value="<?php if(isset($_POST['recipeContent'])) echo $_POST['recipeContent']; ?>">
+                      <textarea class="form-control" id="RContent" name="recipeContent" type="text" placeholder="např. 200ml Oleje, 500g Mouky,..." value="<?php if(isset($_POST['recipeContent'])) echo $_POST['recipeContent']; ?>"></textarea>
                       <div class="error"><?php if(isset($error_content)) echo $error_content; ?></div>
                     </div>
                     <div class="<?php if(!isset($error_process)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                       <label for="process">Postup</label><span class="star"> *</span>
-                      <input class="form-control" id="process" name="recipeProcess" type="text" placeholder="např. 200ml Oleje, 500g Mouky,..." value="<?php if(isset($_POST['recipeProcess'])) echo $_POST['recipeProcess']; ?>">
+                      <textarea class="form-control" rows="20" id="process" name="recipeProcess" type="text" placeholder="např. Smícháme a vaříme 5 minut" value="<?php if(isset($_POST['recipeProcess'])) echo $_POST['recipeProcess']; ?>"></textarea>
                       <div class="error"><?php if(isset($error_process)) echo $error_process; ?></div>
                     </div>
                     <span class="info">Pole označená </span><span class="star"> *</span><span class="info"> jsou povinná</span>
