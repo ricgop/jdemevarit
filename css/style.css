@@ -16,6 +16,8 @@ label {
 a {
   color: black;
 }
+
+/* page main content styling */
 #content { padding: 0px 20px 20px 20px;}
 
 /* setting bold weight active link in header */
@@ -30,6 +32,7 @@ a {
 .navbar-brand > img {height: 45px; padding-top: 3px;}
 a.navbar-brand {padding-top: 0px;}
 #filter {margin: 0px 15px;}
+.navbar-right {margin-right: 0px;}
 
 /* dropdown-menu styling */
 .dropdown-menu > li > label {

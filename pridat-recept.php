@@ -16,6 +16,31 @@
 
   if(count($_POST)>0) {
     $error_add = false;
+
+    /* Get status of checkboxes */
+    if(isset($_POST['limitation1'])) {
+      $limitation1 = 1;
+    } else $limitation1 = 0;
+
+    if(isset($_POST['limitation2'])) {
+      $limitation2 = 1;
+    } else $limitation2 = 0;
+
+    if(isset($_POST['limitation3'])) {
+      $limitation3 = 1;
+    } else $limitation3 = 0;
+
+    if(isset($_POST['limitation4'])) {
+      $limitation4 = 1;
+    } else $limitation4 = 0;
+
+    if(isset($_POST['limitation5'])) {
+      $limitation5 = 1;
+    } else $limitation5 = 5;
+
+    if(isset($_POST['limitation6'])) {
+      $limitation6 = 1;
+    } else $limitation6 = 0;  
       
     /* Empty recipeName Validation */
     if ($_POST["recipeName"] == "") {
@@ -23,8 +48,8 @@
       $error_add = true;
     }
     /* recipeName Length and Character Validation */
-    if (!preg_match('/^[a-zA-Z]{1,40}$/', $_POST["recipeName"])) {
-      $error_name = "Neplatný název receptu - max. 40 znaků (pouze písmena)!";
+    if (strlen($_POST["recipeName"]) > 40) {
+      $error_name = "Neplatný název receptu - max. 40 znaků!";
       $error_add = true;
     }
 
@@ -54,13 +79,33 @@
 
   # if registration details are correct - proceed
   if (isset($error_add) && $error_add == false) {
-    # insert data into recipes table
-    $insert_recipes_table = "INSERT INTO recipes (email) VALUES (SELECT email FROM users WHERE email='$email')";
-    $dbh->exec($insert_recipes_table);
-    #insert data to recipe_name table
 
+    try {
+      # insert data into recipes table
+      $insert_recipes_table = "INSERT INTO recipes (email) VALUES ('$email')";
+      $dbh->exec($insert_recipes_table);
+      #insert data to recipe_name table
+      $recipe_name = $_POST["recipeName"];
+      $insert_recipe_name = "INSERT INTO recipe_name (recipe_id, recipe_name) VALUES ((SELECT MAX(recipe_id) FROM recipes WHERE email='$email'), '$recipe_name')";
+      $dbh->exec($insert_recipe_name);
+      #insert data to recipe_content table
+      $recipe_content = $_POST["recipeContent"];
+      $insert_recipe_content = "INSERT INTO recipe_content (recipe_id, recipe_content) VALUES ((SELECT MAX(recipe_id) FROM recipes WHERE email='$email'), '$recipe_content')";
+      $dbh->exec($insert_recipe_content);
+      #insert data to recipe_process table
+      $recipe_process = $_POST["recipeProcess"];
+      $insert_recipe_process = "INSERT INTO recipe_process (recipe_id, recipe_process) VALUES ((SELECT MAX(recipe_id) FROM recipes WHERE email='$email'), '$recipe_process')";
+      $dbh->exec($insert_recipe_process);
+       #insert data to recipe_limitations table
+      $recipe_limitation = $_POST["recipeProcess"];
+      $insert_limitations_table = "INSERT INTO recipe_limitations (recipe_id,limitation_1,limitation_2,limitation_3,limitation_4,limitation_5,limitation_6) VALUES ((SELECT MAX(recipe_id) FROM recipes WHERE email='$email'), '$limitation1', '$limitation2', '$limitation3', '$limitation4', '$limitation5', '$limitation6')";
+      $dbh->exec($insert_limitations_table);
+    }
+    catch (PDOException $exception)
+    {
+    $error_db = true;
+    }
 
-    #$dbh->exec($insert_limitations_table);
     $success = true;
   }
 ?>
@@ -126,6 +171,13 @@
               } ?>
             </ul>
           </form>
+          <form class="navbar-right">
+            <ul class="nav navbar-nav">
+              <?php if(isset($_SESSION['login_username'])) {
+                echo '<li><a href="recepty.php" onclick="logOut();" id="logout"><u>Odhlásit</u></a></li>';
+              } ?>
+            </ul>
+          </form>
         </div>  <!-- .navbar-collapse -->
       </div>  <!-- .container-fluid -->
     </nav>
@@ -134,7 +186,7 @@
       <div id="content">
         <div id="newRecipe">
           <h1>Přidat recept</h1>
-          <?php if($success == true) {echo '<div class="alert alert-success" id="recipe-added"><strong>Recept</strong> byl úspěšně přidán!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/pridat-recept.php" );}?>
+          <?php if($success == true) {echo '<div class="alert alert-success" id="recipe-added"><strong>Recept</strong> byl úspěšně přidán!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/recepty.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
 
             <div id="recipe-container">

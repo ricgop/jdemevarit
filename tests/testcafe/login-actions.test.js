@@ -48,6 +48,6 @@
         act.click(":containsExcludeChildren(Vytvoit)");
     },
     "12.Assert": function() {
-        eq($("#recipe-added").length > 0, true);
+        eq($("#recipe-added").length, 1);
     }
 };
