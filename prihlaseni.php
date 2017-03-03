@@ -153,7 +153,7 @@
       <div id="content">
         <div id="login">
           <h1>Přihlášení</h1>
-          <?php if($success == true) {echo '<div class="alert alert-success"><strong>Přihlášení</strong> proběhlo úspěšně!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/recepty.php" );}?>
+          <?php if($success == true) {echo '<div class="alert alert-success" id="login-success"><strong>Přihlášení</strong> proběhlo úspěšně!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/recepty.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
           <div id="login-container">
             <div class="col-xs-12 col-sm-4">

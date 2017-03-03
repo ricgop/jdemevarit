@@ -121,7 +121,7 @@
       <div id="content">
         <div id="newRecipe">
           <h1>Přidat recept</h1>
-          <?php if($success == true) {echo '<div class="alert alert-success" id="login"><strong>Recept</strong> byl úspěšně přidán!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/me-recepty.php" );}?>
+          <?php if($success == true) {echo '<div class="alert alert-success" id="recipe-added"><strong>Recept</strong> byl úspěšně přidán!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/me-recepty.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
 
             <div id="recipe-container">
