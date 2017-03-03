@@ -52,10 +52,10 @@ session_start();
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
             <li class="active"><a href="recepty.php">Recepty</a></li>
-            <?php if(!isset($_SESSION['login_user'])) {echo '<li><a href="registrace.php">Registrace</a></li>';} ?>
-            <?php if(!isset($_SESSION['login_user'])) {echo '<li><a href="prihlaseni.php">Přihlášení</a></li>';} ?>
-            <?php if(isset($_SESSION['login_user'])) {echo '<li><a href="pridat-recept.php">Přidat recept</a></li>';} ?>
-            <?php if(isset($_SESSION['login_user'])) {echo '<li><a href="me-recepty.php">Mé recepty</a></li>';} ?>
+            <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="registrace.php">Registrace</a></li>';} ?>
+            <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="prihlaseni.php">Přihlášení</a></li>';} ?>
+            <?php if(isset($_SESSION['login_username'])) {echo '<li><a href="pridat-recept.php">Přidat recept</a></li>';} ?>
+            <?php if(isset($_SESSION['login_username'])) {echo '<li><a href="me-recepty.php">Mé recepty</a></li>';} ?>
           </ul> <!-- .nav navbar-nav -->
             
             <!-- search bar -->
@@ -81,7 +81,7 @@ session_start();
           </form>
           <form class="navbar-right">
             <ul class="nav navbar-nav">
-              <?php if(isset($_SESSION['login_user'])) {
+              <?php if(isset($_SESSION['login_username'])) {
                 echo '<li><a href="recepty.php" onclick="logOut();" id="logout"><u>Odhlásit</u></a></li>';
               } ?>
             </ul>

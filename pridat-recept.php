@@ -3,6 +3,7 @@
   session_start();
   $error_db = false;
   $success = false;
+  $email = $_SESSION['login_email'];
 
   try {
     #set-up db connection
@@ -49,6 +50,18 @@
       $error_add = true;
     }
 
+  }
+
+  # if registration details are correct - proceed
+  if (isset($error_add) && $error_add == false) {
+    # insert data into recipes table
+    $insert_recipes_table = "INSERT INTO recipes (email) VALUES (SELECT email FROM users WHERE email='$email')";
+    $dbh->exec($insert_recipes_table);
+    #insert data to recipe_name table
+
+
+    #$dbh->exec($insert_limitations_table);
+    $success = true;
   }
 ?>
 
@@ -121,7 +134,7 @@
       <div id="content">
         <div id="newRecipe">
           <h1>Přidat recept</h1>
-          <?php if($success == true) {echo '<div class="alert alert-success" id="recipe-added"><strong>Recept</strong> byl úspěšně přidán!</div>'; header( "refresh:3;url=http://localhost/jdemevarit/me-recepty.php" );}?>
+          <?php if($success == true) {echo '<div class="alert alert-success" id="recipe-added"><strong>Recept</strong> byl úspěšně přidán!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/pridat-recept.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
 
             <div id="recipe-container">
@@ -139,12 +152,12 @@
                     </div>
                     <div class="<?php if(!isset($error_content)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                       <label for="RContent">Seznam přísad</label><span class="star"> *</span>
-                      <textarea class="form-control" id="RContent" name="recipeContent" type="text" placeholder="např. 200ml Oleje, 500g Mouky,..." value="<?php if(isset($_POST['recipeContent'])) echo $_POST['recipeContent']; ?>"></textarea>
+                      <textarea class="form-control" id="RContent" name="recipeContent" type="text" placeholder="např. 200ml Oleje, 500g Mouky,..."><?php if(isset($_POST['recipeContent'])) echo $_POST['recipeContent']; ?></textarea>
                       <div class="error"><?php if(isset($error_content)) echo $error_content; ?></div>
                     </div>
                     <div class="<?php if(!isset($error_process)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                       <label for="process">Postup</label><span class="star"> *</span>
-                      <textarea class="form-control" rows="20" id="process" name="recipeProcess" type="text" placeholder="např. Smícháme a vaříme 5 minut" value="<?php if(isset($_POST['recipeProcess'])) echo $_POST['recipeProcess']; ?>"></textarea>
+                      <textarea class="form-control" rows="20" id="process" name="recipeProcess" type="text" placeholder="např. Smícháme a vaříme 5 minut"><?php if(isset($_POST['recipeProcess'])) echo $_POST['recipeProcess']; ?></textarea>
                       <div class="error"><?php if(isset($error_process)) echo $error_process; ?></div>
                     </div>
                     <span class="info">Pole označená </span><span class="star"> *</span><span class="info"> jsou povinná</span>

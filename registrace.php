@@ -152,7 +152,7 @@
           $insert_phone_table = "INSERT INTO user_phones (email,phone) VALUES ((SELECT email FROM users WHERE email='$email'),'$phone_number')";
           $dbh->exec($insert_phone_table);
 
-          $insert_limitations_table = "INSERT INTO user_limitations (email,category_id_1,category_id_2,category_id_3,category_id_4,category_id_5,category_id_6) VALUES ((SELECT email FROM users WHERE email='$email'),'$limitation1', '$limitation2', '$limitation3', '$limitation4', '$limitation5', '$limitation6')";
+          $insert_limitations_table = "INSERT INTO user_limitations (email,limitation_1,limitation_2,limitation_3,limitation_4,limitation_5,limitation_6) VALUES ((SELECT email FROM users WHERE email='$email'),'$limitation1', '$limitation2', '$limitation3', '$limitation4', '$limitation5', '$limitation6')";
           $dbh->exec($insert_limitations_table);
           $success = true;
           session_start();

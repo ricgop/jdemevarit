@@ -33,17 +33,20 @@ create table limitations
 create table user_limitations
 (
 	email varchar(30) NOT NULL,
-	category_id int UNSIGNED NOT NULL,
+	limitation_1 int UNSIGNED,
+	limitation_2 int UNSIGNED,
+	limitation_3 int UNSIGNED,
+	limitation_4 int UNSIGNED,
+	limitation_5 int UNSIGNED,
+	limitation_6 int UNSIGNED,
 	PRIMARY KEY (email, category_id),
-	FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE,
-	FOREIGN KEY (limitation_id) REFERENCES limitations(limitation_id) ON DELETE CASCADE
+	FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
 );
 
 create table recipes
 (
 	recipe_id int NOT NULL AUTO_INCREMENT,
 	email varchar(30) NOT NULL,
-	date_added date NOT NULL,
 	PRIMARY KEY (recipe_id),
 	FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
 );
@@ -51,10 +54,14 @@ create table recipes
 create table recipe_limitations
 (
 	recipe_id int NOT NULL AUTO_INCREMENT,
-	limitation_id int UNSIGNED NOT NULL,
-	PRIMARY KEY (recipe_id, limitation_id),
-	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE,
-	FOREIGN KEY (limitation_id) REFERENCES limitations(limitation_id) ON DELETE CASCADE
+	limitation_1 int UNSIGNED,
+	limitation_2 int UNSIGNED,
+	limitation_3 int UNSIGNED,
+	limitation_4 int UNSIGNED,
+	limitation_5 int UNSIGNED,
+	limitation_6 int UNSIGNED,
+	PRIMARY KEY (recipe_id),
+	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
 );
 
 create table recipe_name

@@ -93,7 +93,8 @@
 
       # log the user in
       session_start();
-      $_SESSION['login_user'] = $nickname; // session initialization with value of PHP variable
+      $_SESSION['login_username'] = $nickname; // session initialization with value of PHP variables
+      #$_SESSION['login_email'] = $email;
       $success = true;
     }
   }
