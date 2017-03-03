@@ -80,3 +80,11 @@ create table recipe_process
 	PRIMARY KEY (recipe_id),
 	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
 );
+
+create table recipe_process
+(
+	recipe_id int NOT NULL AUTO_INCREMENT,
+	recipe_process varchar(3000),
+	PRIMARY KEY (recipe_id),
+	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
+);

@@ -115,34 +115,34 @@
       $hash = password_hash($password, PASSWORD_DEFAULT);
       $phone_number = $_POST["phone"];
 
-    /* Get status of checkboxes */
-    if(isset($_POST['limitation1'])) {
-      $limitation1 = 1;
-    } else $limitation1 = 0;
+      /* Get status of checkboxes */
+      if(isset($_POST['limitation1'])) {
+        $limitation1 = 1;
+      } else $limitation1 = 0;
 
-    if(isset($_POST['limitation2'])) {
-      $limitation2 = 1;
-    } else $limitation2 = 0;
+      if(isset($_POST['limitation2'])) {
+        $limitation2 = 1;
+      } else $limitation2 = 0;
 
-    if(isset($_POST['limitation3'])) {
-      $limitation3 = 1;
-    } else $limitation3 = 0;
+      if(isset($_POST['limitation3'])) {
+        $limitation3 = 1;
+      } else $limitation3 = 0;
 
-    if(isset($_POST['limitation4'])) {
-      $limitation4 = 1;
-    } else $limitation4 = 0;
+      if(isset($_POST['limitation4'])) {
+        $limitation4 = 1;
+      } else $limitation4 = 0;
 
-    if(isset($_POST['limitation5'])) {
-      $limitation5 = 1;
-    } else $limitation5 = 5;
+      if(isset($_POST['limitation5'])) {
+        $limitation5 = 1;
+      } else $limitation5 = 5;
 
-    if(isset($_POST['limitation6'])) {
-      $limitation6 = 1;
-    } else $limitation6 = 0;
+      if(isset($_POST['limitation6'])) {
+        $limitation6 = 1;
+      } else $limitation6 = 0;
 
       try {
         # if everything is OK, register user
-        if ($username_result == 0 && $email_result == 0) {
+        if ($username_result == 0 && $email_result == 0 && $error_db == false) {
           $insert_users_table = "INSERT INTO users (username,email,active) VALUES ('$user','$email','1')";
           $dbh->exec($insert_users_table);
 
@@ -276,24 +276,26 @@
                     <h3 class="panel-title">Zdravotní omezení</h3>
                   </div>
                   <div id="limitations">
-                    <div class="checkbox">
-                      <label><input type="checkbox" name="limitation1" <?php if(isset($_POST['limitation1'])) echo 'checked="checked"'; ?>>Onemocnění žlučníku</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" name="limitation2" <?php if(isset($_POST['limitation2'])) echo 'checked="checked"'; ?>>Onemocnění jater</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" name="limitation3" <?php if(isset($_POST['limitation3'])) echo 'checked="checked"'; ?>>Alergie na pyl</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" name="limitation4" <?php if(isset($_POST['limitation4'])) echo 'checked="checked"'; ?>>Alergie na ořechy</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" name="limitation5" <?php if(isset($_POST['limitation5'])) echo 'checked="checked"'; ?>>Alergie na laktózu</label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" name="limitation6" <?php if(isset($_POST['limitation6'])) echo 'checked="checked"'; ?>>Celiakie</label>
-                    </div>
+                  <?php
+                    try {
+                      # check if email is already used
+                      $limitations_query = "SELECT * FROM limitations";
+                      $limitations = $dbh->query($limitations_query)->fetchAll();
+                      foreach($limitations as $limitation)
+                      {
+                        echo '<div class="checkbox">
+                        <label><input type="checkbox" name="';
+                        echo $limitation['limitation_id'];
+                        echo '">';
+                        echo $limitation['limitation_name'];
+                        echo '</label>
+                        </div>';
+                      }
+                    }
+                    catch (PDOException $exception)
+                    {
+                      $error_db = true;
+                    } ?>
                   </div>
                   <p></p>
                 </div> <!-- .panel-default -->
