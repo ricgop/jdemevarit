@@ -17,11 +17,6 @@
   if(count($_POST)>0) {
     $error_add = false;
 
-    $file = $_FILES['fileToUpload']["name"];
-    if(($file != "") && isset($file)) {
-      include 'upload.php';
-    }
-
     /* Get status of checkboxes */
     if(isset($_POST['limitation1'])) {
       $limitation1 = 1;
@@ -110,6 +105,12 @@
       $recipe_limitation = $_POST["recipeProcess"];
       $insert_limitations_table = "INSERT INTO recipe_limitations (recipe_id,limitation_1,limitation_2,limitation_3,limitation_4,limitation_5,limitation_6) VALUES ('$rec_id', '$limitation1', '$limitation2', '$limitation3', '$limitation4', '$limitation5', '$limitation6')";
       $dbh->exec($insert_limitations_table);
+
+      # file upload if present
+      $file = $_FILES['fileToUpload']["name"];
+      if(($file != "") && isset($file)) {
+      include 'upload.php';
+    }
     }
     catch (PDOException $exception)
     {

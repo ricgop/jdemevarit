@@ -1,0 +1,10 @@
+delete from user_limitations;
+delete from user_passwords;
+delete from user_phones;
+delete from recipe_name;
+delete from recipe_process;
+delete from recipe_content;
+delete from recipe_limitations;
+delete from limitations;
+delete from recipes;
+delete from users;

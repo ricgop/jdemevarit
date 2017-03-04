@@ -1,4 +1,4 @@
-"@fixture Registration";
+"@fixture 01_Registration";
 "@page http://127.0.0.1/jdemevarit/registrace.php";
 
 
@@ -68,4 +68,3 @@
         eq($("#login").length > 0, true);
     }
 };
-

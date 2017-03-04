@@ -2,6 +2,7 @@
 <?php
 $target_dir = "pics/";
 $rec_id = $_SESSION['$recid'];
+echo 'aaa' . $rec_id . 'aaa';
 $fileInfo = pathinfo($_FILES["fileToUpload"]["name"]);
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;

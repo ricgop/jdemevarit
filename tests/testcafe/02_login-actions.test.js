@@ -1,4 +1,4 @@
-"@fixture Login-actions";
+"@fixture 02_Login-actions";
 "@page http://localhost/jdemevarit/prihlaseni.php";
 
 "@test"["Add-new-recipe"] = {
