@@ -50,5 +50,7 @@ a.navbar-brand {padding-top: 0px;}
 
 /* info message styling */
 .info {font-style: italic;}
-
 .error {color: red; }
+
+/* reset page link styling*/
+#reset-page {margin: 15px;}

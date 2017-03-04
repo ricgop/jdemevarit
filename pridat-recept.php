@@ -259,8 +259,8 @@
                   <p></p>
                 </div> <!-- .panel-default -->
                 <div>
-
                   <button type="submit" class="btn btn-primary">Vytvořit</button>
+                  <a href="pridat-recept.php" id="reset-page"><u>Zrušit změny</u></a>
                 </div>
 
                 </form>
