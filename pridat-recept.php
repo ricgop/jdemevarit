@@ -119,8 +119,8 @@
 <html lang="cs">
 
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta charset="utf-8">
     <title>Přidat recept</title>
 
     <link rel="icon" type="image/png" href="images/favicon.png">
@@ -204,17 +204,17 @@
                   <div id="recipe-details">
                     <div class="<?php if(!isset($error_name)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                       <label for="name">Název receptu</label><span class="star"> *</span>
-                      <input class="form-control" rows="5" id="name" name="recipeName" type="text" placeholder="např. Bábovka" value="<?php if(isset($_POST['recipeName'])) echo $_POST['recipeName']; ?>">
+                      <input class="form-control" rows="5" id="name" name="recipeName" type="text" placeholder="např. Bábovka" value="<?php if(isset($_POST['recipeName'])) echo htmlspecialchars($_POST['recipeName']); ?>">
                       <div class="error"><?php if(isset($error_name)) echo $error_name; ?></div>
                     </div>
                     <div class="<?php if(!isset($error_content)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                       <label for="RContent">Seznam přísad</label><span class="star"> *</span>
-                      <textarea class="form-control" id="RContent" name="recipeContent" type="text" placeholder="např. 200ml Oleje, 500g Mouky,..."><?php if(isset($_POST['recipeContent'])) echo $_POST['recipeContent']; ?></textarea>
+                      <textarea class="form-control" id="RContent" name="recipeContent" type="text" placeholder="např. 200ml Oleje, 500g Mouky,..."><?php if(isset($_POST['recipeContent'])) echo htmlspecialchars($_POST['recipeContent']); ?></textarea>
                       <div class="error"><?php if(isset($error_content)) echo $error_content; ?></div>
                     </div>
                     <div class="<?php if(!isset($error_process)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                       <label for="process">Postup</label><span class="star"> *</span>
-                      <textarea class="form-control" rows="20" id="process" name="recipeProcess" type="text" placeholder="např. Smícháme a vaříme 5 minut"><?php if(isset($_POST['recipeProcess'])) echo $_POST['recipeProcess']; ?></textarea>
+                      <textarea class="form-control" rows="20" id="process" name="recipeProcess" type="text" placeholder="např. Smícháme a vaříme 5 minut"><?php if(isset($_POST['recipeProcess'])) echo htmlspecialchars($_POST['recipeProcess']); ?></textarea>
                       <div class="error"><?php if(isset($error_process)) echo $error_process; ?></div>
                     </div>
                     <span class="info">Pole označená </span><span class="star"> *</span><span class="info"> jsou povinná</span>

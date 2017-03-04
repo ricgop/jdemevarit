@@ -245,7 +245,7 @@
                       </div>
                       <div class="<?php if(!isset($error_name) && !isset($error_username_exists)) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-name">
                         <label for="name">Přezdívka</label><span class="star"> *</span>
-                        <input class="form-control" id="name" name="userName" type="text" placeholder="např. kuchar1" value="<?php if(isset($_POST['userName'])) echo $_POST['userName']; ?>">
+                        <input class="form-control" id="name" name="userName" type="text" placeholder="např. kuchar1" value="<?php if(isset($_POST['userName'])) echo htmlspecialchars($_POST['userName']); ?>">
                         <div class="error"><?php if(isset($error_name)) echo $error_name; ?></div>
                         <div class="error"><?php if(isset($error_username_exists)) echo $error_username_exists; ?></div>
                       </div>
