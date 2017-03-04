@@ -141,6 +141,7 @@
       function logOut() {
         $.get("odhlaseni.php");
       }
+
     </script>
 
     <link href="css/style.css" rel="stylesheet">
@@ -191,8 +192,10 @@
       <div id="content">
         <div id="newRecipe">
           <h1>Přidat recept</h1>
-          <?php if($success == true) {echo '<div class="alert alert-success" id="recipe-added"><strong>Recept</strong> byl úspěšně přidán!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/pridat-recept.php" );}?>
-          <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
+
+          <?php if($success == true && $picture_ok == true) {echo '<div class="alert alert-success" id="recipe-added"><strong>Recept</strong> byl úspěšně přidán!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/pridat-recept.php" );}?>
+          <?php if(isset($picture_error) && count($_POST)>0) {echo '<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' . $picture_error . '</div>';}?>
+          <?php if($error_db == true) {echo '<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
 
             <div id="recipe-container">
               <div class="col-xs-12 col-sm-12">
@@ -219,8 +222,8 @@
                     </div>
                     <span class="info">Pole označená </span><span class="star"> *</span><span class="info"> jsou povinná</span>
                     <p></p>
-                      <p>Nahrát fotografii:</p>
-                      <input type="file" name="fileToUpload" id="fileUpload">
+                    <p>Nahrát fotografii:</p>
+                    <input type="file" name="fileToUpload" id="fileUpload">
                     <p></p>
                   </div> <!-- #registration details -->
                 </div> <!-- .panel-default -->
