@@ -101,7 +101,11 @@ session_start();
                 #set-up db connection
                 $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
                 $insert_users_table = "SELECT * FROM recipe_thumbnails";
-                $result = $dbh->query($insert_users_table)->fetchAll();
+                $array = $dbh->query($insert_users_table);
+                if ($array->rowCount() == 0) {
+                  echo 'Nenalezen žádný recept... :-(';
+                } else {
+                $result = $array->fetchAll();
                 foreach($result as $row)
                 {
                   echo '<a href="pridat-recept.php">
@@ -117,6 +121,7 @@ session_start();
                       </div></a>
                     </div>
                   ';
+                  }
                 }
               }
               catch (PDOException $exception)
