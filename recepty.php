@@ -113,18 +113,24 @@ $paging = 2;
                 if(isset($_GET['page'])) {$page = $_GET['page'];} else {$page = 0;};
                 $offset = $paging * $page;
                 if ($page >= 0) {
+                # get list of recipe thumbnail details
                 $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
-
                 $array = $dbh->query($select_recipes);
+
+                # get number of recipes
+                $get_all_recipes = "SELECT recipe_id FROM recipes";
+                $all_array = $dbh->query($get_all_recipes);
+                $total_recipes = $all_array->rowCount();
+
                 if ($array->rowCount() == 0) {
                   echo 'Nenalezen žádný recept... :-(';
                   } else {
-                  $result = $array->fetchAll();
-                  foreach($result as $row)
-                  {
-                    echo '<a href="pridat-recept.php">
+                    $result = $array->fetchAll();
+                    foreach($result as $row)
+                    {
+                      echo '<a href="pridat-recept.php">
                       
-                          <div class="thumbnail">
+                            <div class="thumbnail">
                             <h3>';
                     echo      $row['recipe_name'];
                     echo      '</h3>';
@@ -159,8 +165,12 @@ $paging = 2;
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li><a href="#">1</a></li> 
-            <li><a href="#">2</a></li> 
+            <?php
+              # create pagination
+              for ($i=0; $i<$total_recipes/$paging; $i++) {
+                echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . $i . '">' . ($i+1) . '</a></li>';
+              }
+              ?>
             <li>
               <a href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
