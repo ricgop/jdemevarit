@@ -23,24 +23,24 @@
     } else $limitation1 = 1;
 
     if(isset($_POST['limitation2'])) {
-       $limitation1 = 0;
-    } else $limitation1 = 1;
+       $limitation2 = 0;
+    } else $limitation2 = 1;
 
     if(isset($_POST['limitation3'])) {
-      $limitation1 = 0;
-    } else $limitation1 = 1;
+      $limitation3 = 0;
+    } else $limitation3 = 1;
 
     if(isset($_POST['limitation4'])) {
-      $limitation1 = 0;
-    } else $limitation1 = 1;
+      $limitation4 = 0;
+    } else $limitation4 = 1;
 
     if(isset($_POST['limitation5'])) {
-      $limitation1 = 0;
-    } else $limitation1 = 1;
+      $limitation5 = 0;
+    } else $limitation5 = 1;
 
     if(isset($_POST['limitation6'])) {
-      $limitation1 = 0;
-    } else $limitation1 = 1;
+      $limitation6 = 0;
+    } else $limitation6 = 1;
       
     /* Empty recipeName Validation */
     if ($_POST["recipeName"] == "") {

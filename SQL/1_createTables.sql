@@ -88,6 +88,14 @@ create table recipe_process
 	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
 );
 
+create table recipe_photo
+(
+	recipe_id int NOT NULL AUTO_INCREMENT,
+	file_name varchar(3000),
+	PRIMARY KEY (recipe_id),
+	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
+);
+
 /*
 create table recipe_score
 (
