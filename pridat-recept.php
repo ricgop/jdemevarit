@@ -19,28 +19,28 @@
 
     /* Get status of checkboxes */
     if(isset($_POST['limitation1'])) {
-      $limitation1 = 1;
-    } else $limitation1 = 0;
+      $limitation1 = 0;
+    } else $limitation1 = 1;
 
     if(isset($_POST['limitation2'])) {
-      $limitation2 = 1;
-    } else $limitation2 = 0;
+       $limitation1 = 0;
+    } else $limitation1 = 1;
 
     if(isset($_POST['limitation3'])) {
-      $limitation3 = 1;
-    } else $limitation3 = 0;
+      $limitation1 = 0;
+    } else $limitation1 = 1;
 
     if(isset($_POST['limitation4'])) {
-      $limitation4 = 1;
-    } else $limitation4 = 0;
+      $limitation1 = 0;
+    } else $limitation1 = 1;
 
     if(isset($_POST['limitation5'])) {
-      $limitation5 = 1;
-    } else $limitation5 = 5;
+      $limitation1 = 0;
+    } else $limitation1 = 1;
 
     if(isset($_POST['limitation6'])) {
-      $limitation6 = 1;
-    } else $limitation6 = 0;  
+      $limitation1 = 0;
+    } else $limitation1 = 1;
       
     /* Empty recipeName Validation */
     if ($_POST["recipeName"] == "") {
@@ -235,7 +235,7 @@
                 </div> <!-- .panel-default -->
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    <h3 class="panel-title">Vhodnost receptu dle omezení</h3>
+                    <h3 class="panel-title">Recept je nevhodný pro osoby s omezením</h3>
                   </div>
                   <div id="limitations">
                     <div class="checkbox">

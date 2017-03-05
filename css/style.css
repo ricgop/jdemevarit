@@ -64,7 +64,7 @@ a.navbar-brand {padding-top: 0px;}
 .thumbnail {
   width: 300px;
   float: left;
-  margin: 0px 10px 0px 0px;
+  margin: 10px 10px 0px 0px;
 }
 
 /* highlight hovered recipe */
