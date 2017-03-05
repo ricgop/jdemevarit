@@ -127,7 +127,8 @@ session_start();
  
         </div> <!-- .recipes -->
       </div> <!-- .content -->
-      <div class="text-center">
+    </div> <!-- .container-fluid -->
+      <div class="text-center" id = "bottom-navigation">
         <nav aria-label="Page navigation">
           <ul class="pagination">
             <li>
@@ -145,7 +146,7 @@ session_start();
           </ul>
         </nav>
     </div>
-    </div> <!-- .container-fluid -->
+    
 
   </body>
 </html>
