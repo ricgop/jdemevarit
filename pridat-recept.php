@@ -110,7 +110,11 @@
       $file = $_FILES['fileToUpload']["name"];
       if(($file != "") && isset($file)) {
       include 'upload.php';
-    }
+      } else {
+        $insert_photo = "INSERT INTO recipe_photo (recipe_id, file_name) VALUES ('$rec_id', null)";
+        $dbh->exec($insert_photo);
+        $picture_ok = true;
+      }
     }
     catch (PDOException $exception)
     {

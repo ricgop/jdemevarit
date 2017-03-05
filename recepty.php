@@ -118,11 +118,13 @@ $error_db = false;
                         <div class="thumbnail">
                           <h3>';
                   echo      $row['recipe_name'];
-                  echo      '</h3>
-                            <img src="pics/';
-                  echo      $row['file_name'];
-                  echo      '" alt="food_photo" height="150px" width="150px" id="food_pic">
-                            <p>Od uživatele: <i>';
+                  echo      '</h3>';
+                  if ($row['file_name'] != null) {
+                    echo      '<img src="pics/';
+                    echo      $row['file_name'];
+                    echo      '" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
+                  } else echo '<img src="common/pics/no_picture_cz.png" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
+                  echo        '<p>Od uživatele: <i>';
                   echo      $row['username'];
                   echo  '</i></p>
                       </div></a>
