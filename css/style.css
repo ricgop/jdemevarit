@@ -17,6 +17,11 @@ a {
   color: black;
 }
 
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
 /* page main content styling */
 #content { padding: 0px 20px 20px 20px;}
 
@@ -52,5 +57,18 @@ a.navbar-brand {padding-top: 0px;}
 .info {font-style: italic;}
 .error {color: red; }
 
-/* reset page link styling*/
+/* reset page link styling */
 #reset-page {margin: 15px;}
+
+/* recipe thumbnail styling */
+.row {
+  width: 300px;
+  float: left;
+  margin: 0px 10px 0px 0px;
+}
+
+.row:hover {
+  transform: scale(1.05);
+}
+
+a.row

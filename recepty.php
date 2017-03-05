@@ -104,17 +104,17 @@ session_start();
                 $result = $dbh->query($insert_users_table)->fetchAll();
                 foreach($result as $row)
                 {
-                  echo '
+                  echo '<a href="pridat-recept.php">
                     <div class="row">
-                      <div class="col-xs-6 col-md3">
+                    
                         <div class="thumbnail">
                           <h3>';
                   echo      $row['recipe_name'];
                   echo      '</h3>
                             <p>Od uživatele: <i>';
                   echo      $row['username'];
-                  echo  '</i></p></div>
-                      </div>
+                  echo  '</i></p>
+                      </div></a>
                     </div>
                   ';
                 }
