@@ -1,6 +1,9 @@
 <?php 
 session_start();
+# see if there was a problem when working with db
 $error_db = false;
+# max. recipes shown on a single page
+$paging = 2;
 ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -105,32 +108,39 @@ $error_db = false;
               try {
                 #set-up db connection
                 $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
-                $insert_users_table = "SELECT * FROM recipe_thumbnails";
-                $array = $dbh->query($insert_users_table);
+
+                # variable to set page number if empty
+                if(isset($_GET['page'])) {$page = $_GET['page'];} else {$page = 0;};
+                $offset = $paging * $page;
+                if ($page >= 0) {
+                $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
+
+                $array = $dbh->query($select_recipes);
                 if ($array->rowCount() == 0) {
                   echo 'Nenalezen žádný recept... :-(';
-                } else {
-                $result = $array->fetchAll();
-                foreach($result as $row)
-                {
-                  echo '<a href="pridat-recept.php">
-                    
-                        <div class="thumbnail">
-                          <h3>';
-                  echo      $row['recipe_name'];
-                  echo      '</h3>';
-                  if ($row['file_name'] != null) {
-                    echo      '<img src="pics/';
-                    echo      $row['file_name'];
-                    echo      '" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
-                  } else echo '<img src="common/pics/no_picture_cz.png" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
-                  echo        '<p>Od uživatele: <i>';
-                  echo      $row['username'];
-                  echo  '</i></p>
-                      </div></a>
-                  ';
+                  } else {
+                  $result = $array->fetchAll();
+                  foreach($result as $row)
+                  {
+                    echo '<a href="pridat-recept.php">
+                      
+                          <div class="thumbnail">
+                            <h3>';
+                    echo      $row['recipe_name'];
+                    echo      '</h3>';
+                    if ($row['file_name'] != null) {
+                      echo      '<img src="pics/';
+                      echo      $row['file_name'];
+                      echo      '" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
+                    } else echo '<img src="common/pics/no_picture_cz.png" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
+                    echo        '<p>Od uživatele: <i>';
+                    echo      $row['username'];
+                    echo  '</i></p>
+                        </div></a>
+                    ';
+                    }
                   }
-                }
+                } else {echo 'Bohužel nastala chyba...';}
               }
               catch (PDOException $exception)
               {

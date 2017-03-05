@@ -70,8 +70,8 @@ a.navbar-brand {padding-top: 0px;}
 
 /* highlight hovered recipe */
 .thumbnail:hover {
-  /*transform: scale(1.05);
-  box-shadow: 5px 5px 2px grey; */
+  transform: scale(1.02);
+  /*box-shadow: 5px 5px 2px grey; */
   border-color: gray;
 }
 
@@ -81,5 +81,8 @@ a.navbar-brand {padding-top: 0px;}
 
 /* food picture styling */
 #food_pic {
-  margin-bottom:15px;
+  margin-bottom: 15px;
 }
+
+/* page navigation style */
+#bottom-navigation {margin-top: 10px;}
