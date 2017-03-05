@@ -119,6 +119,9 @@ $error_db = false;
                           <h3>';
                   echo      $row['recipe_name'];
                   echo      '</h3>
+                            <img src="pics/';
+                  echo      $row['file_name'];
+                  echo      '" alt="food_photo" height="150px" width="150px" id="food_pic">
                             <p>Od uživatele: <i>';
                   echo      $row['username'];
                   echo  '</i></p>

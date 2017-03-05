@@ -63,6 +63,7 @@ a.navbar-brand {padding-top: 0px;}
 /* recipe thumbnail styling */
 .thumbnail {
   width: 300px;
+  height:250px;
   float: left;
   margin: 10px 10px 0px 0px;
 }
@@ -76,4 +77,9 @@ a.navbar-brand {padding-top: 0px;}
 
 #limitation-button {
   margin: 10px 0px 0px 40px;
+}
+
+/* food picture styling */
+#food_pic {
+  margin-bottom:15px;
 }
