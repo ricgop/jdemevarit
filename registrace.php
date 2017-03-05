@@ -276,7 +276,6 @@
                     <h3 class="panel-title">Zdravotní omezení</h3>
                   </div>
                   <div id="limitations">
-                  <div id="limitations">
                     <div class="checkbox">
                       <label><input type="checkbox" name="limitation1" <?php if(isset($_POST['limitation1'])) echo 'checked="checked"'; ?>>Onemocnění žlučníku</label>
                     </div>
@@ -295,7 +294,6 @@
                     <div class="checkbox">
                       <label><input type="checkbox" name="limitation6" <?php if(isset($_POST['limitation6'])) echo 'checked="checked"'; ?>>Celiakie</label>
                     </div>
-                  </div>
                   </div>
                   <p></p>
                 </div> <!-- .panel-default -->

@@ -61,13 +61,19 @@ a.navbar-brand {padding-top: 0px;}
 #reset-page {margin: 15px;}
 
 /* recipe thumbnail styling */
-.row {
+.thumbnail {
   width: 300px;
   float: left;
   margin: 0px 10px 0px 0px;
 }
 
-.row:hover {
-  transform: scale(1.05);
+/* highlight hovered recipe */
+.thumbnail:hover {
+  /*transform: scale(1.05);
+  box-shadow: 5px 5px 2px grey; */
+  border-color: gray;
 }
 
+#limitation-button {
+  margin: 10px 0px 0px 40px;
+}

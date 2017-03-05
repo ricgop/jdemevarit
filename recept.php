@@ -60,24 +60,23 @@ $error_db = false;
           </ul> <!-- .nav navbar-nav -->
             
             <!-- search bar -->
-            <form class="navbar-form navbar-left" method="post">
+            <form class="navbar-form navbar-left">
             <ul class="nav navbar-nav">
               <li class="dropdown">
                 <button type="button" class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filter">Zdravotní omezení <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><label><input type="checkbox" name="limitation1" <?php if(isset($_POST['limitation1'])) echo 'checked="checked"'; ?>> Onemocnění žlučníku</label></li>
-                  <li><label><input type="checkbox" name="limitation2" <?php if(isset($_POST['limitation2'])) echo 'checked="checked"'; ?>> Onemocnění jater</label></li>
-                  <li><label><input type="checkbox" name="limitation3" <?php if(isset($_POST['limitation3'])) echo 'checked="checked"'; ?>> Alergie na pyl</label></li>
-                  <li><label><input type="checkbox" name="limitation4" <?php if(isset($_POST['limitation4'])) echo 'checked="checked"'; ?>> Alergie na ořechy</label></li>
-                  <li><label><input type="checkbox" name="limitation5" <?php if(isset($_POST['limitation5'])) echo 'checked="checked"'; ?>> Alergie na laktózu</label></li>
-                  <li><label><input type="checkbox" name="limitation6" <?php if(isset($_POST['limitation6'])) echo 'checked="checked"'; ?>> Celiakie</label></li>
-                  <button type="submit" class="btn btn-primary" id="limitation-button">Filtrovat</button>
+                  <li><label><input type="checkbox"> Onemocnění žlučníku</label></li>
+                  <li><label><input type="checkbox"> Onemocnění jater</label></li>
+                  <li><label><input type="checkbox"> Alergie na pyl</label></li>
+                  <li><label><input type="checkbox"> Alergie na ořechy</label></li>
+                  <li><label><input type="checkbox"> Alergie na laktózu</label></li>
+                  <li><label><input type="checkbox"> Celiakie</label></li>
                 </ul> <!-- .dropdown menu -->
               </li> <!-- .dropdown -->
             </ul> <!-- .nav navbar-nav -->
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Hledat recept" name="find" value="<?php if(isset($_POST['find'])) echo $_POST['find']; ?>">
+              <input type="text" class="form-control" placeholder="Hledat recept">
             </div>
             <button type="submit" class="btn btn-default">Hledej</button>
           </form>
@@ -114,6 +113,7 @@ $error_db = false;
                 foreach($result as $row)
                 {
                   echo '<a href="pridat-recept.php">
+                    <div class="row">
                     
                         <div class="thumbnail">
                           <h3>';
@@ -123,6 +123,7 @@ $error_db = false;
                   echo      $row['username'];
                   echo  '</i></p>
                       </div></a>
+                    </div>
                   ';
                   }
                 }
@@ -155,5 +156,6 @@ $error_db = false;
         </nav>
     </div>
     
+
   </body>
 </html>
