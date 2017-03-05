@@ -87,3 +87,13 @@ create table recipe_process
 	PRIMARY KEY (recipe_id),
 	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
 );
+
+/*
+create table recipe_score
+(
+	recipe_id int NOT NULL AUTO_INCREMENT,
+	votes
+	score int,
+	PRIMARY KEY (recipe_id),
+	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
+);*/
