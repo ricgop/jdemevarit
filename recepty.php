@@ -1,5 +1,6 @@
 <?php 
 session_start();
+$error_db = false;
 ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -94,6 +95,9 @@ session_start();
       <div id="content">
         <div id="recipes">
           <h1>Recepty</h1>
+
+          <!-- error message if there are problems with db -->
+          <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - zkuste prosím přijít později...</div>';}?>
 
           <!-- draw recipe thumbnails -->
           <?php
