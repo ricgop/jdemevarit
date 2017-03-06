@@ -306,6 +306,7 @@
                     <div class="checkbox">
                       <label><input type="checkbox" name="limitation6" <?php if(isset($_POST['limitation6'])) echo 'checked="checked"'; ?>>Celiakie</label>
                     </div>
+                    <p><b>Toto nastavení</b> Vám automaticky aktivuje filtr na stránkách s recepty (je potřeba se přihlásit).</p>
                   </div>
                   <p></p>
                 </div> <!-- .panel-default -->

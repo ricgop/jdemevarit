@@ -32,7 +32,7 @@
             if (isset($_POST['limitation6'])) {
         $_SESSION['limitation6'] = 1;
       } else $_SESSION['limitation6'] = 0;
-
+    
     }
   }
 ?>
@@ -100,12 +100,12 @@
                 <button type="button" class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filter">Zdravotní omezení <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><label><input type="checkbox" name="limitation1" <?php if($_SESSION['limitation1'] == 1) echo 'checked="checked"'; ?>> Onemocnění žlučníku</label></li>
-                  <li><label><input type="checkbox" name="limitation2" <?php if($_SESSION['limitation2'] == 1) echo 'checked="checked"'; ?>> Onemocnění jater</label></li>
-                  <li><label><input type="checkbox" name="limitation3" <?php if($_SESSION['limitation3'] == 1) echo 'checked="checked"'; ?>> Alergie na pyl</label></li>
-                  <li><label><input type="checkbox" name="limitation4" <?php if($_SESSION['limitation4'] == 1) echo 'checked="checked"'; ?>> Alergie na ořechy</label></li>
-                  <li><label><input type="checkbox" name="limitation5" <?php if($_SESSION['limitation5'] == 1) echo 'checked="checked"'; ?>> Alergie na laktózu</label></li>
-                  <li><label><input type="checkbox" name="limitation6" <?php if($_SESSION['limitation6'] == 1) echo 'checked="checked"'; ?>> Celiakie</label></li>
+                  <li><label><input type="checkbox" name="limitation1" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation1'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation1'])) echo 'checked="checked"';} ?>> Onemocnění žlučníku</label></li>
+                  <li><label><input type="checkbox" name="limitation2" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation2'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation2'])) echo 'checked="checked"';} ?>> Onemocnění jater</label></li>
+                  <li><label><input type="checkbox" name="limitation3" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation3'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation3'])) echo 'checked="checked"';} ?>> Alergie na pyl</label></li>
+                  <li><label><input type="checkbox" name="limitation4" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation4'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation4'])) echo 'checked="checked"';} ?>> Alergie na ořechy</label></li>
+                  <li><label><input type="checkbox" name="limitation5" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation5'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation5'])) echo 'checked="checked"';} ?>> Alergie na laktózu</label></li>
+                  <li><label><input type="checkbox" name="limitation5" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation5'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation5'])) echo 'checked="checked"';} ?>> Celiakie</label></li>
                   <button type="submit" class="btn btn-primary" id="limitation-button">Filtrovat</button>
                 </ul> <!-- .dropdown menu -->
               </li> <!-- .dropdown -->
