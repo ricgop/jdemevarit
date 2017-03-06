@@ -72,7 +72,8 @@ a.navbar-brand {padding-top: 0px;}
 .thumbnail:hover {
   transform: scale(1.02);
   /*box-shadow: 5px 5px 2px grey; */
-  border-color: gray;
+  /*border-color: gray;*/
+  box-shadow: 0px 2px 25px -10px grey;
 }
 
 #limitation-button {

@@ -112,13 +112,17 @@
     }
   }
 
-    echo '<br><br><br>';
-    echo $limitation1 . ',';
-    echo $limitation2 . ',';
-    echo $limitation3 . ',';
-    echo $limitation4 . ',';
-    echo $limitation5 . ',';
-    echo $limitation6 . ',';
+  if ($limitation1 == 1 || $limitation2 == 1 || $limitation3 == 1 || $limitation4 == 1 || $limitation5 == 1 || $limitation6 == 1) {
+    echo '<br><br> filtruju zaznamy';
+    $limitation_count = 0;
+    if ($limitation1 == 1) ++$limitation_count;
+    if ($limitation2 == 1) ++$limitation_count;
+    if ($limitation3 == 1) ++$limitation_count;
+    if ($limitation4 == 1) ++$limitation_count;
+    if ($limitation5 == 1) ++$limitation_count;
+    if ($limitation6 == 1) ++$limitation_count;
+  }
+  echo ' - celkem ' . $limitation_count;
 
 ?>
 <!DOCTYPE html>
