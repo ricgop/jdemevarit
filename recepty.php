@@ -5,36 +5,121 @@
   # max. recipes shown on a single page
   $paging = 2;
 
+  # initial filter settings
+  if(count($_POST)==0) {
+    if (!isset($_SESSION['login_username'])) {
+      $limitation1 = 0;
+      $limitation2 = 0;
+      $limitation3 = 0;
+      $limitation4 = 0;
+      $limitation5 = 0;
+      $limitation6 = 0;
+    } else {
+    # if user is logged in
+      $limitation1 = $_SESSION['limitation1'];
+      $limitation2 = $_SESSION['limitation2'];
+      $limitation3 = $_SESSION['limitation3'];
+      $limitation4 = $_SESSION['limitation4'];
+      $limitation5 = $_SESSION['limitation5'];
+      $limitation6 = $_SESSION['limitation6'];
+    }
+  }
+
   # change filter settings - if user changed them
   if(count($_POST)>0) {
 
     if (isset($_SESSION['login_username'])) {
       if (isset($_POST['limitation1'])) {
         $_SESSION['limitation1'] = 1;
-      } else $_SESSION['limitation1'] = 0;
+        $limitation1 = 1;
+      } else {
+        $_SESSION['limitation1'] = 0;
+        $limitation1 = 0;
+      }
 
       if (isset($_POST['limitation2'])) {
         $_SESSION['limitation2'] = 1;
-      } else $_SESSION['limitation2'] = 0;
+        $limitation2 = 1;
+      } else {
+        $_SESSION['limitation2'] = 0;
+        $limitation2 = 0;
+      }
 
-            if (isset($_POST['limitation3'])) {
+      if (isset($_POST['limitation3'])) {
         $_SESSION['limitation3'] = 1;
-      } else $_SESSION['limitation3'] = 0;
+        $limitation3 = 1;
+      } else {
+        $_SESSION['limitation3'] = 0;
+        $limitation3 = 0;
+      }
 
-            if (isset($_POST['limitation4'])) {
+      if (isset($_POST['limitation4'])) {
         $_SESSION['limitation4'] = 1;
-      } else $_SESSION['limitation4'] = 0;
+        $limitation4 = 1;
+      } else {
+        $_SESSION['limitation4'] = 0;
+        $limitation4 = 0;
+      }
 
-            if (isset($_POST['limitation5'])) {
+      if (isset($_POST['limitation5'])) {
         $_SESSION['limitation5'] = 1;
-      } else $_SESSION['limitation5'] = 0;
+        $limitation5 = 1;
+      } else {
+        $_SESSION['limitation5'] = 0;
+        $limitation5 = 0;
+      }
 
-            if (isset($_POST['limitation6'])) {
+      if (isset($_POST['limitation6'])) {
         $_SESSION['limitation6'] = 1;
-      } else $_SESSION['limitation6'] = 0;
+        $limitation6 = 1;
+      } else {
+        $_SESSION['limitation6'] = 0;
+        $limitation6 = 0;
+      }
     
+      } else {
+      # if non-logged in user submitted one of the forms
+      if (isset($_POST['limitation1'])) {
+        $limitation1 = 1;
+      } else {
+        $limitation1 = 0;
+      }
+      if (isset($_POST['limitation2'])) {
+        $limitation2 = 1;
+      } else {
+        $limitation2 = 0;
+      }
+      if (isset($_POST['limitation3'])) {
+        $limitation3 = 1;
+      } else {
+        $limitation3 = 0;
+      }
+      if (isset($_POST['limitation4'])) {
+        $limitation4 = 1;
+      } else {
+        $limitation4 = 0;
+      }
+      if (isset($_POST['limitation5'])) {
+        $limitation5 = 1;
+      } else {
+        $limitation5 = 0;
+      }
+      if (isset($_POST['limitation6'])) {
+        $limitation6 = 1;
+      } else {
+        $limitation6 = 0;
+      }
     }
   }
+
+    echo '<br><br><br>';
+    echo $limitation1 . ',';
+    echo $limitation2 . ',';
+    echo $limitation3 . ',';
+    echo $limitation4 . ',';
+    echo $limitation5 . ',';
+    echo $limitation6 . ',';
+
 ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -105,7 +190,7 @@
                   <li><label><input type="checkbox" name="limitation3" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation3'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation3'])) echo 'checked="checked"';} ?>> Alergie na pyl</label></li>
                   <li><label><input type="checkbox" name="limitation4" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation4'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation4'])) echo 'checked="checked"';} ?>> Alergie na ořechy</label></li>
                   <li><label><input type="checkbox" name="limitation5" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation5'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation5'])) echo 'checked="checked"';} ?>> Alergie na laktózu</label></li>
-                  <li><label><input type="checkbox" name="limitation5" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation5'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation5'])) echo 'checked="checked"';} ?>> Celiakie</label></li>
+                  <li><label><input type="checkbox" name="limitation6" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation6'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation6'])) echo 'checked="checked"';} ?>> Celiakie</label></li>
                   <button type="submit" class="btn btn-primary" id="limitation-button">Filtrovat</button>
                 </ul> <!-- .dropdown menu -->
               </li> <!-- .dropdown -->
