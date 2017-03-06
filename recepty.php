@@ -101,7 +101,7 @@ $paging = 2;
           <h1>Recepty</h1>
 
           <!-- error message if there are problems with db -->
-          <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - zkuste prosím přijít později...</div>';}?>
+          <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - zkuste se prosím vrátit později...</div>';}?>
 
           <!-- draw recipe thumbnails -->
           <?php
@@ -110,9 +110,9 @@ $paging = 2;
                 $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
 
                 # variable to set page number if empty
-                if(isset($_GET['page'])) {$page = $_GET['page'];} else {$page = 0;};
-                $offset = $paging * $page;
-                if ($page >= 0) {
+                if(isset($_GET['page'])) {$page = $_GET['page'];} else {$page = 1;};
+                $offset = $paging * ($page - 1);
+                if ($page >= 1) {
                 # get list of recipe thumbnail details
                 $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
                 $array = $dbh->query($select_recipes);
@@ -122,6 +122,7 @@ $paging = 2;
                 $all_array = $dbh->query($get_all_recipes);
                 $total_recipes = $all_array->rowCount();
 
+                # create recipe bricks
                 if ($array->rowCount() == 0) {
                   echo 'Nenalezen žádný recept... :-(';
                   } else {
@@ -161,18 +162,25 @@ $paging = 2;
         <nav aria-label="Page navigation">
           <ul class="pagination">
             <li>
-              <a href="#" aria-label="Previous">
+              <a href="<?php if ($page>1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page - 1);}?>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
             <?php
               # create pagination
-              for ($i=0; $i<$total_recipes/$paging; $i++) {
-                echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . $i . '">' . ($i+1) . '</a></li>';
+              if(isset($total_recipes)) {
+                for ($i=1; $i<($total_recipes/$paging + 1); $i++) {
+                  # highlight active page
+                  if($page != ($i)) {
+                    echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                  } else {
+                    echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '"><b><u>' . $i . '</u></b></a></li>';
+                  }
+                }
               }
               ?>
             <li>
-              <a href="#" aria-label="Next">
+              <a href="<?php if ($page>1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}?>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
