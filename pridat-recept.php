@@ -19,8 +19,8 @@
 
     /* Get status of checkboxes */
     if(isset($_POST['limitation1'])) {
-      $limitation1 = 0;
-    } else $limitation1 = 1;
+      $_SESSION['limitation1'] = 1;
+    } else $_SESSION['limitation1'];
 
     if(isset($_POST['limitation2'])) {
        $limitation2 = 0;

@@ -29,7 +29,7 @@ $paging = 2;
 
     <script type="text/JavaScript">
       function logOut() {
-        $.get("odhlaseni.php");
+        $.get("common/logout.php");
       }
     </script>
 

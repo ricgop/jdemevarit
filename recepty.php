@@ -1,10 +1,40 @@
 <?php 
-session_start();
-# see if there was a problem when working with db
-$error_db = false;
-# max. recipes shown on a single page
-$paging = 2;
+  session_start();
+  # see if there was a problem when working with db
+  $error_db = false;
+  # max. recipes shown on a single page
+  $paging = 2;
 
+  # change filter settings - if user changed them
+  if(count($_POST)>0) {
+
+    if (isset($_SESSION['login_username'])) {
+      if (isset($_POST['limitation1'])) {
+        $_SESSION['limitation1'] = 1;
+      } else $_SESSION['limitation1'] = 0;
+
+      if (isset($_POST['limitation2'])) {
+        $_SESSION['limitation2'] = 1;
+      } else $_SESSION['limitation2'] = 0;
+
+            if (isset($_POST['limitation3'])) {
+        $_SESSION['limitation3'] = 1;
+      } else $_SESSION['limitation3'] = 0;
+
+            if (isset($_POST['limitation4'])) {
+        $_SESSION['limitation4'] = 1;
+      } else $_SESSION['limitation4'] = 0;
+
+            if (isset($_POST['limitation5'])) {
+        $_SESSION['limitation5'] = 1;
+      } else $_SESSION['limitation5'] = 0;
+
+            if (isset($_POST['limitation6'])) {
+        $_SESSION['limitation6'] = 1;
+      } else $_SESSION['limitation6'] = 0;
+
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -30,7 +60,7 @@ $paging = 2;
 
     <script type="text/JavaScript">
       function logOut() {
-        $.get("odhlaseni.php");
+        $.get("common/logout.php");
       }
     </script>
 
@@ -70,12 +100,12 @@ $paging = 2;
                 <button type="button" class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filter">Zdravotní omezení <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><label><input type="checkbox" name="limitation1" <?php if(isset($_POST['limitation1'])) echo 'checked="checked"'; ?>> Onemocnění žlučníku</label></li>
-                  <li><label><input type="checkbox" name="limitation2" <?php if(isset($_POST['limitation2'])) echo 'checked="checked"'; ?>> Onemocnění jater</label></li>
-                  <li><label><input type="checkbox" name="limitation3" <?php if(isset($_POST['limitation3'])) echo 'checked="checked"'; ?>> Alergie na pyl</label></li>
-                  <li><label><input type="checkbox" name="limitation4" <?php if(isset($_POST['limitation4'])) echo 'checked="checked"'; ?>> Alergie na ořechy</label></li>
-                  <li><label><input type="checkbox" name="limitation5" <?php if(isset($_POST['limitation5'])) echo 'checked="checked"'; ?>> Alergie na laktózu</label></li>
-                  <li><label><input type="checkbox" name="limitation6" <?php if(isset($_POST['limitation6'])) echo 'checked="checked"'; ?>> Celiakie</label></li>
+                  <li><label><input type="checkbox" name="limitation1" <?php if($_SESSION['limitation1'] == 1) echo 'checked="checked"'; ?>> Onemocnění žlučníku</label></li>
+                  <li><label><input type="checkbox" name="limitation2" <?php if($_SESSION['limitation2'] == 1) echo 'checked="checked"'; ?>> Onemocnění jater</label></li>
+                  <li><label><input type="checkbox" name="limitation3" <?php if($_SESSION['limitation3'] == 1) echo 'checked="checked"'; ?>> Alergie na pyl</label></li>
+                  <li><label><input type="checkbox" name="limitation4" <?php if($_SESSION['limitation4'] == 1) echo 'checked="checked"'; ?>> Alergie na ořechy</label></li>
+                  <li><label><input type="checkbox" name="limitation5" <?php if($_SESSION['limitation5'] == 1) echo 'checked="checked"'; ?>> Alergie na laktózu</label></li>
+                  <li><label><input type="checkbox" name="limitation6" <?php if($_SESSION['limitation6'] == 1) echo 'checked="checked"'; ?>> Celiakie</label></li>
                   <button type="submit" class="btn btn-primary" id="limitation-button">Filtrovat</button>
                 </ul> <!-- .dropdown menu -->
               </li> <!-- .dropdown -->
@@ -133,7 +163,7 @@ $paging = 2;
                       echo '<a href="pridat-recept.php">
                       
                             <div class="thumbnail">
-                            <div style="height: 50px";>
+                            <div style="height: 50px">
                               <h3>';
                     echo        $row['recipe_name'];
                     echo      '</h3>

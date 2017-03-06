@@ -156,7 +156,16 @@
           $dbh->exec($insert_limitations_table);
           $success = true;
           session_start();
-          $_SESSION['login_username'] = $user; // session initialization with value of PHP variable
+          # set username
+          $_SESSION['login_username'] = $user;
+          # set user's initial limitations
+          $_SESSION['limitation1'] = $limitation1;
+          $_SESSION['limitation2'] = $limitation2;
+          $_SESSION['limitation3'] = $limitation3;
+          $_SESSION['limitation4'] = $limitation4;
+          $_SESSION['limitation5'] = $limitation5;
+          $_SESSION['limitation6'] = $limitation6;
+
         } else {
           $error_db = true;
         }
@@ -228,8 +237,6 @@
           <h1>Registrace</h1>
           <?php if($success == true) {
             echo '<div class="alert alert-success" id="login"><strong>Registrace</strong> proběhla úspěšně!</div>';
-            # set user's initial limitations
-            echo '***' . $limitation1 . '***' . $limitation2;
             header( "refresh:3;url=http://localhost/jdemevarit/recepty.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
 

@@ -95,6 +95,21 @@
       session_start();
       $_SESSION['login_username'] = $nickname; // session initialization with value of PHP variables
       $_SESSION['login_email'] = $email;
+      try {
+        $limitations_query = "SELECT * FROM user_limitations WHERE email='$email'";
+        $limitations = $dbh->query($limitations_query)->fetchAll();
+        $_SESSION['limitation1'] = $limitations[0]['limitation_1'];
+        $_SESSION['limitation2'] = $limitations[0]['limitation_2'];
+        $_SESSION['limitation3'] = $limitations[0]['limitation_3'];
+        $_SESSION['limitation4'] = $limitations[0]['limitation_4'];
+        $_SESSION['limitation5'] = $limitations[0]['limitation_5'];
+        $_SESSION['limitation6'] = $limitations[0]['limitation_6'];
+      }
+      catch (PDOException $exception)
+      {
+        $error_db = true;
+      }
+
       $success = true;
     }
   }
