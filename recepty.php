@@ -4,6 +4,7 @@ session_start();
 $error_db = false;
 # max. recipes shown on a single page
 $paging = 2;
+
 ?>
 <!DOCTYPE html>
 <html lang="cs">

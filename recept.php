@@ -1,6 +1,9 @@
 <?php 
 session_start();
+# see if there was a problem when working with db
 $error_db = false;
+# max. recipes shown on a single page
+$paging = 2;
 ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -98,39 +101,55 @@ $error_db = false;
           <h1>Recepty</h1>
 
           <!-- error message if there are problems with db -->
-          <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - zkuste prosím přijít později...</div>';}?>
+          <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - zkuste se prosím vrátit později...</div>';}?>
 
           <!-- draw recipe thumbnails -->
           <?php
               try {
                 #set-up db connection
                 $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
-                $insert_users_table = "SELECT * FROM recipe_thumbnails";
-                $array = $dbh->query($insert_users_table);
+
+                # variable to set page number if empty
+                if(isset($_GET['page'])) {$page = $_GET['page'];} else {$page = 1;};
+                $offset = $paging * ($page - 1);
+                if ($page >= 1) {
+                # get list of recipe thumbnail details
+                $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
+                $array = $dbh->query($select_recipes);
+
+                # get number of recipes
+                $get_all_recipes = "SELECT recipe_id FROM recipes";
+                $all_array = $dbh->query($get_all_recipes);
+                $total_recipes = $all_array->rowCount();
+
+                # create recipe bricks
                 if ($array->rowCount() == 0) {
                   echo 'Nenalezen žádný recept... :-(';
-                } else {
-                $result = $array->fetchAll();
-                foreach($result as $row)
-                {
-                  echo '<a href="pridat-recept.php">
-                    
-                        <div class="thumbnail">
-                          <h3>';
-                  echo      $row['recipe_name'];
-                  echo      '</h3>';
-                  if ($row['file_name'] != null) {
-                    echo      '<img src="pics/';
-                    echo      $row['file_name'];
-                    echo      '" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
-                  } else echo '<img src="common/pics/no_picture_cz.png" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
-                  echo        '<p>Od uživatele: <i>';
-                  echo      $row['username'];
-                  echo  '</i></p>
-                      </div></a>
-                  ';
+                  } else {
+                    $result = $array->fetchAll();
+                    foreach($result as $row)
+                    {
+                      echo '<a href="pridat-recept.php">
+                      
+                            <div class="thumbnail">
+                            <div style="height: 50px";>
+                              <h3>';
+                    echo        $row['recipe_name'];
+                    echo      '</h3>
+                            </div>';                           
+                    if ($row['file_name'] != null) {
+                      echo      '<img src="pics/';
+                      echo      $row['file_name'];
+                      echo      '" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
+                    } else echo '<img src="common/pics/no_picture_cz.png" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
+                    echo        '<p>Od uživatele: <i>';
+                    echo      $row['username'];
+                    echo  '</i></p>
+                        </div></a>
+                    ';
+                    }
                   }
-                }
+                } else {echo 'Bohužel nastala chyba...';}
               }
               catch (PDOException $exception)
               {
@@ -145,14 +164,25 @@ $error_db = false;
         <nav aria-label="Page navigation">
           <ul class="pagination">
             <li>
-              <a href="#" aria-label="Previous">
+              <a href="<?php if ($page>1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page - 1);}?>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li><a href="#">1</a></li> 
-            <li><a href="#">2</a></li> 
+            <?php
+              # create pagination
+              if(isset($total_recipes)) {
+                for ($i=1; $i<($total_recipes/$paging + 1); $i++) {
+                  # highlight active page
+                  if($page != ($i)) {
+                    echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                  } else {
+                    echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                  }
+                }
+              }
+              ?>
             <li>
-              <a href="#" aria-label="Next">
+              <a href="<?php if ($page < ($total_recipes/$paging)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}?>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
