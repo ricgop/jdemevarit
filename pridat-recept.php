@@ -19,8 +19,8 @@
 
     /* Get status of checkboxes */
     if(isset($_POST['limitation1'])) {
-      $_SESSION['limitation1'] = 1;
-    } else $_SESSION['limitation1'];
+      $limitation1 = 0;
+    } else $limitation = 1;
 
     if(isset($_POST['limitation2'])) {
        $limitation2 = 0;
@@ -239,7 +239,7 @@
                 </div> <!-- .panel-default -->
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    <h3 class="panel-title">Recept je nevhodný pro osoby s omezením</h3>
+                    <h3 class="panel-title">Recept je <b>nevhodný</b> pro osoby s omezením</h3>
                   </div>
                   <div id="limitations">
                     <div class="checkbox">

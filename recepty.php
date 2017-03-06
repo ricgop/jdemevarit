@@ -270,7 +270,8 @@
                     $result = $array->fetchAll();
                     foreach($result as $row)
                     {
-                      echo '<a href="pridat-recept.php">
+                      echo '<a href="recept.php?recipeID=' . $row['recipe_id'];
+                      echo'">
                       
                             <div class="thumbnail">
                             <div style="height: 50px">

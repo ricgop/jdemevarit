@@ -84,6 +84,9 @@ a.navbar-brand {padding-top: 0px;}
   margin-bottom: 15px;
 }
 
-/* page navigation style */
+/* page navigation styling */
 #bottom-navigation {margin-top: 10px;}
 #active_page {background-color: #fab700;}
+
+/* recipe detail page styling */
+.label {margin: 2px;}
