@@ -22,6 +22,8 @@
 	  $limitation4 = $recipe_details[0]['limitation_4'];
 	  $limitation5 = $recipe_details[0]['limitation_5'];
 	  $limitation6 = $recipe_details[0]['limitation_6'];
+	  $recipe_content = $recipe_details[0]['recipe_content'];
+	  $recipe_process = $recipe_details[0]['recipe_process'];
 
   # if recipeID isn't set - throw error
   } else $error_db = true;
@@ -111,7 +113,7 @@
 
     <div class="container-fluid">
       <div id="content">
-        <div id="recipes">
+        <div id="recipe">
         	<!-- error message if there are problems with db -->
         	<?php if($error_db == true) {echo '<br><div class="alert alert-danger"><strong>Nastala chyba</strong> - zkuste se prosím vrátit později...</div>';}
 
@@ -128,14 +130,21 @@
 
                     # recipe limitations
                     if ($limitation1 == 1 && $limitation2 == 1 && $limitation3 == 1 && $limitation4 == 1 && $limitation5 == 1 && $limitation6 == 1) {
-	                    echo '<p>Vhodné pro:</p>';
+	                    echo '<div id="limitations"><p><i>Vhodné pro:</i></p>';
 	                    if ($limitation1 == 1) echo '<span class="label label-success">Onemocnění žlučníku</span>';
 	                    if ($limitation2 == 1) echo '<span class="label label-success">Onemocnění jater</span>';
 	                    if ($limitation3 == 1) echo '<span class="label label-success">Alergie na pyl</span>';
 	                    if ($limitation4 == 1) echo '<span class="label label-success">Alergie na ořechy</span>';
 	                    if ($limitation5 == 1) echo '<span class="label label-success">Alergie na laktózu</span>';
 	                    if ($limitation6 == 1) echo '<span class="label label-success">Celiakie</span>';
-                	} else echo '<p>Tento recept není vhodný pro osoby se zdravotním omezenim.</p>';
+	                    echo '</div>';
+                	} else echo '<div id="limitations"><p><i>Tento recept není vhodný pro osoby se zdravotním omezenim.</i></p></div>';
+
+                	# recipe content
+                	echo '<div class="panel panel-default"><div id="recipe-content"> <p><h3>Seznam ingrediencí</h3>' . $recipe_content . '</p></div></div>';
+
+                	# recipe content
+                	echo '<div id="recipe-content"> <p><h3>Postup</h3>' . $recipe_process . '</p></div>';
 	        	}
 
  			?>
