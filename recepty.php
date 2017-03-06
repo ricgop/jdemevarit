@@ -183,7 +183,7 @@
           </ul> <!-- .nav navbar-nav -->
             
             <!-- search bar -->
-            <form class="navbar-form navbar-left" method="post">
+            <form class="navbar-form navbar-left" method="post" action="http://localhost/jdemevarit/recepty.php?page=1">
             <ul class="nav navbar-nav">
               <li class="dropdown">
                 <button type="button" class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filter">Zdravotní omezení <span class="caret"></span>
