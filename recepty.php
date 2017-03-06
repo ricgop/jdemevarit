@@ -132,9 +132,11 @@ $paging = 2;
                       echo '<a href="pridat-recept.php">
                       
                             <div class="thumbnail">
-                            <h3>';
-                    echo      $row['recipe_name'];
-                    echo      '</h3>';
+                            <div style="height: 50px";>
+                              <h3>';
+                    echo        $row['recipe_name'];
+                    echo      '</h3>
+                            </div>';                           
                     if ($row['file_name'] != null) {
                       echo      '<img src="pics/';
                       echo      $row['file_name'];
@@ -174,13 +176,13 @@ $paging = 2;
                   if($page != ($i)) {
                     echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
                   } else {
-                    echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '"><b><u>' . $i . '</u></b></a></li>';
+                    echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
                   }
                 }
               }
               ?>
             <li>
-              <a href="<?php if ($page>1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}?>" aria-label="Next">
+              <a href="<?php if ($page < ($total_recipes/$paging)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}?>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
