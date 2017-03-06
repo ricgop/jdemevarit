@@ -158,6 +158,7 @@
           session_start();
           # set username
           $_SESSION['login_username'] = $user;
+          $_SESSION['login_email'] = $email;
           # set user's initial limitations
           $_SESSION['limitation1'] = $limitation1;
           $_SESSION['limitation2'] = $limitation2;

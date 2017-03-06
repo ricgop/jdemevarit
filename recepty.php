@@ -195,14 +195,14 @@
         <nav aria-label="Page navigation">
           <ul class="pagination">
             <li>
-              <a href="<?php if ($page>1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page - 1);}?>" aria-label="Previous">
+              <a href="<?php if ($page > 1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page - 1);}?>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
             <?php
               # create pagination
               if(isset($total_recipes)) {
-                for ($i=1; $i<($total_recipes/$paging + 1); $i++) {
+                for ($i=1; $i < ($total_recipes/$paging + 1); $i++) {
                   # highlight active page
                   if($page != ($i)) {
                     echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
