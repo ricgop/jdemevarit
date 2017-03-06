@@ -113,7 +113,6 @@
   }
 
   if ($limitation1 == 1 || $limitation2 == 1 || $limitation3 == 1 || $limitation4 == 1 || $limitation5 == 1 || $limitation6 == 1) {
-    echo '<br><br> filtruju zaznamy';
     $limitation_count = 0;
     if ($limitation1 == 1) ++$limitation_count;
     if ($limitation2 == 1) ++$limitation_count;
@@ -122,7 +121,6 @@
     if ($limitation5 == 1) ++$limitation_count;
     if ($limitation6 == 1) ++$limitation_count;
   }
-  echo ' - celkem ' . $limitation_count;
 
 ?>
 <!DOCTYPE html>
@@ -229,13 +227,34 @@
                 #set-up db connection
                 $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
 
-                # variable to set page number if empty
+                # variable to set page number if parameter page is empty
                 if(isset($_GET['page'])) {$page = $_GET['page'];} else {$page = 1;};
                 $offset = $paging * ($page - 1);
                 if ($page >= 1) {
                 # get list of recipe thumbnail details
-                $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
-                $array = $dbh->query($select_recipes);
+                if ($limitation_count == 0) {
+                  $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
+                  $array = $dbh->query($select_recipes);
+                } else {
+                  # some of the limitations are checked
+                  $limitation_set = 0;
+                  $limitation_query = 'WHERE ';
+                  for ($lim = 1; $lim < 7; $lim++) {
+                    # check if limitations are set - if so then update query
+                    if (${"limitation$lim"} == 1) {
+                      if ($limitation_set == 0) {
+                        $limitation_query .= 'limitation_' . $lim . '=1';
+                        $limitation_set = 1;
+                      } else {
+                        # query was already updated
+                        $limitation_query .= ' AND ' . 'limitation_' . $lim . '=1';
+                      }
+                    };
+                  }
+                  #create filtered query
+                  $select_recipes = "SELECT * FROM recipe_thumbnails_filtered " . $limitation_query . " limit $offset, $paging";
+                  $array = $dbh->query($select_recipes);
+                }
 
                 # get number of recipes
                 $get_all_recipes = "SELECT recipe_id FROM recipes";
