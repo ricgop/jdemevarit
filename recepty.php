@@ -4,6 +4,8 @@
   $error_db = false;
   # max. recipes shown on a single page
   $paging = 2;
+  # count number of filters applied
+  $limitation_count = 0;
 
   # initial filter settings
   if(count($_POST)==0) {
@@ -23,6 +25,7 @@
       $limitation5 = $_SESSION['limitation5'];
       $limitation6 = $_SESSION['limitation6'];
     }
+    $page=1;
   }
 
   # change filter settings - if user changed them
@@ -113,7 +116,6 @@
   }
 
   if ($limitation1 == 1 || $limitation2 == 1 || $limitation3 == 1 || $limitation4 == 1 || $limitation5 == 1 || $limitation6 == 1) {
-    $limitation_count = 0;
     if ($limitation1 == 1) ++$limitation_count;
     if ($limitation2 == 1) ++$limitation_count;
     if ($limitation3 == 1) ++$limitation_count;
