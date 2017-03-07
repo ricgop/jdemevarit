@@ -20,7 +20,7 @@
     /* Get status of checkboxes */
     if(isset($_POST['limitation1'])) {
       $limitation1 = 0;
-    } else $limitation = 1;
+    } else $limitation1 = 1;
 
     if(isset($_POST['limitation2'])) {
        $limitation2 = 0;
