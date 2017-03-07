@@ -5,7 +5,7 @@
   # see if there was a problem when working with db
   $error_db = false;
   # max. recipes shown on a single page
-  $paging = 2;
+  $paging = 8;
   # count number of filters applied
   $limitation_count = 0;
 
@@ -338,6 +338,11 @@
             </li>
           </ul>
         </nav>
+    </div>
+    <div class = "navbar navbar-default navbar-bottom" id="warning">
+      <div class = "container">
+        <p class = "navbar-header"><i><u>Upozornění:</u> recepty na stránkách www.jdemevarit.cz jsou vkládány registrovanými uživateli. Z toho důvodu provozovatel v žádném případě neodpovídá za správnost a aktuálnost zveřejněných receptů.</i></p>
+      </div>
     </div>
     
   </body>

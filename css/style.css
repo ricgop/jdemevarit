@@ -91,3 +91,13 @@ a.navbar-brand {padding-top: 0px;}
 
 /* recipe detail page styling */
 .label {margin: 2px;}
+
+/* rule to shift margin */
+#registration-text {margin-bottom: 90px;}
+
+/* shift recipe warning */
+#warning {
+  vertical-align: bottom;
+  width: 100%;
+  bottom: -20px;
+}

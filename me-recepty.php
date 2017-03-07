@@ -1,13 +1,144 @@
 <?php 
-session_start();
+  session_start();
+  $email = $_SESSION['login_email'];
+
+  # see if there was a problem when working with db
+  $error_db = false;
+  # max. recipes shown on a single page
+  $paging = 2;
+  # count number of filters applied
+  $limitation_count = 0;
+
+  # initial filter settings
+  if(count($_POST)==0) {
+    if (!isset($_SESSION['login_username'])) {
+      if (isset($_SESSION['limitation1'])) {
+        if (($_SESSION['limitation1']) == 1) {$limitation1 = 1;} 
+      else {$limitation1 = 0; $_SESSION['limitation1'] = 0;};} 
+      else {$limitation1 = 0; $_SESSION['limitation1'] = 0;};
+    if (isset($_SESSION['limitation2'])) {
+      if (($_SESSION['limitation2']) == 1) {$limitation2 = 1;} 
+      else {$limitation2 = 0; $_SESSION['limitation2'] = 0;};} 
+      else {$limitation2 = 0; $_SESSION['limitation2'] = 0;};
+    if (isset($_SESSION['limitation3'])) {
+      if (($_SESSION['limitation3']) == 1) {$limitation3 = 1;} 
+      else {$limitation3 = 0; $_SESSION['limitation3'] = 0;};} 
+      else {$limitation3 = 0; $_SESSION['limitation3'] = 0;};
+    if (isset($_SESSION['limitation4'])) {
+      if (($_SESSION['limitation4']) == 1) {$limitation4 = 1;} 
+      else {$limitation4 = 0; $_SESSION['limitation4'] = 0;};} 
+      else {$limitation4 = 0; $_SESSION['limitation4'] = 0;};
+    if (isset($_SESSION['limitation5'])) {
+      if (($_SESSION['limitation5']) == 1) {$limitation5 = 1;} 
+      else {$limitation5 = 0; $_SESSION['limitation5'] = 0;};} 
+      else {$limitation5 = 0; $_SESSION['limitation5'] = 0;};
+    if (isset($_SESSION['limitation6'])) {
+      if (($_SESSION['limitation6']) == 1) {$limitation6 = 1;} 
+      else {$limitation6 = 0; $_SESSION['limitation6'] = 0;};} 
+      else {$limitation6 = 0; $_SESSION['limitation6'] = 0;};
+
+    } else {
+    # if user is logged in
+      $limitation1 = $_SESSION['limitation1'];
+      $limitation2 = $_SESSION['limitation2'];
+      $limitation3 = $_SESSION['limitation3'];
+      $limitation4 = $_SESSION['limitation4'];
+      $limitation5 = $_SESSION['limitation5'];
+      $limitation6 = $_SESSION['limitation6'];
+    }
+  }
+
+  # change filter settings - if user changed them
+  if(count($_POST)>0) {
+
+      if (isset($_POST['limitation1'])) {
+        $_SESSION['limitation1'] = 1;
+        $limitation1 = 1;
+      } else {
+        $_SESSION['limitation1'] = 0;
+        $limitation1 = 0;
+      }
+
+      if (isset($_POST['limitation2'])) {
+        $_SESSION['limitation2'] = 1;
+        $limitation2 = 1;
+      } else {
+        $_SESSION['limitation2'] = 0;
+        $limitation2 = 0;
+      }
+
+      if (isset($_POST['limitation3'])) {
+        $_SESSION['limitation3'] = 1;
+        $limitation3 = 1;
+      } else {
+        $_SESSION['limitation3'] = 0;
+        $limitation3 = 0;
+      }
+
+      if (isset($_POST['limitation4'])) {
+        $_SESSION['limitation4'] = 1;
+        $limitation4 = 1;
+      } else {
+        $_SESSION['limitation4'] = 0;
+        $limitation4 = 0;
+      }
+
+      if (isset($_POST['limitation5'])) {
+        $_SESSION['limitation5'] = 1;
+        $limitation5 = 1;
+      } else {
+        $_SESSION['limitation5'] = 0;
+        $limitation5 = 0;
+      }
+
+      if (isset($_POST['limitation6'])) {
+        $_SESSION['limitation6'] = 1;
+        $limitation6 = 1;
+      } else {
+        $_SESSION['limitation6'] = 0;
+        $limitation6 = 0;
+      }
+  }
+
+  #prepare filter variables
+  $filter_submit_string = '';
+  # prepare string to append to url
+  $filter_string = '';
+  $filter_set = false;
+  # get filter values and store them to variable fx
+  if ((isset($_GET['f1'])) || (isset($_GET['f2'])) || (isset($_GET['f3'])) || (isset($_GET['f4'])) || (isset($_GET['f5'])) || (isset($_GET['f6']))) {
+    $filter_set = true;
+    if (isset($_GET['f1'])) $f1=($_GET['f1']);
+    if (isset($_GET['f2'])) $f2=($_GET['f2']);
+    if (isset($_GET['f3'])) $f3=($_GET['f3']);
+    if (isset($_GET['f4'])) $f4=($_GET['f4']);
+    if (isset($_GET['f5'])) $f5=($_GET['f5']);
+    if (isset($_GET['f6'])) $f6=($_GET['f6']);
+
+    for ($url_lim = 1; $url_lim < 7; $url_lim++){
+      if(isset(${"f$url_lim"})) {
+        $filter_string .= '&f' . $url_lim . '=' . ${"f$url_lim"};
+      }
+    }
+  }
+
+    if ($limitation1 == 1 || $limitation2 == 1 || $limitation3 == 1 || $limitation4 == 1 || $limitation5 == 1 || $limitation6 == 1) {
+    if ($limitation1 == 1) ++$limitation_count;
+    if ($limitation2 == 1) ++$limitation_count;
+    if ($limitation3 == 1) ++$limitation_count;
+    if ($limitation4 == 1) ++$limitation_count;
+    if ($limitation5 == 1) ++$limitation_count;
+    if ($limitation6 == 1) ++$limitation_count;
+  }
 ?>
+
 <!DOCTYPE html>
 <html lang="cs">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mé recepty</title>
+    <title>Recepty</title>
 
     <link rel="icon" type="image/png" href="images/favicon.png">
 
@@ -25,7 +156,7 @@ session_start();
 
     <script type="text/JavaScript">
       function logOut() {
-        $.get("odhlaseni.php");
+        $.get("common/logout.php");
       }
     </script>
 
@@ -45,44 +176,45 @@ session_start();
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="recepty.php"><img alt="Brand" src="images/main.png"></a>
+          <a class="navbar-brand" href="recepty.php?page=1<?php echo $filter_string?>"><img alt="Brand" src="images/main.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-            <li><a href="recepty.php">Recepty</a></li>
-            <?php if(!isset($_SESSION['login_user'])) {echo '<li><a href="registrace.php">Registrace</a></li>';} ?>
-            <?php if(!isset($_SESSION['login_user'])) {echo '<li><a href="prihlaseni.php">Přihlášení</a></li>';} ?>
-            <?php if(isset($_SESSION['login_user'])) {echo '<li><a href="pridat-recept.php">Přidat recept</a></li>';} ?>
+            <li><a href="recepty.php?page=1<?php echo $filter_string?>">Recepty</a></li>
+            <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="registrace.php">Registrace</a></li>';} ?>
+            <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="prihlaseni.php">Přihlášení</a></li>';} ?>
+            <?php if(isset($_SESSION['login_username'])) {echo '<li><a href="pridat-recept.php">Přidat recept</a></li>';} ?>
             <li class="active"><a href="me-recepty.php">Mé recepty</a></li>
           </ul> <!-- .nav navbar-nav -->
             
             <!-- search bar -->
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left" method="POST" action="http://localhost/jdemevarit/recepty.php?page=1">
             <ul class="nav navbar-nav">
               <li class="dropdown">
                 <button type="button" class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filter">Zdravotní omezení <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><label><input type="checkbox"> Onemocnění žlučníku</label></li>
-                  <li><label><input type="checkbox"> Onemocnění jater</label></li>
-                  <li><label><input type="checkbox"> Alergie na pyl</label></li>
-                  <li><label><input type="checkbox"> Alergie na ořechy</label></li>
-                  <li><label><input type="checkbox"> Alergie na laktózu</label></li>
-                  <li><label><input type="checkbox"> Celiakie</label></li>
+                  <li><label><input type="checkbox" name="limitation1" <?php if($limitation1 == 1) {echo 'checked="checked"';} ?>> Onemocnění žlučníku</label></li>
+                  <li><label><input type="checkbox" name="limitation2" <?php if($limitation2 == 1) {echo 'checked="checked"';} ?>>  Onemocnění jater</label></li>
+                  <li><label><input type="checkbox" name="limitation3" <?php if($limitation3 == 1) {echo 'checked="checked"';} ?>>  Alergie na pyl</label></li>
+                  <li><label><input type="checkbox" name="limitation4" <?php if($limitation4 == 1) {echo 'checked="checked"';} ?>>  Alergie na ořechy</label></li>
+                  <li><label><input type="checkbox" name="limitation5" <?php if($limitation5 == 1) {echo 'checked="checked"';} ?>>  Alergie na laktózu</label></li>
+                  <li><label><input type="checkbox" name="limitation6" <?php if($limitation6 == 1) {echo 'checked="checked"';} ?>>  Celiakie</label></li>
+                  <button class="btn btn-primary" id="limitation-button">Filtrovat</button>
                 </ul> <!-- .dropdown menu -->
               </li> <!-- .dropdown -->
             </ul> <!-- .nav navbar-nav -->
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Hledat recept">
+              <input type="text" class="form-control" placeholder="Hledat recept" name="find" value="<?php if(isset($_POST['find'])) echo $_POST['find']; ?>">
             </div>
             <button type="submit" class="btn btn-default">Hledej</button>
           </form>
           <form class="navbar-right">
             <ul class="nav navbar-nav">
-              <?php if(isset($_SESSION['login_user'])) {
-                echo '<li><a href="recepty.php" onclick="logOut();"><u>Odhlásit</u></a></li>';
+              <?php if(isset($_SESSION['login_username'])) {
+                echo '<li><a href="common/logout.php" id="logout"><u>Odhlásit</u></a></li>';
               } ?>
             </ul>
           </form>
@@ -93,32 +225,120 @@ session_start();
     <div class="container-fluid">
       <div id="content">
         <div id="recipes">
-          <h1>Mé recepty</h1>
+          <h1>Recepty</h1>
 
-          <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Praesent adipiscing. Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. Vestibulum volutpat pretium libero. Cras id dui. Aenean ut eros et nisl sagittis vestibulum. Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed lectus. Donec mollis hendrerit risus. Phasellus nec sem in justo pellentesque facilisis. Etiam imperdiet imperdiet orci. Nunc nec neque. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada. Praesent congue erat at massa. Sed cursus turpis vitae tortor. Donec posuere vulputate arcu. Phasellus accumsan cursus velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci. Phasellus consectetuer vestibulum elit. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Vestibulum fringilla pede sit amet augue. In turpis. Pellentesque posuere. Praesent turpis. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Donec elit libero, sodales nec, volutpat a, suscipit non, turpis. Nullam sagittis. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce id purus. Ut varius tincidunt libero. Phasellus dolor. Maecenas vestibulum mollis diam. Pellentesque ut neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In dui magna, posuere eget, vestibulum et, tempor auctor, justo. In ac felis quis tortor malesuada pretium. Pellentesque auctor neque nec urna. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Aenean viverra rhoncus pede. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut non enim eleifend felis pretium feugiat. Vivamus quis mi. Phasellus a est. Phasellus magna. In hac habitasse platea dictumst. Curabitur at lacus ac velit ornare lobortis. Curabitur a felis in nunc fringilla tristique. Morbi mattis ullamcorper velit. Phasellus gravida semper nisi. Nullam vel sem. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Sed hendrerit. Morbi ac felis. Nunc egestas, augue at pellentesque laoreet, felis eros vehicula leo, at malesuada velit leo quis pede. Donec interdum, metus et hendrerit aliquet, dolor diam sagittis ligula, eget egestas libero turpis vel mi. Nunc nulla. Fusce risus nisl, viverra et, tempor et, pretium in, sapien. Donec venenatis vulputate lorem. Morbi nec metus. Phasellus blandit leo ut odio. Maecenas ullamcorper, dui et placerat feugiat, eros pede varius nisi, condimentum viverra felis nunc et lorem. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis. In auctor lobortis lacus. Quisque libero metus, condimentum nec, tempor a, commodo mollis, magna. Vestibulum ullamcorper mauris at ligula. Fusce fermentum. Nullam cursus lacinia erat. Praesent blandit laoreet nibh. Fusce convallis metus id felis luctus adipiscing. Pellentesque egestas, neque sit amet convallis pulvinar, justo nulla eleifend augue, ac auctor orci leo non est. Quisque id mi. Ut tincidunt tincidunt erat. Etiam feugiat lorem non metus. Vestibulum dapibus nunc ac augue. Curabitur vestibulum aliquam leo. Praesent egestas neque eu enim. In hac habitasse platea dictumst. Fusce a quam. Etiam ut purus mattis mauris 
-          </p>
+          <!-- error message if there are problems with db -->
+          <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - zkuste se prosím vrátit později...</div>';}?>
+
+          <!-- draw recipe thumbnails -->
+          <?php
+              try {
+                #set-up db connection
+                $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
+
+                # variable to set page number if parameter page is empty
+                if(isset($_GET['page'])) {$page = $_GET['page'];} else {$page = 1;};
+                $offset = $paging * ($page - 1);
+                if ($page >= 1) {
+                # get list of recipe thumbnail details
+                if ($limitation_count == 0) {
+                  $select_recipes = "SELECT * FROM recipe_thumbnails AND email='$email' limit $offset, $paging";
+                  $array = $dbh->query($select_recipes);
+                } else {
+                  # some of the limitations are checked
+                  $limitation_set = 0;
+                  $limitation_query = 'WHERE ';
+                  for ($lim = 1; $lim < 7; $lim++) {
+                    # check if limitations are set - if so then update query
+                    if (${"limitation$lim"} == 1) {
+                      if ($limitation_set == 0) {
+                        $limitation_query .= 'limitation_' . $lim . '=1';
+                        $limitation_set = 1;
+                      } else {
+                        # query was already updated
+                        $limitation_query .= ' AND ' . 'limitation_' . $lim . '=1';
+                      }
+                    };
+                  }
+                  #create filtered query
+                  $select_recipes = "SELECT * FROM recipe_thumbnails_filtered " . $limitation_query . " limit $offset, $paging";
+                  $array = $dbh->query($select_recipes);
+                }
+
+                # get number of recipes
+                $get_all_recipes = "SELECT recipe_id FROM recipes";
+                $all_array = $dbh->query($get_all_recipes);
+                $total_recipes = $all_array->rowCount();
+
+                # create recipe bricks
+                if ($array->rowCount() == 0) {
+                  echo 'Nenalezen žádný recept... :-(';
+                  } else {
+                    $result = $array->fetchAll();
+                    foreach($result as $row)
+                    {
+                      echo '<a href="recept.php?recipeID=' . $row['recipe_id'] . '&' . 'page=' . $page . $filter_string;
+                      echo'">
+                      
+                            <div class="thumbnail">
+                            <div style="height: 50px">
+                              <h3>';
+                    echo        $row['recipe_name'];
+                    echo      '</h3>
+                            </div>';                           
+                    if ($row['file_name'] != null) {
+                      echo      '<img src="pics/';
+                      echo      $row['file_name'];
+                      echo      '" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
+                    } else echo '<img src="common/pics/no_picture_cz.png" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
+                    echo        '<p>Od uživatele: <i>';
+                    echo      $row['username'];
+                    echo  '</i></p>
+                        </div></a>
+                    ';
+                    }
+                  }
+                } else {echo 'Bohužel nastala chyba...';}
+              }
+              catch (PDOException $exception)
+              {
+              $error_db = true;
+            }
+          ?>
+ 
         </div> <!-- .recipes -->
       </div> <!-- .content -->
-      <div class="text-center">
+    </div> <!-- .container-fluid -->
+      <div class="text-center" id = "bottom-navigation">
         <nav aria-label="Page navigation">
           <ul class="pagination">
             <li>
-              <a href="#" aria-label="Previous">
+
+              <a href="<?php if ($page > 1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page - 1);}?>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li><a href="#">1</a></li> 
-            <li><a href="#">2</a></li> 
+            <?php
+              # create pagination
+              if(isset($total_recipes)) {
+                for ($i=1; $i < ($total_recipes/$paging + 1); $i++) {
+                  # highlight active page
+                  if($page != ($i)) {
+                    echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                  } else {
+                    echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                  }
+                }
+              }
+              ?>
             <li>
-              <a href="#" aria-label="Next">
+              <a href="<?php if ($page < ($total_recipes/$paging)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}?>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
           </ul>
         </nav>
     </div>
-    </div> <!-- .container-fluid -->
-
+    
   </body>
 </html>
