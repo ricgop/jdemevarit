@@ -3,26 +3,6 @@
   # see if there was a problem when working with db
   $error_db = false;
 
-  # keep set filter values
-  $filter_string = '';
-  $filter_set = false;
-  #get filter values and store them to variable fx
-  if ((isset($_GET['f1'])) || (isset($_GET['f2'])) || (isset($_GET['f3'])) || (isset($_GET['f4'])) || (isset($_GET['f5'])) || (isset($_GET['f6']))) {
-    $filter_set = true;
-    if (isset($_GET['f1'])) $f1=($_GET['f1']);
-    if (isset($_GET['f2'])) $f2=($_GET['f2']);
-    if (isset($_GET['f3'])) $f3=($_GET['f3']);
-    if (isset($_GET['f4'])) $f4=($_GET['f4']);
-    if (isset($_GET['f5'])) $f5=($_GET['f5']);
-    if (isset($_GET['f6'])) $f6=($_GET['f6']);
-
-    for ($url_lim = 1; $url_lim < 7; $url_lim++){
-      if(isset(${"f$url_lim"})) {
-        $filter_string .= '&f' . $url_lim . '=' . ${"f$url_lim"};
-      }
-    }
-  }
-
   # get page variable
   if (isset($_GET['page'])) {
   	$page = '?page=' . ($_GET['page']);
@@ -110,7 +90,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-            <li><a href="recepty.php<?php echo $page . $filter_string?>">Recepty</a></li>
+            <li><a href="recepty.php<?php echo $page ?>">Recepty</a></li>
             <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="registrace.php">Registrace</a></li>';} ?>
             <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="prihlaseni.php">Přihlášení</a></li>';} ?>
             <?php if(isset($_SESSION['login_username'])) {echo '<li><a href="pridat-recept.php">Přidat recept</a></li>';} ?>
@@ -128,7 +108,7 @@
           <form class="navbar-right">
             <ul class="nav navbar-nav">
               <?php if(isset($_SESSION['login_username'])) {
-                echo '<li><a href="recepty.php" onclick="logOut();" id="logout"><u>Odhlásit</u></a></li>';
+                echo '<li><a href="common/logout.php" " id="logout"><u>Odhlásit</u></a></li>';
               } ?>
             </ul>
           </form>

@@ -1,5 +1,7 @@
 <?php 
   session_start();
+  $_SESSION['last_action'] = time();
+
   # see if there was a problem when working with db
   $error_db = false;
   # max. recipes shown on a single page
@@ -35,7 +37,6 @@
       else {$limitation6 = 0; $_SESSION['limitation6'] = 0;};} 
       else {$limitation6 = 0; $_SESSION['limitation6'] = 0;};
 
-      echo '<br> <u>NOT </u>logged in user:' . $limitation1 . ',' . $limitation2 . ',' . $limitation3 . ',' . $limitation4 . ',' . $limitation5 . ',' . $limitation6;
     } else {
     # if user is logged in
       $limitation1 = $_SESSION['limitation1'];
@@ -97,7 +98,6 @@
         $_SESSION['limitation6'] = 0;
         $limitation6 = 0;
       }
-      echo '<br> Settings:' . $limitation1 . ',' . $limitation2 . ',' . $limitation3 . ',' . $limitation4 . ',' . $limitation5 . ',' . $limitation6;
   }
 
   #prepare filter variables
@@ -214,7 +214,7 @@
           <form class="navbar-right">
             <ul class="nav navbar-nav">
               <?php if(isset($_SESSION['login_username'])) {
-                echo '<li><a href="recepty.php" onclick="logOut();" id="logout"><u>Odhlásit</u></a></li>';
+                echo '<li><a href="common/logout.php" id="logout"><u>Odhlásit</u></a></li>';
               } ?>
             </ul>
           </form>
@@ -342,4 +342,3 @@
     
   </body>
 </html>
-<?php if(!isset($_SESSION['login_username'])) echo '<br>jdu znicit sessionu'; ?>

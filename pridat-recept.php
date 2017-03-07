@@ -182,15 +182,8 @@
           </ul>
           <form class="navbar-right">
             <ul class="nav navbar-nav">
-              <?php if(isset($_SESSION['login_user'])) {
-                echo '<li><a href="recepty.php" onclick="logOut();"><u>Odhlásit</u></a></li>';
-              } ?>
-            </ul>
-          </form>
-          <form class="navbar-right">
-            <ul class="nav navbar-nav">
               <?php if(isset($_SESSION['login_username'])) {
-                echo '<li><a href="recepty.php" onclick="logOut();" id="logout"><u>Odhlásit</u></a></li>';
+                echo '<li><a href="common/logout.php" id="logout"><u>Odhlásit</u></a></li>';
               } ?>
             </ul>
           </form>
