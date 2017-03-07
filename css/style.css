@@ -29,7 +29,7 @@ a:hover {
 .active {font-weight: bold;}
 
 /* setting div paddings for content of some pages */
-#limitations {padding: 5px 0px 0px 12px;}
+#limitations {padding: 5px 0px 10px 12px;}
 #registration-details {padding: 5px 12px 0px 12px;}
 #recipe-details {padding: 5px 12px 0px 12px;}
 #recipe-content {padding: 5px 12px 0px 12px;}

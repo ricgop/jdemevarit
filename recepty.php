@@ -184,13 +184,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="recepty.php?page=1<?php echo $filter_string?>"><img alt="Brand" src="images/main.png"></a>
+          <a class="navbar-brand" href="recepty.php?page=1"><img alt="Brand" src="images/main.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="recepty.php?page=1<?php echo $filter_string?>">Recepty</a></li>
+            <li class="active"><a href="recepty.php?page=1">Recepty</a></li>
             <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="registrace.php">Registrace</a></li>';} ?>
             <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="prihlaseni.php">Přihlášení</a></li>';} ?>
             <?php if(isset($_SESSION['login_username'])) {echo '<li><a href="pridat-recept.php">Přidat recept</a></li>';} ?>
