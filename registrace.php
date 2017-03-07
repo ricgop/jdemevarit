@@ -306,7 +306,7 @@
                     <div class="checkbox">
                       <label><input type="checkbox" name="limitation6" <?php if(isset($_POST['limitation6'])) echo 'checked="checked"'; ?>>Celiakie</label>
                     </div>
-                    <p><b>Toto nastavení</b> Vám automaticky aktivuje filtr na stránkách s recepty (je potřeba se přihlásit).</p>
+                    <p><b>Toto nastavení</b> Vám automaticky aktivuje filtr na stránkách s recepty.</p>
                   </div>
                   <p></p>
                 </div> <!-- .panel-default -->
@@ -324,7 +324,7 @@
     </div> <!-- .container-fluid -->
     <div class = "navbar navbar-default navbar-fixed-bottom">
       <div class = "container">
-        <p class = "navbar-header" id="rules"><u><b>Pravidla</b></u>: Provozovatel internetových stránek www.jdemevarit.cz je společnost Richard Gopaul (dále jen jako "Provozovatel"), který je v souladu se zák. č. 121/2000 Sb., autorský zákon oprávněn vykonávat majetková práva k receptům vloženým na tyto internetové stránky. Registrací souhlasíte s těmito podmínkami.</p>
+        <p class = "navbar-header" id="rules"><u><b>Podmínky</b></u>: Provozovatel internetových stránek www.jdemevarit.cz je společnost Richard Gopaul (dále jen jako "Provozovatel"), který je v souladu se zák. č. 121/2000 Sb., autorský zákon oprávněn vykonávat majetková práva k receptům vloženým na tyto internetové stránky. Registrací souhlasíte s těmito podmínkami.</p>
       </div>
     </div>
   </body>
