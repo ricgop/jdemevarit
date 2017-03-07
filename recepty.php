@@ -324,7 +324,9 @@
               }
               ?>
             <li>
-              <a href="<?php if ($page < ($total_recipes/$paging)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}?>" aria-label="Next">
+            <?php if ($page>0) {
+              echo '<a href="';
+              if ($page < ($total_recipes/$paging)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1) . '" aria-label="Next">';};}?>
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
