@@ -225,7 +225,7 @@
                     </div>
                     <span class="info">Pole označená </span><span class="star"> *</span><span class="info"> jsou povinná</span>
                     <p></p>
-                    <p>Nahrát fotografii:</p>
+                    <p>Nahrát fotografii [max 3MB]:</p>
                     <input type="file" name="fileToUpload" id="fileUpload">
                     <p></p>
                   </div> <!-- #registration details -->

@@ -5,7 +5,7 @@
   # see if there was a problem when working with db
   $error_db = false;
   # max. recipes shown on a single page
-  $paging = 8;
+  $paging = 2;
   # count number of filters applied
   $limitation_count = 0;
 
@@ -311,7 +311,7 @@
     </div> <!-- .container-fluid -->
       <div class="text-center" id = "bottom-navigation">
         <nav aria-label="Page navigation">
-          <ul class="pagination">
+          <ul class="pagination" id="paging">
             <li>
 
               <a href="<?php if ($page > 1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page - 1);}?>" aria-label="Previous">
@@ -321,12 +321,54 @@
             <?php
               # create pagination
               if(isset($total_recipes)) {
-                for ($i=1; $i < ($total_recipes/$paging + 1); $i++) {
-                  # highlight active page
-                  if($page != ($i)) {
-                    echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                # total ammount of pages is less than 11 pages - no special formating with ...
+                if ($total_recipes/$paging <= 10) {
+                  for ($i=1; $i < ($total_recipes/$paging + 1); $i++) {
+                    # highlight active page
+                    if($page != ($i)) {
+                      echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                    } else {
+                      echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                    }
+                  }
+                } else {
+                  # if we are close to beginning or end of the total
+                  # first 3 paginations
+                  if (($page < 4) || ($page >= ($total_recipes/$paging - 3))) {
+                    for ($i=1; $i < 5; $i++) {
+                      # highlight active page
+                      if($page != ($i)) {
+                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                      } else {
+                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                      }
+                    }
+                    echo '<li><a>...</a></li>';
+                    for ($i=($total_recipes/$paging - 3); $i < ($total_recipes/$paging +1); $i++) {
+                      # highlight active page
+                      if($page != ($i)) {
+                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                      } else {
+                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                      }
+                    }
                   } else {
-                    echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                      for ($i=$page - 4; $i <= $page +1; $i++) {
+                      # highlight active page
+                      if($page != ($i)) {
+                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                      } else {
+                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                      }
+                    }
+                    for ($i=($page+2); $i < ($page+5); $i++) {
+                      # highlight active page
+                      if($page != ($i)) {
+                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                      } else {
+                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                      }
+                    }
                   }
                 }
               }
