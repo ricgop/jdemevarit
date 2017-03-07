@@ -5,7 +5,7 @@
   # see if there was a problem when working with db
   $error_db = false;
   # max. recipes shown on a single page
-  $paging = 2;
+  $paging = 8;
   # count number of filters applied
   $limitation_count = 0;
 
@@ -51,53 +51,53 @@
   # change filter settings - if user changed them
   if(count($_POST)>0) {
 
-      if (isset($_POST['limitation1'])) {
-        $_SESSION['limitation1'] = 1;
-        $limitation1 = 1;
-      } else {
-        $_SESSION['limitation1'] = 0;
-        $limitation1 = 0;
-      }
+    if (isset($_POST['limitation1'])) {
+      $_SESSION['limitation1'] = 1;
+      $limitation1 = 1;
+    } else {
+      $_SESSION['limitation1'] = 0;
+      $limitation1 = 0;
+    }
 
-      if (isset($_POST['limitation2'])) {
-        $_SESSION['limitation2'] = 1;
-        $limitation2 = 1;
-      } else {
-        $_SESSION['limitation2'] = 0;
-        $limitation2 = 0;
-      }
+    if (isset($_POST['limitation2'])) {
+      $_SESSION['limitation2'] = 1;
+      $limitation2 = 1;
+    } else {
+      $_SESSION['limitation2'] = 0;
+      $limitation2 = 0;
+    }
 
-      if (isset($_POST['limitation3'])) {
-        $_SESSION['limitation3'] = 1;
-        $limitation3 = 1;
-      } else {
-        $_SESSION['limitation3'] = 0;
-        $limitation3 = 0;
-      }
+    if (isset($_POST['limitation3'])) {
+      $_SESSION['limitation3'] = 1;
+      $limitation3 = 1;
+    } else {
+      $_SESSION['limitation3'] = 0;
+      $limitation3 = 0;
+    }
 
-      if (isset($_POST['limitation4'])) {
-        $_SESSION['limitation4'] = 1;
-        $limitation4 = 1;
-      } else {
-        $_SESSION['limitation4'] = 0;
-        $limitation4 = 0;
-      }
+    if (isset($_POST['limitation4'])) {
+      $_SESSION['limitation4'] = 1;
+      $limitation4 = 1;
+    } else {
+      $_SESSION['limitation4'] = 0;
+      $limitation4 = 0;
+    }
 
-      if (isset($_POST['limitation5'])) {
-        $_SESSION['limitation5'] = 1;
-        $limitation5 = 1;
-      } else {
-        $_SESSION['limitation5'] = 0;
-        $limitation5 = 0;
-      }
+    if (isset($_POST['limitation5'])) {
+      $_SESSION['limitation5'] = 1;
+      $limitation5 = 1;
+    } else {
+      $_SESSION['limitation5'] = 0;
+      $limitation5 = 0;
+    }
 
-      if (isset($_POST['limitation6'])) {
-        $_SESSION['limitation6'] = 1;
-        $limitation6 = 1;
-      } else {
-        $_SESSION['limitation6'] = 0;
-        $limitation6 = 0;
-      }
+    if (isset($_POST['limitation6'])) {
+      $_SESSION['limitation6'] = 1;
+      $limitation6 = 1;
+    } else {
+      $_SESSION['limitation6'] = 0;
+      $limitation6 = 0;
+    }
   }
 
   #prepare filter variables
@@ -129,6 +129,14 @@
     if ($limitation4 == 1) ++$limitation_count;
     if ($limitation5 == 1) ++$limitation_count;
     if ($limitation6 == 1) ++$limitation_count;
+  }
+
+  # check if search was performed
+  if (isset($_POST['find']) && ($_POST['find']) != "") {
+    include 'common/translate.php';
+    $search_text = $_POST['find'];
+    $translated_text = strtr($search_text, $prevodni_tabulka);
+    echo '<br>hledam ' . $search_text . ' tedy prelozeno: ' . $translated_text;
   }
 ?>
 
