@@ -249,7 +249,7 @@
                 $offset = $paging * ($page - 1);
                 if ($page >= 1) {
                 # get list of recipe thumbnail details
-                if ($limitation_count == 0) {
+                if ($limitation_count == 0 && !isset($translated_text)) {
                   $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
                   $array = $dbh->query($select_recipes);
                 } else {
@@ -269,7 +269,16 @@
                     };
                   }
                   #create filtered query
-                  $select_recipes = "SELECT * FROM recipe_thumbnails_filtered " . $limitation_query . " limit $offset, $paging";
+                  if ($limitation_count == 0 && isset($translated_text)) {
+                    $search_query = ' WHERE recipe_name like "%' . $translated_text . '%"';
+                    $select_recipes = "SELECT * FROM recipe_thumbnails_filtered " . $search_query . " limit $offset, $paging";
+                  } else {
+                    if (isset($transted_text)){
+                    $search_query = ' AND recipe_name like "%' . $translated_text . '%"';
+                    $select_recipes = "SELECT * FROM recipe_thumbnails_filtered " . $limitation_query . $search_query . " limit $offset, $paging";} else {
+                    $select_recipes = "SELECT * FROM recipe_thumbnails_filtered " . $limitation_query . " limit $offset, $paging";
+                    }
+                  }
                   $array = $dbh->query($select_recipes);
                 }
 
@@ -310,8 +319,8 @@
               }
               catch (PDOException $exception)
               {
-              $error_db = true;
-            }
+                $error_db = true;
+              }
           ?>
  
         </div> <!-- .recipes -->
