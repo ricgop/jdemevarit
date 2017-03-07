@@ -224,7 +224,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-            <li><a href="recepty.php">Recepty</a></li>
+            <li><a href="recepty.php?page=1">Recepty</a></li>
             <li class="active"><a href="registrace.php">Registrace</a></li>
             <li><a href="prihlaseni.php">Přihlášení</a></li>
           </ul>

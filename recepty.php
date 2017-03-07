@@ -10,12 +10,32 @@
   # initial filter settings
   if(count($_POST)==0) {
     if (!isset($_SESSION['login_username'])) {
-      $limitation1 = 0;
-      $limitation2 = 0;
-      $limitation3 = 0;
-      $limitation4 = 0;
-      $limitation5 = 0;
-      $limitation6 = 0;
+      if (isset($_SESSION['limitation1'])) {
+        if (($_SESSION['limitation1']) == 1) {$limitation1 = 1;} 
+      else {$limitation1 = 0; $_SESSION['limitation1'] = 0;};} 
+      else {$limitation1 = 0; $_SESSION['limitation1'] = 0;};
+    if (isset($_SESSION['limitation2'])) {
+      if (($_SESSION['limitation2']) == 1) {$limitation2 = 1;} 
+      else {$limitation2 = 0; $_SESSION['limitation2'] = 0;};} 
+      else {$limitation2 = 0; $_SESSION['limitation2'] = 0;};
+    if (isset($_SESSION['limitation3'])) {
+      if (($_SESSION['limitation3']) == 1) {$limitation3 = 1;} 
+      else {$limitation3 = 0; $_SESSION['limitation3'] = 0;};} 
+      else {$limitation3 = 0; $_SESSION['limitation3'] = 0;};
+    if (isset($_SESSION['limitation4'])) {
+      if (($_SESSION['limitation4']) == 1) {$limitation4 = 1;} 
+      else {$limitation4 = 0; $_SESSION['limitation4'] = 0;};} 
+      else {$limitation4 = 0; $_SESSION['limitation4'] = 0;};
+    if (isset($_SESSION['limitation5'])) {
+      if (($_SESSION['limitation5']) == 1) {$limitation5 = 1;} 
+      else {$limitation5 = 0; $_SESSION['limitation5'] = 0;};} 
+      else {$limitation5 = 0; $_SESSION['limitation5'] = 0;};
+    if (isset($_SESSION['limitation6'])) {
+      if (($_SESSION['limitation6']) == 1) {$limitation6 = 1;} 
+      else {$limitation6 = 0; $_SESSION['limitation6'] = 0;};} 
+      else {$limitation6 = 0; $_SESSION['limitation6'] = 0;};
+
+      echo '<br> <u>NOT </u>logged in user:' . $limitation1 . ',' . $limitation2 . ',' . $limitation3 . ',' . $limitation4 . ',' . $limitation5 . ',' . $limitation6;
     } else {
     # if user is logged in
       $limitation1 = $_SESSION['limitation1'];
@@ -25,13 +45,11 @@
       $limitation5 = $_SESSION['limitation5'];
       $limitation6 = $_SESSION['limitation6'];
     }
-    $page=1;
   }
 
   # change filter settings - if user changed them
   if(count($_POST)>0) {
 
-    if (isset($_SESSION['login_username'])) {
       if (isset($_POST['limitation1'])) {
         $_SESSION['limitation1'] = 1;
         $limitation1 = 1;
@@ -79,43 +97,32 @@
         $_SESSION['limitation6'] = 0;
         $limitation6 = 0;
       }
-    
-      } else {
-      # if non-logged in user submitted one of the forms
-      if (isset($_POST['limitation1'])) {
-        $limitation1 = 1;
-      } else {
-        $limitation1 = 0;
-      }
-      if (isset($_POST['limitation2'])) {
-        $limitation2 = 1;
-      } else {
-        $limitation2 = 0;
-      }
-      if (isset($_POST['limitation3'])) {
-        $limitation3 = 1;
-      } else {
-        $limitation3 = 0;
-      }
-      if (isset($_POST['limitation4'])) {
-        $limitation4 = 1;
-      } else {
-        $limitation4 = 0;
-      }
-      if (isset($_POST['limitation5'])) {
-        $limitation5 = 1;
-      } else {
-        $limitation5 = 0;
-      }
-      if (isset($_POST['limitation6'])) {
-        $limitation6 = 1;
-      } else {
-        $limitation6 = 0;
+      echo '<br> Settings:' . $limitation1 . ',' . $limitation2 . ',' . $limitation3 . ',' . $limitation4 . ',' . $limitation5 . ',' . $limitation6;
+  }
+
+  #prepare filter variables
+  $filter_submit_string = '';
+  # prepare string to append to url
+  $filter_string = '';
+  $filter_set = false;
+  # get filter values and store them to variable fx
+  if ((isset($_GET['f1'])) || (isset($_GET['f2'])) || (isset($_GET['f3'])) || (isset($_GET['f4'])) || (isset($_GET['f5'])) || (isset($_GET['f6']))) {
+    $filter_set = true;
+    if (isset($_GET['f1'])) $f1=($_GET['f1']);
+    if (isset($_GET['f2'])) $f2=($_GET['f2']);
+    if (isset($_GET['f3'])) $f3=($_GET['f3']);
+    if (isset($_GET['f4'])) $f4=($_GET['f4']);
+    if (isset($_GET['f5'])) $f5=($_GET['f5']);
+    if (isset($_GET['f6'])) $f6=($_GET['f6']);
+
+    for ($url_lim = 1; $url_lim < 7; $url_lim++){
+      if(isset(${"f$url_lim"})) {
+        $filter_string .= '&f' . $url_lim . '=' . ${"f$url_lim"};
       }
     }
   }
 
-  if ($limitation1 == 1 || $limitation2 == 1 || $limitation3 == 1 || $limitation4 == 1 || $limitation5 == 1 || $limitation6 == 1) {
+    if ($limitation1 == 1 || $limitation2 == 1 || $limitation3 == 1 || $limitation4 == 1 || $limitation5 == 1 || $limitation6 == 1) {
     if ($limitation1 == 1) ++$limitation_count;
     if ($limitation2 == 1) ++$limitation_count;
     if ($limitation3 == 1) ++$limitation_count;
@@ -123,8 +130,8 @@
     if ($limitation5 == 1) ++$limitation_count;
     if ($limitation6 == 1) ++$limitation_count;
   }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="cs">
   <head>
@@ -169,13 +176,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="recepty.php"><img alt="Brand" src="images/main.png"></a>
+          <a class="navbar-brand" href="recepty.php?page=1<?php echo $filter_string?>"><img alt="Brand" src="images/main.png"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="recepty.php">Recepty</a></li>
+            <li class="active"><a href="recepty.php?page=1<?php echo $filter_string?>">Recepty</a></li>
             <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="registrace.php">Registrace</a></li>';} ?>
             <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="prihlaseni.php">Přihlášení</a></li>';} ?>
             <?php if(isset($_SESSION['login_username'])) {echo '<li><a href="pridat-recept.php">Přidat recept</a></li>';} ?>
@@ -183,19 +190,19 @@
           </ul> <!-- .nav navbar-nav -->
             
             <!-- search bar -->
-            <form class="navbar-form navbar-left" method="post" action="http://localhost/jdemevarit/recepty.php?page=1">
+            <form class="navbar-form navbar-left" method="POST" action="http://localhost/jdemevarit/recepty.php?page=1">
             <ul class="nav navbar-nav">
               <li class="dropdown">
                 <button type="button" class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filter">Zdravotní omezení <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><label><input type="checkbox" name="limitation1" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation1'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation1'])) echo 'checked="checked"';} ?>> Onemocnění žlučníku</label></li>
-                  <li><label><input type="checkbox" name="limitation2" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation2'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation2'])) echo 'checked="checked"';} ?>> Onemocnění jater</label></li>
-                  <li><label><input type="checkbox" name="limitation3" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation3'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation3'])) echo 'checked="checked"';} ?>> Alergie na pyl</label></li>
-                  <li><label><input type="checkbox" name="limitation4" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation4'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation4'])) echo 'checked="checked"';} ?>> Alergie na ořechy</label></li>
-                  <li><label><input type="checkbox" name="limitation5" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation5'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation5'])) echo 'checked="checked"';} ?>> Alergie na laktózu</label></li>
-                  <li><label><input type="checkbox" name="limitation6" <?php if(isset($_SESSION['login_username'])) {if($_SESSION['limitation6'] == 1) echo 'checked="checked"';} else {if(isset($_POST['limitation6'])) echo 'checked="checked"';} ?>> Celiakie</label></li>
-                  <button type="submit" class="btn btn-primary" id="limitation-button">Filtrovat</button>
+                  <li><label><input type="checkbox" name="limitation1" <?php if($limitation1 == 1) {echo 'checked="checked"';} ?>> Onemocnění žlučníku</label></li>
+                  <li><label><input type="checkbox" name="limitation2" <?php if($limitation2 == 1) {echo 'checked="checked"';} ?>>  Onemocnění jater</label></li>
+                  <li><label><input type="checkbox" name="limitation3" <?php if($limitation3 == 1) {echo 'checked="checked"';} ?>>  Alergie na pyl</label></li>
+                  <li><label><input type="checkbox" name="limitation4" <?php if($limitation4 == 1) {echo 'checked="checked"';} ?>>  Alergie na ořechy</label></li>
+                  <li><label><input type="checkbox" name="limitation5" <?php if($limitation5 == 1) {echo 'checked="checked"';} ?>>  Alergie na laktózu</label></li>
+                  <li><label><input type="checkbox" name="limitation6" <?php if($limitation6 == 1) {echo 'checked="checked"';} ?>>  Celiakie</label></li>
+                  <button class="btn btn-primary" id="limitation-button">Filtrovat</button>
                 </ul> <!-- .dropdown menu -->
               </li> <!-- .dropdown -->
             </ul> <!-- .nav navbar-nav -->
@@ -270,7 +277,7 @@
                     $result = $array->fetchAll();
                     foreach($result as $row)
                     {
-                      echo '<a href="recept.php?recipeID=' . $row['recipe_id'];
+                      echo '<a href="recept.php?recipeID=' . $row['recipe_id'] . '&' . 'page=' . $page . $filter_string;
                       echo'">
                       
                             <div class="thumbnail">
@@ -306,6 +313,7 @@
         <nav aria-label="Page navigation">
           <ul class="pagination">
             <li>
+
               <a href="<?php if ($page > 1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page - 1);}?>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
@@ -324,9 +332,7 @@
               }
               ?>
             <li>
-            <?php if ($page>0) {
-              echo '<a href="';
-              if ($page < ($total_recipes/$paging)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1) . '" aria-label="Next">';};}?>
+              <a href="<?php if ($page < ($total_recipes/$paging)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}?>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>
@@ -336,3 +342,4 @@
     
   </body>
 </html>
+<?php if(!isset($_SESSION['login_username'])) echo '<br>jdu znicit sessionu'; ?>
