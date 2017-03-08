@@ -98,7 +98,8 @@ a.navbar-brand {padding-top: 0px;}
 /* shift recipe warning */
 #warning {
   width: 100%;
-  position: relative;
+  vertical-align: bottom !important;
+  bottom: 0px !important;
 }
 #warning.navbar.navbar-bottom {
   bottom: 0px;

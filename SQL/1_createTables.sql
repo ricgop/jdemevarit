@@ -96,6 +96,26 @@ create table recipe_photo
 	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
 );
 
+-- admin part
+create table admins
+(
+	email varchar(40) NOT NULL,
+	username varchar(40),
+	active int(1) UNSIGNED, 
+	PRIMARY KEY (email,username)
+);
+
+create table admin_passwords
+(
+	email varchar(40) NOT NULL,
+	password varchar(60),
+	PRIMARY KEY (email),
+	FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
+);
+
+
+
+
 -- create views
 CREATE OR REPLACE VIEW recipe_thumbnails AS
 SELECT r.recipe_id, r.email, rn.recipe_name, u.username, rp.file_name from recipes r

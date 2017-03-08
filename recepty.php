@@ -321,10 +321,9 @@
         <nav aria-label="Page navigation">
           <ul class="pagination" id="paging">
             <li>
-
-              <a href="<?php if ($page > 1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page - 1);}?>" aria-label="Previous">
+              <?php if(isset($total_recipes)) {if ($total_recipes > 0) {echo '<a href="'; if ($page > 1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page - 1);}; echo '" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
-              </a>
+              </a>'; };};?>
             </li>
             <?php
               # create pagination
@@ -382,9 +381,9 @@
               }
               ?>
             <li>
-              <a href="<?php if ($page < ($total_recipes/$paging)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}?>" aria-label="Next">
+               <?php if(isset($total_recipes)) {if ($total_recipes > 0) {echo '<a href="'; if ($page < ($total_recipes/$paging)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}; echo '" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
-              </a>
+              </a>'; };};?>
             </li>
           </ul>
         </nav>
