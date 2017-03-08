@@ -5,6 +5,7 @@ drop table recipe_name;
 drop table recipe_process;
 drop table recipe_content;
 drop table recipe_limitations;
+drop table recipe_photo;
 drop table limitations;
 drop table recipes;
 drop table users;

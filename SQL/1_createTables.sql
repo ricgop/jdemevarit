@@ -96,6 +96,24 @@ create table recipe_photo
 	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
 );
 
+-- create views
+CREATE OR REPLACE VIEW recipe_thumbnails AS
+SELECT r.recipe_id, r.email, rn.recipe_name, u.username, rp.file_name from recipes r
+JOIN recipe_name rn ON r.recipe_id = rn.recipe_id
+JOIN users u ON r.email = u.email
+JOIN recipe_photo rp ON r.recipe_id = rp.recipe_id;
+
+CREATE OR REPLACE VIEW recipe_details AS
+SELECT r.recipe_id, r.email, rn.recipe_name, rc.recipe_content, rpro.recipe_process, u.username, rp.file_name,
+rl.limitation_1, rl.limitation_2, rl.limitation_3, rl.limitation_4, rl.limitation_5, rl.limitation_6 
+from recipes r
+JOIN recipe_name rn ON r.recipe_id = rn.recipe_id
+JOIN users u ON r.email = u.email
+JOIN recipe_photo rp ON r.recipe_id = rp.recipe_id
+JOIN recipe_content rc ON r.recipe_id = rc.recipe_id
+JOIN recipe_process rpro ON r.recipe_id = rpro.recipe_id
+JOIN recipe_limitations rl ON r.recipe_id = rl.recipe_id;
+
 /*
 create table recipe_score
 (

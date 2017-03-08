@@ -1,11 +1,12 @@
-<?php 
+<?php
+  header("Content-Type: text/html; charset=utf-8");
   session_start();
   $_SESSION['last_action'] = time();
 
   # see if there was a problem when working with db
   $error_db = false;
   # max. recipes shown on a single page
-  $paging = 8;
+  $paging = 2;
   # count number of filters applied
   $limitation_count = 0;
 
@@ -111,16 +112,14 @@
 
   # check if search was performed
   if (isset($_POST['find']) && ($_POST['find']) != "") {
-    include 'common/translate.php';
     $search_text = $_POST['find'];
-    $translated_text = strtr($search_text, $prevodni_tabulka);
   }
+
 ?>
 
 <!DOCTYPE html>
 <html lang="cs">
   <head>
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Recepty</title>
@@ -237,43 +236,46 @@
                 if(isset($_GET['page'])) {$page = $_GET['page'];} else {$page = 1;};
                 $offset = $paging * ($page - 1);
                 if ($page >= 1) {
-                # get list of recipe thumbnail details
-                if ($limitation_count == 0 && !isset($translated_text)) {
+                # get list of recipe thumbnail details - no search text & no filters set
+                if ($limitation_count == 0 && !isset($search_text)) {
                   $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
                   $array = $dbh->query($select_recipes);
                 } else {
                   # some of the limitations are checked
-                  $limitation_set = 0;
-                  $limitation_query = 'WHERE ';
-                  for ($lim = 1; $lim < 7; $lim++) {
-                    # check if limitations are set - if so then update query
-                    if (${"limitation$lim"} == 1) {
-                      if ($limitation_set == 0) {
-                        $limitation_query .= 'limitation_' . $lim . '=1';
-                        $limitation_set = 1;
-                      } else {
-                        # query was already updated
-                        $limitation_query .= ' AND ' . 'limitation_' . $lim . '=1';
-                      }
-                    };
+                  if ($limitation_count !=0) {
+                    $limitation_set = 0;
+                    $limitation_query = 'WHERE ';
+                    for ($lim = 1; $lim < 7; $lim++) {
+                      # check if limitations are set - if so then update query
+                      if (${"limitation$lim"} == 1) {
+                        if ($limitation_set == 0) {
+                          $limitation_query .= 'limitation_' . $lim . '=1';
+                          $limitation_set = 1;
+                        } else {
+                          # query was already updated
+                          $limitation_query .= ' AND ' . 'limitation_' . $lim . '=1';
+                        }
+                      };
+                    }
                   }
-                  #create filtered query
-                  if ($limitation_count == 0 && isset($translated_text)) {
-                    $search_query = ' WHERE recipe_name like "%' . $translated_text . '%"';
-                    $select_recipes = "SELECT * FROM recipe_thumbnails_filtered " . $search_query . " limit $offset, $paging";
+                  #create filtered query - if no filters are set, but search was performed
+                  if ($limitation_count == 0 && !isset($search_text)) {
+                    $search_query = ' WHERE recipe_name like "%' . $search_text . '%"';
+                    $select_recipes = "SELECT * FROM recipe_details " . $search_query . " limit $offset, $paging";
                   } else {
-                    if (isset($transted_text)){
-                    $search_query = ' AND recipe_name like "%' . $translated_text . '%"';
-                    $select_recipes = "SELECT * FROM recipe_thumbnails_filtered " . $limitation_query . $search_query . " limit $offset, $paging";} else {
-                    $select_recipes = "SELECT * FROM recipe_thumbnails_filtered " . $limitation_query . " limit $offset, $paging";
+                    #
+                    if (isset($search_text)){
+                    $search_query = ' AND recipe_name like "%' . $search_text . '%"';
+                    $select_recipes = "SELECT * FROM recipe_details " . $limitation_query . $search_query . " limit $offset, $paging";} else {
+                    $select_recipes = "SELECT * FROM recipe_details " . $limitation_query . " limit $offset, $paging";
                     }
                   }
                   $array = $dbh->query($select_recipes);
+                  echo 'select recipes: ' . $select_recipes;
                 }
 
                 # get number of recipes
-                $get_all_recipes = "SELECT recipe_id FROM recipes";
-                $all_array = $dbh->query($get_all_recipes);
+                $all_array = $dbh->query($select_recipes);
                 $total_recipes = $all_array->rowCount();
 
                 # create recipe bricks
