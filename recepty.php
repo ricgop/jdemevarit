@@ -6,7 +6,7 @@
   # see if there was a problem when working with db
   $error_db = false;
   # max. recipes shown on a single page
-  $paging = 2;
+  $paging = 8;
   # count number of filters applied
   $limitation_count = 0;
 
@@ -242,6 +242,7 @@
                   $array = $dbh->query($select_recipes);
                 } else {
                   # some of the limitations are checked
+
                   if ($limitation_count !=0) {
                     $limitation_set = 0;
                     $limitation_query = 'WHERE ';
@@ -259,11 +260,11 @@
                     }
                   }
                   #create filtered query - if no filters are set, but search was performed
-                  if ($limitation_count == 0 && !isset($search_text)) {
+                  if ($limitation_count == 0 && isset($search_text)) {
                     $search_query = ' WHERE recipe_name like "%' . $search_text . '%"';
                     $select_recipes = "SELECT * FROM recipe_details " . $search_query . " limit $offset, $paging";
                   } else {
-                    #
+                    # create filtered query - search performed and filters are active
                     if (isset($search_text)){
                     $search_query = ' AND recipe_name like "%' . $search_text . '%"';
                     $select_recipes = "SELECT * FROM recipe_details " . $limitation_query . $search_query . " limit $offset, $paging";} else {
@@ -271,7 +272,6 @@
                     }
                   }
                   $array = $dbh->query($select_recipes);
-                  echo 'select recipes: ' . $select_recipes;
                 }
 
                 # get number of recipes
