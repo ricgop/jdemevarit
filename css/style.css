@@ -108,3 +108,16 @@ a.navbar-brand {padding-top: 0px;}
   margin-left: 10px;
   margin-right: 10px;
 }
+
+/* add styling to clear button */
+.searchclear {
+    position:relative;
+    right:5px;
+    top:0;
+    bottom:0;
+    height:14px;
+    margin-left:-18px;
+    font-size:14px;
+    cursor:pointer;
+    color:#ccc;
+}

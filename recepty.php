@@ -100,28 +100,6 @@
     }
   }
 
-  #prepare filter variables
-  $filter_submit_string = '';
-  # prepare string to append to url
-  $filter_string = '';
-  $filter_set = false;
-  # get filter values and store them to variable fx
-  if ((isset($_GET['f1'])) || (isset($_GET['f2'])) || (isset($_GET['f3'])) || (isset($_GET['f4'])) || (isset($_GET['f5'])) || (isset($_GET['f6']))) {
-    $filter_set = true;
-    if (isset($_GET['f1'])) $f1=($_GET['f1']);
-    if (isset($_GET['f2'])) $f2=($_GET['f2']);
-    if (isset($_GET['f3'])) $f3=($_GET['f3']);
-    if (isset($_GET['f4'])) $f4=($_GET['f4']);
-    if (isset($_GET['f5'])) $f5=($_GET['f5']);
-    if (isset($_GET['f6'])) $f6=($_GET['f6']);
-
-    for ($url_lim = 1; $url_lim < 7; $url_lim++){
-      if(isset(${"f$url_lim"})) {
-        $filter_string .= '&f' . $url_lim . '=' . ${"f$url_lim"};
-      }
-    }
-  }
-
     if ($limitation1 == 1 || $limitation2 == 1 || $limitation3 == 1 || $limitation4 == 1 || $limitation5 == 1 || $limitation6 == 1) {
     if ($limitation1 == 1) ++$limitation_count;
     if ($limitation2 == 1) ++$limitation_count;
@@ -136,7 +114,6 @@
     include 'common/translate.php';
     $search_text = $_POST['find'];
     $translated_text = strtr($search_text, $prevodni_tabulka);
-    echo '<br>hledam ' . $search_text . ' tedy prelozeno: ' . $translated_text;
   }
 ?>
 
@@ -166,6 +143,17 @@
       function logOut() {
         $.get("common/logout.php");
       }
+
+      $(document).ready(function () {
+    $("#searchinput").keyup(function () {
+        $(this).next().toggle(Boolean($(this).val()));
+    });
+    $("#searchclear").toggle(Boolean($(".searchinput").val()));
+    $("#searchclear").click(function () {
+        $(this).prev().val('').focus();
+        $(this).hide();
+    });
+});
     </script>
 
     <link href="css/style.css" rel="stylesheet">
@@ -215,7 +203,8 @@
               </li> <!-- .dropdown -->
             </ul> <!-- .nav navbar-nav -->
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Hledat recept" name="find" value="<?php if(isset($_POST['find'])) echo $_POST['find']; ?>">
+              <input type="search" class="form-control" placeholder="Hledat recept" id="searchinput" name="find" maxlength="40" value="<?php if(isset($_POST['find'])) echo $_POST['find']; ?>">
+              <span id="searchclear" class="searchclear glyphicon glyphicon-remove-circle"></span>
             </div>
             <button type="submit" class="btn btn-default">Hledej</button>
           </form>
@@ -294,7 +283,7 @@
                     $result = $array->fetchAll();
                     foreach($result as $row)
                     {
-                      echo '<a href="recept.php?recipeID=' . $row['recipe_id'] . '&' . 'page=' . $page . $filter_string;
+                      echo '<a href="recept.php?recipeID=' . $row['recipe_id'] . '&' . 'page=' . $page;
                       echo'">
                       
                             <div class="thumbnail">
