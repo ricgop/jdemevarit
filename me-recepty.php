@@ -185,7 +185,7 @@
           </ul> <!-- .nav navbar-nav -->
             
             <!-- search bar -->
-            <form class="navbar-form navbar-left" method="POST" action="http://localhost/jdemevarit/recepty.php?page=1">
+            <form class="navbar-form navbar-left" method="POST" action="http://localhost/jdemevarit/me-recepty.php?page=1">
             <ul class="nav navbar-nav">
               <li class="dropdown">
                 <button type="button" class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filter">Zdravotní omezení <span class="caret"></span>
@@ -233,6 +233,8 @@
                 $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
 
                 # variable to set page number if parameter page is empty
+                $email = '';
+                if(isset($_SESSION['login_email'])) {$email = ' AND email="' . $_SESSION['login_email'] . '"';};
                 if(isset($_GET['page'])) {$page = $_GET['page'];} else {$page = 1;};
                 $offset = $paging * ($page - 1);
                 if ($page >= 1) {
@@ -262,13 +264,13 @@
                   #create filtered query - if no filters are set, but search was performed
                   if ($limitation_count == 0 && isset($search_text)) {
                     $search_query = ' WHERE recipe_name like "%' . $search_text . '%"';
-                    $select_recipes = "SELECT * FROM recipe_details " . $search_query . " limit $offset, $paging";
+                    $select_recipes = "SELECT * FROM recipe_details " . $search_query . $email . " limit $offset, $paging";
                   } else {
                     # create filtered query - search performed and filters are active
                     if (isset($search_text)){
                     $search_query = ' AND recipe_name like "%' . $search_text . '%"';
-                    $select_recipes = "SELECT * FROM recipe_details " . $limitation_query . $search_query . " limit $offset, $paging";} else {
-                    $select_recipes = "SELECT * FROM recipe_details " . $limitation_query . " limit $offset, $paging";
+                    $select_recipes = "SELECT * FROM recipe_details " . $limitation_query . $search_query .  $email . " limit $offset, $paging";} else {
+                    $select_recipes = "SELECT * FROM recipe_details " . $limitation_query .  $email . " limit $offset, $paging";
                     }
                   }
                   $array = $dbh->query($select_recipes);
@@ -322,7 +324,7 @@
           <ul class="pagination" id="paging">
             <li>
 
-              <a href="<?php if ($page > 1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page - 1);}?>" aria-label="Previous">
+              <a href="<?php if ($page > 1) {echo'http://localhost/jdemevarit/me-recepty.php?page=' . ($page - 1);}?>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
@@ -334,9 +336,9 @@
                   for ($i=1; $i < ($total_recipes/$paging + 1); $i++) {
                     # highlight active page
                     if($page != ($i)) {
-                      echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                      echo '<li><a href="http://localhost/jdemevarit/me-recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
                     } else {
-                      echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                      echo '<li><a href="http://localhost/jdemevarit/me-recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
                     }
                   }
                 } else {
@@ -346,35 +348,35 @@
                     for ($i=1; $i < 5; $i++) {
                       # highlight active page
                       if($page != ($i)) {
-                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                        echo '<li><a href="http://localhost/jdemevarit/me-recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
                       } else {
-                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                        echo '<li><a href="http://localhost/jdemevarit/me-recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
                       }
                     }
                     echo '<li><a>...</a></li>';
                     for ($i=($total_recipes/$paging - 3); $i < ($total_recipes/$paging +1); $i++) {
                       # highlight active page
                       if($page != ($i)) {
-                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                        echo '<li><a href="http://localhost/jdemevarit/me-recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
                       } else {
-                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                        echo '<li><a href="http://localhost/jdemevarit/me-recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
                       }
                     }
                   } else {
                       for ($i=$page - 4; $i <= $page +1; $i++) {
                       # highlight active page
                       if($page != ($i)) {
-                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                        echo '<li><a href="http://localhost/jdemevarit/me-recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
                       } else {
-                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                        echo '<li><a href="http://localhost/jdemevarit/me-recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
                       }
                     }
                     for ($i=($page+2); $i < ($page+5); $i++) {
                       # highlight active page
                       if($page != ($i)) {
-                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
+                        echo '<li><a href="http://localhost/jdemevarit/me-recepty.php?page=' . ($i) . '">' . $i . '</a></li>';
                       } else {
-                        echo '<li><a href="http://localhost/jdemevarit/recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
+                        echo '<li><a href="http://localhost/jdemevarit/me-recepty.php?page=' . ($i) . '" id="active_page"><u><b>' . $i . '</b></u></a></li>';
                       }
                     }
                   }
