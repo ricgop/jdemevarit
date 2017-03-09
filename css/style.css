@@ -5,9 +5,7 @@ body {
   padding-top: 50px;
 }
 
-u {
-  padding-top: 50px;
-}
+
 
 label {
   font-weight: normal;
@@ -124,4 +122,8 @@ a.navbar-brand {padding-top: 0px;}
     font-size:14px;
     cursor:pointer;
     color:#ccc;
+}
+
+#forgoten {
+  padding-top: 0px;
 }
