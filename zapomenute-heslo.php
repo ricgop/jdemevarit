@@ -46,11 +46,23 @@
       # get user's nickname from db
       try {
         $hash = password_hash($email, PASSWORD_DEFAULT);
-        $pwurl = 'localhost/jdemevarit/reset-hesla.php?id=' . $hash;
+        $pwurl = 'http://localhost/jdemevarit/reset-hesla.php?id=' . $hash;
         
         # create & send email
-        $mailbody = 'Tento mail byl vytvořen na základě žádosti o změnu hesla na stránkách www.jdemevarit.cz\nPokud Vám byl zaslán omylem, prosím ignorujte ho.\n\nHeslo resetujete kliknutím na tento link: ' . $pwurl . '\njdemevarit.cz';
-        mail($email, 'Reset hesla - www.jdemevarit.cz', $mailbody);
+        $headers = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+        $mail_url = 'http://localhost/jdemevarit/reset-hesla.php?id=' . $pwurl;
+        $mailbody = '<html>
+						<head>
+						    <title>Reset hesla</title>
+						</head>
+						<body>
+							<h2>Reset hesla</h2>
+						    <p>Tento mail byl vytvořen na základě žádosti o změnu hesla na stránkách www.jdemevarit.cz<br><br>Pokud Vám byl 
+						zaslán omylem, prosím ignorujte ho.<br>Heslo resetujete kliknutím na tento link: <a href="' . $mail_url . '">' . $mail_url . '</a><br><br>Váš tým jdemevarit</p>
+						</body>
+					</html>';
+        mail($email, 'Reset hesla - www.jdemevarit.cz', $mailbody, $headers);
         $success = true;
       }
       catch (PDOException $exception)
@@ -116,7 +128,7 @@
         <div id="login">
           <h1>Zapomenuté heslo</h1>
           <p><u>Upozornění</u>: pro dokončení akce potvrďte prosím email.</p>
-          <?php if($success == true) {echo '<div class="alert alert-success" id="login-success"><strong>Reset hesla</strong> proběhl úspěšně!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/recepty.php" );}?>
+          <?php if($success == true) {echo '<div class="alert alert-success" id="login-success"><strong>Reset hesla</strong> proběhl úspěšně!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/zapomenute-heslo.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
           <div id="login-container">
             <div class="col-xs-12 col-sm-4">
