@@ -50,6 +50,11 @@
       if (strlen($_POST["password"]) > 30) {
         $error_password = "Heslo nesmí obsahovat víc, než 30 znaků!";
         $error_login = true;
+      } else {
+        if (strlen($_POST["password"]) < 6) {
+          $error_password = "Heslo nesmí obsahovat méně, než 6 znaků!";
+          $error_login = true;
+        }
       }
     }
     # login credentials correct - log the user in
@@ -87,8 +92,8 @@
             $error_db = true;
           }
           $success = true;
-        } else $wrong_link = true;
-      } else $wrong_link = true;
+        } else $error_db = true;
+      } else $error_db = true;
     }
   }
 ?>
@@ -148,7 +153,7 @@
         <div id="login">
           <h1>Reset hesla</h1>
           <?php if($success == true) {echo '<div class="alert alert-success" id="login-success"><strong>Přihlášení</strong> proběhlo úspěšně!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/recepty.php?page=1" );}?>
-          <?php if($error_db == true || $wrong_link = true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong>... použili jste správný link?</div>';}?>
+          <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong>... použili jste správný link?</div>';}?>
           <div id="login-container">
             <div class="col-xs-12 col-sm-4">
               <form id="login-form" method="POST">
@@ -165,8 +170,7 @@
                 <div class="error"><?php if(isset($error_general) && (!isset($error_email)) && (!isset($error_password))) echo $error_general; ?></div>
               </div>
               <div>
-                <button type="submit" class="btn btn-primary"">Změnit</button>
-
+                <button type="submit" class="btn btn-primary">Změnit</button>
               </div>
               </form>
               <p></p>
