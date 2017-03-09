@@ -135,14 +135,13 @@
 
                     # recipe limitations
                     if ($limitation1 == 0 || $limitation2 == 0 || $limitation3 == 0 || $limitation4 == 0 || $limitation5 == 0 || $limitation6 == 0) {
-	                    echo '<div id="limitations"><p><i>Vhodné pro osoby se zdravotním omezením:</i></p>';
-	                    if ($limitation1 == 0) echo '<span class="label label-success">Onemocnění žlučníku</span>';
-	                    if ($limitation2 == 0) echo '<span class="label label-success">Onemocnění jater</span>';
-	                    if ($limitation3 == 0) echo '<span class="label label-success">Alergie na pyl</span>';
-	                    if ($limitation4 == 0) echo '<span class="label label-success">Alergie na ořechy</span>';
-	                    if ($limitation5 == 0) echo '<span class="label label-success">Alergie na laktózu</span>';
-	                    if ($limitation6 == 0) echo '<span class="label label-success">Celiakie</span>';
-	                    echo '</div>';
+	                    echo '<div id="limitations"><p><i>Vhodné pro osoby se zdravotním omezením:</i></p></div>';
+	                    if ($limitation1 == 0) echo '<div class="label label-success">Onemocnění žlučníku</div>';
+	                    if ($limitation2 == 0) echo '<div class="label label-success">Onemocnění jater</div>';
+	                    if ($limitation3 == 0) echo '<div class="label label-success">Alergie na pyl</div>';
+	                    if ($limitation4 == 0) echo '<div class="label label-success">Alergie na ořechy</div>';
+	                    if ($limitation5 == 0) echo '<div class="label label-success">Alergie na laktózu</div>';
+	                    if ($limitation6 == 0) echo '<div class="label label-success">Celiakie</div>';
                 	} else echo '<div id="limitations"><p><i>Tento recept není vhodný pro osoby se zdravotním omezenim.</i></p></div>';
 
                 	# recipe content

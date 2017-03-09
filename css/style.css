@@ -90,7 +90,10 @@ a.navbar-brand {padding-top: 0px;}
 #active_page {background-color: #fab700;}
 
 /* recipe detail page styling */
-.label {margin: 2px;}
+.label {
+  margin: 2px; 
+  display: inline-block;
+}
 
 /* rule to shift margin */
 #registration-text {margin-bottom: 90px;}
