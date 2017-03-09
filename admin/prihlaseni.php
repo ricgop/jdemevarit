@@ -4,7 +4,7 @@
   $error_db = false;
   $error_login = false;
   $success = false;
-
+  $passwd_empty = false;
   try {
     #set-up db connection
     $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
@@ -49,6 +49,7 @@
     if (($_POST["password"] == "") || (!isset($_POST["password"]))) {
       $error_password = "Heslo nesmí být prázdné!";
       $error_login = true;
+      $passwd_empty = true;
     } else {
       if (strlen($_POST["password"]) > 30) {
         $error_password = "Heslo nesmí obsahovat víc, než 30 znaků!";
@@ -142,7 +143,7 @@
           <div id="login-container">
             <div class="col-xs-12 col-sm-4">
               <form id="login-form" method="POST">
-               <div class="<?php if(!isset($error_email) && (!isset($error_general))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
+               <div class="<?php if(!isset($error_email) && ((!isset($error_general)) || ($passwd_empty == true))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
                  <label for="userEmail">Email</label><span class="star"> *</span>
                  <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">
                  <div class="error"><?php if(isset($error_email)) echo $error_email; ?></div>
