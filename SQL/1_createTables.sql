@@ -100,9 +100,8 @@ create table recipe_photo
 create table admins
 (
 	email varchar(40) NOT NULL,
-	username varchar(40),
 	active int(1) UNSIGNED, 
-	PRIMARY KEY (email,username)
+	PRIMARY KEY (email)
 );
 
 create table admin_passwords
@@ -110,7 +109,7 @@ create table admin_passwords
 	email varchar(40) NOT NULL,
 	password varchar(60),
 	PRIMARY KEY (email),
-	FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
+	FOREIGN KEY (email) REFERENCES admins(email) ON DELETE CASCADE
 );
 
 

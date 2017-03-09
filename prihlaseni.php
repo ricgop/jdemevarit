@@ -173,7 +173,7 @@
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
           <div id="login-container">
             <div class="col-xs-12 col-sm-4">
-              <form id="registration" method="POST">
+              <form id="login-form" method="POST">
                <div class="<?php if(!isset($error_email) && (!isset($error_general))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
                  <label for="userEmail">Email</label><span class="star"> *</span>
                  <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">

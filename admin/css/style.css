@@ -17,22 +17,28 @@ a {
   color: black;
 }
 
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+/* page main content styling */
 #content { padding: 0px 20px 20px 20px;}
 
 /* setting bold weight active link in header */
 .active {font-weight: bold;}
 
-/* setting div paddings for registration page */
-#limitations {padding: 5px 0px 0px 12px;}
-
-/* panel padding */
-#user-details {padding: 12px 12px 6px 12px;}
-#registration-details {padding: 12px 12px 6px 12px;}
+/* setting div paddings for content of some pages */
+#limitations {padding: 5px 0px 10px 12px;}
+#registration-details {padding: 5px 12px 0px 12px;}
+#recipe-details {padding: 5px 12px 0px 12px;}
+#recipe-content {padding: 5px 12px 0px 12px;}
 
 /* navbar customization */
 .navbar-brand > img {height: 45px; padding-top: 3px;}
 a.navbar-brand {padding-top: 0px;}
-#filter {margin: 8px 15px 0px 8px;}
+#filter {margin: 0px 15px;}
+.navbar-right {margin-right: 0px;}
 
 /* dropdown-menu styling */
 .dropdown-menu > li > label {
@@ -48,32 +54,71 @@ a.navbar-brand {padding-top: 0px;}
   color: red; font-weight: bold; font-style: italic
 }
 
-/* table header background */
-#table-header {background: #ddd;}
-
-/* listed users table */
-#table-content {
-  border: 2px solid #ddd;
-  margin: 15px 0px 5px 0px;
-  border-radius: 4px;
-}
-
-/* user table buttom margin */
-#username {
-  margin-bottom: 5px;
-}
-
-#category {
-  margin-bottom: 5px;
-}
-
-#recipe {
-  margin-bottom: 5px;
-}
-
-#creation-button {
-  margin-top: -10px;
-}
-
 /* info message styling */
 .info {font-style: italic;}
+.error {color: red; }
+
+/* reset page link styling */
+#reset-page {margin: 15px;}
+
+/* recipe thumbnail styling */
+.thumbnail {
+  width: 300px;
+  height:280px;
+  float: left;
+  margin: 10px 10px 0px 0px;
+}
+
+/* highlight hovered recipe */
+.thumbnail:hover {
+  /*transform: scale(1.01);
+  /*border-color: gray;*/
+  box-shadow: 0px 2px 25px -10px grey;
+}
+
+#limitation-button {
+  margin: 10px 0px 0px 40px;
+}
+
+/* food picture styling */
+#food_pic {
+  margin-bottom: 15px;
+}
+
+/* page navigation styling */
+#bottom-navigation {margin-top: 10px;}
+#active_page {background-color: #fab700;}
+
+/* recipe detail page styling */
+.label {margin: 2px;}
+
+/* rule to shift margin */
+#registration-text {margin-bottom: 90px;}
+
+/* shift recipe warning */
+#warning {
+  width: 100%;
+  vertical-align: bottom !important;
+  bottom: 0px !important;
+}
+#warning.navbar.navbar-bottom {
+  bottom: 0px;
+}
+
+#paging {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* add styling to clear button */
+.searchclear {
+    position:relative;
+    right:5px;
+    top:0;
+    bottom:0;
+    height:14px;
+    margin-left:-18px;
+    font-size:14px;
+    cursor:pointer;
+    color:#ccc;
+}

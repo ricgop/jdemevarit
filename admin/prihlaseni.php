@@ -80,35 +80,10 @@
     # login credentials correct - log the user in
     if ($error_login == false && $error_db == false && (($_POST["password"] != "") || isset($_POST["password"]))) {
 
-      # get user's nickname from db
-      try {
-        $email = $_POST["userEmail"];
-        $nick_query = "SELECT username FROM admins WHERE email='$email'";
-        $nickname = $dbh->query($nick_query)->fetchColumn();
-      }
-      catch (PDOException $exception)
-      {
-        $error_db = true;
-      }
-
       # log the user in
       session_start();
-      $_SESSION['login_username'] = $nickname; // session initialization with value of PHP variables
+      // session initialization with value of PHP variables
       $_SESSION['login_email'] = $email;
-      try {
-        $limitations_query = "SELECT * FROM user_limitations WHERE email='$email'";
-        $limitations = $dbh->query($limitations_query)->fetchAll();
-        $_SESSION['limitation1'] = $limitations[0]['limitation_1'];
-        $_SESSION['limitation2'] = $limitations[0]['limitation_2'];
-        $_SESSION['limitation3'] = $limitations[0]['limitation_3'];
-        $_SESSION['limitation4'] = $limitations[0]['limitation_4'];
-        $_SESSION['limitation5'] = $limitations[0]['limitation_5'];
-        $_SESSION['limitation6'] = $limitations[0]['limitation_6'];
-      }
-      catch (PDOException $exception)
-      {
-        $error_db = true;
-      }
 
       $success = true;
     }
@@ -145,7 +120,7 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <a class="navbar-brand" href="prihlaseni.php"><img alt="Brand" src="icons/main.png"/></a>
+          <a class="navbar-brand" href="prihlaseni.php"><img alt="Brand" src="images/main.png"/></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -155,25 +130,18 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="top-navbar">
-          <ul class="nav navbar-nav">
-            <li><a href="recepty.php?page=1">Recepty</a></li>
-            <li><a href="registrace.php">Registrace</a></li>
-            <li class="active"><a href="prihlaseni.php">Přihlášení</a></li>
-          </ul>
-        </div>  <!-- .navbar-collapse -->
       </div>  <!-- .container-fluid -->
     </nav>
 
     <div class="container-fluid">
       <div id="content">
         <div id="login">
-          <h1>Přihlášení</h1>
-          <?php if($success == true) {echo '<div class="alert alert-success" id="login-success"><strong>Přihlášení</strong> proběhlo úspěšně!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/recepty.php" );}?>
+          <h1>Admin - přihlášení</h1>
+          <?php if($success == true) {echo '<div class="alert alert-success" id="login-success"><strong>Přihlášení</strong> proběhlo úspěšně!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/smazat-recept.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
           <div id="login-container">
             <div class="col-xs-12 col-sm-4">
-              <form id="registration" method="POST">
+              <form id="login-form" method="POST">
                <div class="<?php if(!isset($error_email) && (!isset($error_general))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
                  <label for="userEmail">Email</label><span class="star"> *</span>
                  <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">
