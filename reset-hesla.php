@@ -72,12 +72,11 @@
       if (isset($hash)) {
         if (password_verify($email, $hash)) {
           session_start();
-          $_SESSION['login_username'] = $nickname; // session initialization with value of PHP variables
-          $_SESSION['login_email'] = $email;
           try {
             $password = $_POST["password"];
             $p_hash = password_hash($password, PASSWORD_DEFAULT);
             $upate_passwd = "UPDATE user_passwords SET password ='" . $p_hash . "' WHERE email='$email'";
+            $dbh->exec($upate_passwd);
             $limitations_query = "SELECT * FROM user_limitations WHERE email='$email'";
             $limitations = $dbh->query($limitations_query)->fetchAll();
             $_SESSION['limitation1'] = $limitations[0]['limitation_1'];
@@ -86,6 +85,10 @@
             $_SESSION['limitation4'] = $limitations[0]['limitation_4'];
             $_SESSION['limitation5'] = $limitations[0]['limitation_5'];
             $_SESSION['limitation6'] = $limitations[0]['limitation_6'];
+            $nick_query = "SELECT username FROM users WHERE email='$email'";
+            $nickname = $dbh->query($nick_query)->fetchColumn();
+            $_SESSION['login_username'] = $nickname;
+            $_SESSION['login_email'] = $email;
           }
           catch (PDOException $exception)
           {
@@ -152,7 +155,7 @@
       <div id="content">
         <div id="login">
           <h1>Reset hesla</h1>
-          <?php if($success == true) {echo '<div class="alert alert-success" id="login-success"><strong>Přihlášení</strong> proběhlo úspěšně!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/recepty.php?page=1" );}?>
+          <?php if($success == true) {echo '<div class="alert alert-success" id="login-success"><strong>Změna hesla</strong> proběhla úspěšně!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/recepty.php?page=1" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong>... použili jste správný link?</div>';}?>
           <div id="login-container">
             <div class="col-xs-12 col-sm-4">

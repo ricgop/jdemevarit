@@ -51,7 +51,6 @@
         # create & send email
         $headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-        $mail_url = 'http://localhost/jdemevarit/reset-hesla.php?id=' . $pwurl;
         $mailbody = '<html>
 						<head>
 						    <title>Reset hesla</title>
@@ -59,7 +58,7 @@
 						<body>
 							<h2>Reset hesla</h2>
 						    <p>Tento mail byl vytvořen na základě žádosti o změnu hesla na stránkách www.jdemevarit.cz<br><br>Pokud Vám byl 
-						zaslán omylem, prosím ignorujte ho.<br>Heslo resetujete kliknutím na tento link: <a href="' . $mail_url . '">' . $mail_url . '</a><br><br>Váš tým jdemevarit</p>
+						zaslán omylem, prosím ignorujte ho.<br>Heslo resetujete kliknutím na tento link: <a href="' . $pwurl . '">' . $pwurl . '</a><br><br>Váš tým jdemevarit</p>
 						</body>
 					</html>';
         mail($email, 'Reset hesla - www.jdemevarit.cz', $mailbody, $headers);
