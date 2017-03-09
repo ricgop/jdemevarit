@@ -163,7 +163,6 @@
           <div id="login-container">
             <div class="col-xs-12 col-sm-4">
               <form id="login-form" method="POST">
-              <?php if ($passwd_empty == true) echo 'baaaa'; else echo 'BEEEE';?>
                <div class="<?php if(!isset($error_email) && ((!isset($error_general)) || ($passwd_empty == true))) {echo "form-group";} else {echo "form-group has-error";} ?>" id="form-email">
                  <label for="userEmail">Email</label><span class="star"> *</span>
                  <input class="form-control" id="email" name="userEmail" type="text" placeholder="např. jan.novak@email.cz" value="<?php if(isset($_POST['userEmail'])) echo $_POST['userEmail']; ?>">

@@ -177,11 +177,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="top-navbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="recepty.php?page=1">Recepty</a></li>
+            <li><a href="recepty.php?page=1">Recepty</a></li>
             <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="registrace.php">Registrace</a></li>';} ?>
             <?php if(!isset($_SESSION['login_username'])) {echo '<li><a href="prihlaseni.php">Přihlášení</a></li>';} ?>
             <?php if(isset($_SESSION['login_username'])) {echo '<li><a href="pridat-recept.php">Přidat recept</a></li>';} ?>
-            <?php if(isset($_SESSION['login_username'])) {echo '<li><a href="me-recepty.php">Mé recepty</a></li>';} ?>
+            <li class="active"><a href="me-recepty.php">Mé recepty</a>
           </ul> <!-- .nav navbar-nav -->
             
             <!-- search bar -->
@@ -232,19 +232,19 @@
                 #set-up db connection
                 $dbh = new PDO('mysql:host=127.0.0.1;dbname=jdemevarit','jdeme.varit','Jdemevarit123');
 
-                # variable to set page number if parameter page is empty
                 $email = '';
-                if(isset($_SESSION['login_email'])) {$email = ' AND email="' . $_SESSION['login_email'] . '"';};
+                # variable to set page number if parameter page is empty
                 if(isset($_GET['page'])) {$page = $_GET['page'];} else {$page = 1;};
                 $offset = $paging * ($page - 1);
                 if ($page >= 1) {
                 # get list of recipe thumbnail details - no search text & no filters set
                 if ($limitation_count == 0 && !isset($search_text)) {
-                  $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
+                  if(isset($_SESSION['login_email'])) {$email = ' WHERE email="' . $_SESSION['login_email'] . '"';};
+                  $select_recipes = "SELECT * FROM recipe_details" . $email . "limit $offset, $paging";
                   $array = $dbh->query($select_recipes);
                 } else {
+                  if(isset($_SESSION['login_email'])) {$email = ' AND email="' . $_SESSION['login_email'] . '"';};
                   # some of the limitations are checked
-
                   if ($limitation_count !=0) {
                     $limitation_set = 0;
                     $limitation_query = 'WHERE ';
