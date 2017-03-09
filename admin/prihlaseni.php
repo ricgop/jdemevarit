@@ -84,7 +84,7 @@
       # log the user in
       session_start();
       // session initialization with value of PHP variables
-      $_SESSION['login_email'] = $email;
+      $_SESSION['admin_email'] = $email;
 
       $success = true;
     }
@@ -138,7 +138,7 @@
       <div id="content">
         <div id="login">
           <h1>Admin - přihlášení</h1>
-          <?php if($success == true) {echo '<div class="alert alert-success" id="login-success"><strong>Přihlášení</strong> proběhlo úspěšně!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/smazat-recept.php" );}?>
+          <?php if($success == true) {echo '<div class="alert alert-success" id="login-success"><strong>Přihlášení</strong> proběhlo úspěšně!</div>'; header( "refresh:2;url=http://localhost/jdemevarit/admin/pridat-administratora.php" );}?>
           <?php if($error_db == true) {echo '<div class="alert alert-danger"><strong>Nastala chyba</strong> - opakujte prosím akci později...</div>';}?>
           <div id="login-container">
             <div class="col-xs-12 col-sm-4">
