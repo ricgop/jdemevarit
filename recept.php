@@ -139,13 +139,13 @@
 	                    if ($limitation1 == 0) echo '<div class="label label-success">Onemocnění žlučníku</div>';
 	                    if ($limitation2 == 0) echo '<div class="label label-success">Onemocnění jater</div>';
 	                    if ($limitation3 == 0) echo '<div class="label label-success">Alergie na pyl</div>';
-	                    if ($limitation4 == 0) echo '<div class="label label-success">Alergie na ořechy</div>';
+	                    if ($limitation4 == 0) echo '<div class="label label-success">Cukrovka</div>';
 	                    if ($limitation5 == 0) echo '<div class="label label-success">Alergie na laktózu</div>';
 	                    if ($limitation6 == 0) echo '<div class="label label-success">Celiakie</div>';
                 	} else echo '<div id="limitations"><p><i>Tento recept není vhodný pro osoby se zdravotním omezenim.</i></p></div>';
 
                 	# recipe content
-                	echo '<div class="panel panel-default"><div id="recipe-content"> <p><h3>Seznam ingrediencí</h3>' . $recipe_content . '</p></div></div>';
+                	echo '<div class="panel panel-default" id="ingredients"><div id="recipe-content"> <p><h3>Seznam ingrediencí</h3>' . $recipe_content . '</p></div></div>';
 
                 	# recipe content
                 	echo '<div id="recipe-content"> <p><h3>Postup</h3>' . $recipe_process . '</p></div>';

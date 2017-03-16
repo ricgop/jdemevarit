@@ -287,7 +287,7 @@
                   <div class="panel-heading">
                     <h3 class="panel-title">Zdravotní omezení</h3>
                   </div>
-                  <div id="limitations">
+                  <div id="limitations-reg">
                     <div class="checkbox">
                       <label><input type="checkbox" name="limitation1" <?php if(isset($_POST['limitation1'])) echo 'checked="checked"'; ?>>Onemocnění žlučníku</label>
                     </div>
@@ -298,7 +298,7 @@
                       <label><input type="checkbox" name="limitation3" <?php if(isset($_POST['limitation3'])) echo 'checked="checked"'; ?>>Alergie na pyl</label>
                     </div>
                     <div class="checkbox">
-                      <label><input type="checkbox" name="limitation4" <?php if(isset($_POST['limitation4'])) echo 'checked="checked"'; ?>>Alergie na ořechy</label>
+                      <label><input type="checkbox" name="limitation4" <?php if(isset($_POST['limitation4'])) echo 'checked="checked"'; ?>>Cukrovka</label>
                     </div>
                     <div class="checkbox">
                       <label><input type="checkbox" name="limitation5" <?php if(isset($_POST['limitation5'])) echo 'checked="checked"'; ?>>Alergie na laktózu</label>
@@ -306,6 +306,7 @@
                     <div class="checkbox">
                       <label><input type="checkbox" name="limitation6" <?php if(isset($_POST['limitation6'])) echo 'checked="checked"'; ?>>Celiakie</label>
                     </div>
+                    <hr/>
                     <p><b>Toto nastavení</b> Vám automaticky aktivuje filtr na stránkách s recepty.</p>
                   </div>
                   <p></p>

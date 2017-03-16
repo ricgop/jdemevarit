@@ -6,7 +6,7 @@
   # see if there was a problem when working with db
   $error_db = false;
   # max. recipes shown on a single page
-  $paging = 8;
+  $paging = 2;
   # count number of filters applied
   $limitation_count = 0;
 
@@ -143,16 +143,16 @@
         $.get("common/logout.php");
       }
 
-      $(document).ready(function () {
-    $("#searchinput").keyup(function () {
+    $(document).ready(function () {
+      $("#searchinput").keyup(function () {
         $(this).next().toggle(Boolean($(this).val()));
+      });
+      $("#searchclear").toggle(Boolean($(".searchinput").val()));
+      $("#searchclear").click(function () {
+          $(this).prev().val('').focus();
+          $(this).hide();
+      });
     });
-    $("#searchclear").toggle(Boolean($(".searchinput").val()));
-    $("#searchclear").click(function () {
-        $(this).prev().val('').focus();
-        $(this).hide();
-    });
-});
     </script>
 
     <link href="css/style.css" rel="stylesheet">
@@ -194,7 +194,7 @@
                   <li><label><input type="checkbox" name="limitation1" <?php if($limitation1 == 1) {echo 'checked="checked"';} ?>> Onemocnění žlučníku</label></li>
                   <li><label><input type="checkbox" name="limitation2" <?php if($limitation2 == 1) {echo 'checked="checked"';} ?>>  Onemocnění jater</label></li>
                   <li><label><input type="checkbox" name="limitation3" <?php if($limitation3 == 1) {echo 'checked="checked"';} ?>>  Alergie na pyl</label></li>
-                  <li><label><input type="checkbox" name="limitation4" <?php if($limitation4 == 1) {echo 'checked="checked"';} ?>>  Alergie na ořechy</label></li>
+                  <li><label><input type="checkbox" name="limitation4" <?php if($limitation4 == 1) {echo 'checked="checked"';} ?>>  Cukrovka </label></li>
                   <li><label><input type="checkbox" name="limitation5" <?php if($limitation5 == 1) {echo 'checked="checked"';} ?>>  Alergie na laktózu</label></li>
                   <li><label><input type="checkbox" name="limitation6" <?php if($limitation6 == 1) {echo 'checked="checked"';} ?>>  Celiakie</label></li>
                   <button class="btn btn-primary" id="limitation-button">Filtrovat</button>
@@ -277,6 +277,7 @@
                 # get number of recipes
                 $all_array = $dbh->query($select_recipes);
                 $total_recipes = $all_array->rowCount();
+                echo '<br>' . $total_recipes;
 
                 # create recipe bricks
                 if ($array->rowCount() == 0) {
@@ -321,6 +322,7 @@
         <nav aria-label="Page navigation">
           <ul class="pagination" id="paging">
             <li>
+            
               <?php if(isset($total_recipes)) {if ($total_recipes > 0) {echo '<a href="'; if ($page > 1) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page - 1);}; echo '" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>'; };};?>
@@ -381,7 +383,8 @@
               }
               ?>
             <li>
-               <?php if(isset($total_recipes)) {if ($total_recipes > 0) {echo '<a href="'; if ($page < ($total_recipes/$paging)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}; echo '" aria-label="Next">
+              <?php echo '<br>' . '888' . $total_recipes/$paging + 1 . '888'; ?>
+               <?php if(isset($total_recipes)) {if ($total_recipes > 0) {echo '<a href="'; if ($page < ($total_recipes/$paging + 1)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}; echo '" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
               </a>'; };};?>
             </li>
