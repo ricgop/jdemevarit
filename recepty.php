@@ -6,7 +6,7 @@
   # see if there was a problem when working with db
   $error_db = false;
   # max. recipes shown on a single page
-  $paging = 2;
+  $paging = 8;
   # count number of filters applied
   $limitation_count = 0;
 
@@ -239,6 +239,7 @@
                 # get list of recipe thumbnail details - no search text & no filters set
                 if ($limitation_count == 0 && !isset($search_text)) {
                   $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
+                  $select_all_recipes = "SELECT * FROM recipe_thumbnails";
                   $array = $dbh->query($select_recipes);
                 } else {
                   # some of the limitations are checked
@@ -263,21 +264,22 @@
                   if ($limitation_count == 0 && isset($search_text)) {
                     $search_query = ' WHERE recipe_name like "%' . $search_text . '%"';
                     $select_recipes = "SELECT * FROM recipe_details " . $search_query . " limit $offset, $paging";
+                    $select_all_recipes = "SELECT * FROM recipe_details " . $search_query;
                   } else {
                     # create filtered query - search performed and filters are active
                     if (isset($search_text)){
                     $search_query = ' AND recipe_name like "%' . $search_text . '%"';
                     $select_recipes = "SELECT * FROM recipe_details " . $limitation_query . $search_query . " limit $offset, $paging";} else {
                     $select_recipes = "SELECT * FROM recipe_details " . $limitation_query . " limit $offset, $paging";
+                    $select_all_recipes = "SELECT * FROM recipe_details " . $limitation_query;
                     }
                   }
                   $array = $dbh->query($select_recipes);
                 }
 
                 # get number of recipes
-                $all_array = $dbh->query($select_recipes);
+                $all_array = $dbh->query($select_all_recipes);
                 $total_recipes = $all_array->rowCount();
-                echo '<br>' . $total_recipes;
 
                 # create recipe bricks
                 if ($array->rowCount() == 0) {
@@ -383,14 +385,14 @@
               }
               ?>
             <li>
-              <?php echo '<br>' . '888' . $total_recipes/$paging + 1 . '888'; ?>
-               <?php if(isset($total_recipes)) {if ($total_recipes > 0) {echo '<a href="'; if ($page < ($total_recipes/$paging + 1)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}; echo '" aria-label="Next">
+               <?php if(isset($total_recipes)) {if ($total_recipes > 0) {echo '<a href="'; if ($page < ($total_recipes/$paging)) {echo'http://localhost/jdemevarit/recepty.php?page=' . ($page + 1);}; echo '" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
               </a>'; };};?>
             </li>
           </ul>
         </nav>
     </div>
+    <?php if($total_recipes > 0) {echo '<div class="text-center" id="page-info"><p><i>Celkem nalezeno ' . $total_recipes . ' receptů</i></p></div>';} ?>
     <div class = "navbar navbar-default navbar-bottom" id="warning">
       <div class = "container">
         <p class = "navbar-header"><i><u>Upozornění:</u> recepty na stránkách www.jdemevarit.cz jsou vkládány registrovanými uživateli. Z toho důvodu provozovatel v žádném případě neodpovídá za správnost a aktuálnost zveřejněných receptů.</i></p>
