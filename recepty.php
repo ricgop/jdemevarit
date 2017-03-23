@@ -143,6 +143,7 @@
         $.get("common/logout.php");
       }
 
+    /* function to clear out search form */
     $(document).ready(function () {
       $("#searchinput").keyup(function () {
         $(this).next().toggle(Boolean($(this).val()));
@@ -188,7 +189,7 @@
             <form class="navbar-form navbar-left" method="POST" action="http://localhost/jdemevarit/recepty.php?page=1">
             <ul class="nav navbar-nav">
               <li class="dropdown">
-                <button type="button" class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filter">Zdravotní omezení <span class="caret"></span>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filter">Zdravotní omezení <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                   <li><label><input type="checkbox" name="limitation1" <?php if($limitation1 == 1) {echo 'checked="checked"';} ?>> Onemocnění žlučníku</label></li>
@@ -238,12 +239,11 @@
                 if ($page >= 1) {
                 # get list of recipe thumbnail details - no search text & no filters set
                 if ($limitation_count == 0 && !isset($search_text)) {
-                  $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
-                  $select_all_recipes = "SELECT * FROM recipe_thumbnails";
+                  $select_recipes = "SELECT * FROM recipes limit $offset, $paging";
+                  $select_all_recipes = "SELECT * FROM recipes";
                   $array = $dbh->query($select_recipes);
                 } else {
                   # some of the limitations are checked
-
                   if ($limitation_count !=0) {
                     $limitation_set = 0;
                     $limitation_query = 'WHERE ';
@@ -262,7 +262,7 @@
                   }
                   #create filtered query - if no filters are set, but search was performed
                   if ($limitation_count == 0 && isset($search_text)) {
-                    $search_query = ' WHERE recipe_name like "%' . $search_text . '%"';
+                    $search_query = ' WHERE lower(recipe_name) like lower("%' . $search_text . '%")';
                     $select_recipes = "SELECT * FROM recipe_details " . $search_query . " limit $offset, $paging";
                     $select_all_recipes = "SELECT * FROM recipe_details " . $search_query;
                   } else {
@@ -392,7 +392,9 @@
           </ul>
         </nav>
     </div>
-    <?php if($total_recipes > 0) {echo '<div class="text-center" id="page-info"><p><i>Celkem nalezeno ' . $total_recipes . ' receptů</i></p></div>';} ?>
+    <?php if($total_recipes > 0) {echo '<div class="text-center" id="page-info"><p><i>Celkem ';
+    if($total_recipes > 4 || $total_recipes == 0) {echo  'nalezeno ' . $total_recipes . ' receptů';} else {if ($total_recipes == 1) {echo  'nalezen ' . $total_recipes . ' recept';} else {echo 'nalezeny ' . $total_recipes . ' recepty';}};
+    echo '</i></p></div>';} ?>
     <div class = "navbar navbar-default navbar-bottom" id="warning">
       <div class = "container">
         <p class = "navbar-header"><i><u>Upozornění:</u> recepty na stránkách www.jdemevarit.cz jsou vkládány registrovanými uživateli. Z toho důvodu provozovatel v žádném případě neodpovídá za správnost a aktuálnost zveřejněných receptů.</i></p>

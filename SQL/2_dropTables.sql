@@ -1,9 +1,6 @@
 drop table user_limitations;
 drop table user_passwords;
 drop table user_phones;
-drop table recipe_name;
-drop table recipe_process;
-drop table recipe_content;
 drop table recipe_limitations;
 drop table recipe_photo;
 drop table limitations;

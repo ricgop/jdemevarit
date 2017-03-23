@@ -82,25 +82,17 @@
 
     try {
       # insert data into recipes table
-      $insert_recipes_table = "INSERT INTO recipes (email) VALUES ('$email')";
+      $recipe_name = $_POST["recipeName"];
+      $recipe_content = $_POST["recipeContent"];
+      $recipe_process = $_POST["recipeProcess"];
+      $insert_recipes_table = "INSERT INTO recipes (email, recipe_name, recipe_content, recipe_process) VALUES ('$email', '$recipe_name', '$recipe_content', '$recipe_process')";
       $dbh->exec($insert_recipes_table);
       # get max id 
       $id_query = "SELECT MAX(recipe_id) FROM recipes WHERE email='$email'";
       $result = $dbh->query($id_query)->fetchAll();
       $rec_id = implode(array_unique($result[0]));
       $_SESSION['$recid'] = $rec_id;
-      #insert data to recipe_name table
-      $recipe_name = $_POST["recipeName"];
-      $insert_recipe_name = "INSERT INTO recipe_name (recipe_id, recipe_name) VALUES ('$rec_id', '$recipe_name')";
-      $dbh->exec($insert_recipe_name);
-      # insert data to recipe_content table
-      $recipe_content = $_POST["recipeContent"];
-      $insert_recipe_content = "INSERT INTO recipe_content (recipe_id, recipe_content) VALUES ('$rec_id', '$recipe_content')";
-      $dbh->exec($insert_recipe_content);
-      # insert data to recipe_process table
-      $recipe_process = $_POST["recipeProcess"];
-      $insert_recipe_process = "INSERT INTO recipe_process (recipe_id, recipe_process) VALUES ('$rec_id', '$recipe_process')";
-      $dbh->exec($insert_recipe_process);
+ 
       # insert data to recipe_limitations table
       $recipe_limitation = $_POST["recipeProcess"];
       $insert_limitations_table = "INSERT INTO recipe_limitations (recipe_id,limitation_1,limitation_2,limitation_3,limitation_4,limitation_5,limitation_6) VALUES ('$rec_id', '$limitation1', '$limitation2', '$limitation3', '$limitation4', '$limitation5', '$limitation6')";

@@ -47,6 +47,9 @@ create table recipes
 (
 	recipe_id int NOT NULL AUTO_INCREMENT,
 	email varchar(30) NOT NULL,
+	recipe_name varchar(40),
+	recipe_content varchar(200),
+	recipe_process varchar(3000),
 	PRIMARY KEY (recipe_id),
 	FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
 );
@@ -64,30 +67,6 @@ create table recipe_limitations
 	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
 );
 
-create table recipe_name
-(
-	recipe_id int NOT NULL AUTO_INCREMENT,
-	recipe_name varchar(40),
-	PRIMARY KEY (recipe_id),
-	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
-);
-
-create table recipe_content
-(
-	recipe_id int NOT NULL AUTO_INCREMENT,
-	recipe_content varchar(200),
-	PRIMARY KEY (recipe_id),
-	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
-);
-
-create table recipe_process
-(
-	recipe_id int NOT NULL AUTO_INCREMENT,
-	recipe_process varchar(3000),
-	PRIMARY KEY (recipe_id),
-	FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
-);
-
 create table recipe_photo
 (
 	recipe_id int NOT NULL AUTO_INCREMENT,
@@ -97,6 +76,7 @@ create table recipe_photo
 );
 
 -- admin part
+/*
 create table admins
 (
 	email varchar(40) NOT NULL,
@@ -111,26 +91,22 @@ create table admin_passwords
 	PRIMARY KEY (email),
 	FOREIGN KEY (email) REFERENCES admins(email) ON DELETE CASCADE
 );
-
+*/
 
 
 
 -- create views
 CREATE OR REPLACE VIEW recipe_thumbnails AS
-SELECT r.recipe_id, r.email, rn.recipe_name, u.username, rp.file_name from recipes r
-JOIN recipe_name rn ON r.recipe_id = rn.recipe_id
+SELECT r.recipe_id, r.email, r.recipe_name, u.username, rp.file_name from recipes r
 JOIN users u ON r.email = u.email
 JOIN recipe_photo rp ON r.recipe_id = rp.recipe_id;
 
 CREATE OR REPLACE VIEW recipe_details AS
-SELECT r.recipe_id, r.email, rn.recipe_name, rc.recipe_content, rpro.recipe_process, u.username, rp.file_name,
+SELECT r.recipe_id, r.email, r.recipe_name, r.recipe_content, r.recipe_process, u.username, rp.file_name,
 rl.limitation_1, rl.limitation_2, rl.limitation_3, rl.limitation_4, rl.limitation_5, rl.limitation_6 
 from recipes r
-JOIN recipe_name rn ON r.recipe_id = rn.recipe_id
 JOIN users u ON r.email = u.email
 JOIN recipe_photo rp ON r.recipe_id = rp.recipe_id
-JOIN recipe_content rc ON r.recipe_id = rc.recipe_id
-JOIN recipe_process rpro ON r.recipe_id = rpro.recipe_id
 JOIN recipe_limitations rl ON r.recipe_id = rl.recipe_id;
 
 /*
