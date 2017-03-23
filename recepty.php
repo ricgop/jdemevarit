@@ -264,14 +264,14 @@
                   if ($limitation_count == 0 && isset($search_text)) {
                     $search_query = ' WHERE lower(recipe_name) like lower("%' . $search_text . '%")';
                     $select_recipes = "SELECT * FROM recipe_thumbnails " . $search_query . " limit $offset, $paging";
-                    $select_all_recipes = "SELECT * FROM recipe_thumbnails " . $search_query;
+                    $select_all_recipes = "SELECT * FROM recipe_details " . $search_query;
                   } else {
                     # create filtered query - search performed and filters are active
                     if (isset($search_text)){
                     $search_query = ' AND recipe_name like "%' . $search_text . '%"';
                     $select_recipes = "SELECT * FROM recipe_thumbnails " . $limitation_query . $search_query . " limit $offset, $paging";} else {
                     $select_recipes = "SELECT * FROM recipe_thumbnails " . $limitation_query . " limit $offset, $paging";
-                    $select_all_recipes = "SELECT * FROM recipe_thumbnails " . $limitation_query;
+                    $select_all_recipes = "SELECT * FROM recipe_details " . $limitation_query;
                     }
                   }
                   $array = $dbh->query($select_recipes);
@@ -282,7 +282,7 @@
                 $total_recipes = $all_array->rowCount();
 
                 # create recipe bricks
-                if ($array->rowCount() == 0) {
+                if ($all_array->rowCount() == 0) {
                   echo 'Nenalezen žádný recept... :-(';
                   } else {
                     $result = $array->fetchAll();
