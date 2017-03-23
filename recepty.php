@@ -239,7 +239,7 @@
                 if ($page >= 1) {
                 # get list of recipe thumbnail details - no search text & no filters set
                 if ($limitation_count == 0 && !isset($search_text)) {
-                  $select_recipes = "SELECT * FROM recipes limit $offset, $paging";
+                  $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
                   $select_all_recipes = "SELECT * FROM recipes";
                   $array = $dbh->query($select_recipes);
                 } else {
@@ -263,15 +263,15 @@
                   #create filtered query - if no filters are set, but search was performed
                   if ($limitation_count == 0 && isset($search_text)) {
                     $search_query = ' WHERE lower(recipe_name) like lower("%' . $search_text . '%")';
-                    $select_recipes = "SELECT * FROM recipe_details " . $search_query . " limit $offset, $paging";
-                    $select_all_recipes = "SELECT * FROM recipe_details " . $search_query;
+                    $select_recipes = "SELECT * FROM recipe_thumbnails " . $search_query . " limit $offset, $paging";
+                    $select_all_recipes = "SELECT * FROM recipe_thumbnails " . $search_query;
                   } else {
                     # create filtered query - search performed and filters are active
                     if (isset($search_text)){
                     $search_query = ' AND recipe_name like "%' . $search_text . '%"';
-                    $select_recipes = "SELECT * FROM recipe_details " . $limitation_query . $search_query . " limit $offset, $paging";} else {
-                    $select_recipes = "SELECT * FROM recipe_details " . $limitation_query . " limit $offset, $paging";
-                    $select_all_recipes = "SELECT * FROM recipe_details " . $limitation_query;
+                    $select_recipes = "SELECT * FROM recipe_thumbnails " . $limitation_query . $search_query . " limit $offset, $paging";} else {
+                    $select_recipes = "SELECT * FROM recipe_thumbnails " . $limitation_query . " limit $offset, $paging";
+                    $select_all_recipes = "SELECT * FROM recipe_thumbnails " . $limitation_query;
                     }
                   }
                   $array = $dbh->query($select_recipes);
@@ -290,14 +290,14 @@
                     {
                       echo '<a href="recept.php?recipeID=' . $row['recipe_id'] . '&' . 'page=' . $page;
                       echo'">
-                      
+                          
                             <div class="thumbnail">
                             <div style="height: 50px">
                               <h3>';
                     echo        $row['recipe_name'];
                     echo      '</h3>
                             </div>';                           
-                    if ($row['file_name'] != null) {
+                    if (isset($row['file_name'])) {
                       echo      '<img src="pics/';
                       echo      $row['file_name'];
                       echo      '" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
