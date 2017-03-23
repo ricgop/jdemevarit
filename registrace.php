@@ -325,7 +325,7 @@
     </div> <!-- .container-fluid -->
     <div class = "navbar navbar-default navbar-fixed-bottom">
       <div class = "container">
-        <p class = "navbar-header" id="rules"><u><b>Podmínky</b></u>: Provozovatel internetových stránek www.jdemevarit.cz je společnost Richard Gopaul (dále jen jako "Provozovatel"), který je v souladu se zák. č. 121/2000 Sb., autorský zákon oprávněn vykonávat majetková práva k receptům vloženým na tyto internetové stránky. Registrací souhlasíte s těmito podmínkami.</p>
+        <p class = "navbar-header" id="rules"><b>Podmínky</b>: Provozovatel internetových stránek www.jdemevarit.cz je společnost Richard Gopaul (dále jen jako "Provozovatel"), který je v souladu se zák. č. 121/2000 Sb., autorský zákon oprávněn vykonávat majetková práva k receptům vloženým na tyto internetové stránky. Registrací souhlasíte s těmito podmínkami.</p>
       </div>
     </div>
   </body>
