@@ -240,7 +240,7 @@
                 # get list of recipe thumbnail details - no search text & no filters set
                 if ($limitation_count == 0 && !isset($search_text)) {
                   $select_recipes = "SELECT * FROM recipe_thumbnails limit $offset, $paging";
-                  $select_all_recipes = "SELECT * FROM recipes";
+                  $select_all_recipes = "SELECT * FROM recipe_thumbnails";
                   $array = $dbh->query($select_recipes);
                 } else {
                   # some of the limitations are checked
@@ -292,7 +292,7 @@
                       echo'">
                           
                             <div class="thumbnail">
-                            <div style="height: 50px">
+                            <div style="height: 50px" id="r_name">
                               <h3>';
                     echo        $row['recipe_name'];
                     echo      '</h3>

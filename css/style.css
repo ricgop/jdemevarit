@@ -90,8 +90,12 @@ a.navbar-brand {padding-top: 0px;}
 
 /* food picture styling */
 #food_pic {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
+  height: 140px;
+  width: 200;
+  max-width: 200px;
 }
+#r_name {margin-bottom: 10px;}
 
 /* page navigation styling */
 #bottom-navigation {margin-top: 10px;}
