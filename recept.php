@@ -130,7 +130,7 @@
 		        	if ($recipe_photo) {
 		        	echo      '<img src="pics/';
                     echo      $recipe_photo;
-                    echo      '" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
+                    echo      '" alt="chybí obrázek" height="150px" width="200px" id="food_pic">';
                     } else echo '<img src="common/pics/no_picture_cz.png" alt="chybí obrázek" height="150px" width="150px" id="food_pic">';
 
                     # recipe limitations

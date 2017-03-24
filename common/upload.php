@@ -30,8 +30,9 @@ if ($_FILES["fileToUpload"]["size"] > 3000000) {
     $uploadOk = 0;
 }
 // Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
+if(($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif") ||($imageFileType != "JPG" && $imageFileType != "PNG" && $imageFileType != "JPEG"
+&& $imageFileType != "GIF")) {
     $picture_error = "Omlouváme se, podporované formáty obrázků jsou pouze <strong>JPG, JPEG, PNG & GIF.";
     $uploadOk = 0;
 }

@@ -31,7 +31,7 @@ a:hover {
   padding: 5px 5px 5px 10px;
 }
 #limitations {
-  padding: 5px 0px 0px 0px;
+  padding-left: 12px;
 }
 div#limitations {margin: 0px;}
 #registration-details {padding: 5px 12px 0px 12px;}
