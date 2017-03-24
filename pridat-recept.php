@@ -48,8 +48,8 @@
       $error_add = true;
     }
     /* recipeName Length and Character Validation */
-    if (strlen($_POST["recipeName"]) > 40) {
-      $error_name = "Neplatný název receptu - max. 40 znaků!";
+    if (strlen($_POST["recipeName"]) > 60) {
+      $error_name = "Neplatný název receptu - max. 60 znaků!";
       $error_add = true;
     }
 
