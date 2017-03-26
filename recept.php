@@ -158,7 +158,7 @@
     
     <div class = "navbar navbar-default navbar-bottom" id="warning">
       <div class = "container">
-        <p class = "navbar-header"><i><u>Upozornění:</u> recepty na stránkách www.jdemevarit.cz jsou vkládány registrovanými uživateli. Z toho důvodu provozovatel v žádném případě neodpovídá za správnost a aktuálnost zveřejněných receptů.</i></p>
+        <p class = "navbar-header"><i><b>Upozornění:</b> recepty na stránkách www.jdemevarit.cz jsou vkládány registrovanými uživateli. Z toho důvodu provozovatel v žádném případě neodpovídá za správnost a aktuálnost zveřejněných receptů.</i></p>
       </div>
     </div>
   </body>

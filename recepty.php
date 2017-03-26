@@ -294,7 +294,11 @@
                             <div class="thumbnail">
                             <div style="height: 50px" id="r_name">
                               <h3>';
-                    echo        $row['recipe_name'];
+                    if (strlen($row['recipe_name']) <= 50 ) {
+                      echo $row['recipe_name'];
+                    } else {
+                      echo substr($row['recipe_name'],0,46) . "...";
+                    }
                     echo      '</h3>
                             </div>';                           
                     if (isset($row['file_name'])) {
